@@ -1,3 +1,5 @@
+![Ironhack Logo](https://i.imgur.com/1QgrNNw.png)
+
 # DE | Crunchbase Database
 
 ![](https://i.imgur.com/FqGd9jz.jpg)
