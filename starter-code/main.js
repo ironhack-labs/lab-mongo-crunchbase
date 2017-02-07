@@ -33,9 +33,16 @@ mongoClient.connect(url, (error, db) => {
 						})
             break;
           case "2":
-            console.log('you typed 2');
-            rl.question(`\nType enter to continue: `, (answer) => {mainMenu()});
-            break;
+						db.collection('companies').count({},(error, result) => {
+							if (error) {
+								console.log(error);
+								rl.question(`\nType enter to continue: `, (answer) => { mainMenu() });
+							} else {
+								console.log(result);
+								rl.question(`\nType enter to continue: `, (answer) => { mainMenu() });
+							}
+						})
+						break;
           case "0":
             console.log(`👋👋👋👋 😞 \n`);
             db.close((error) => { process.exit(0) });
