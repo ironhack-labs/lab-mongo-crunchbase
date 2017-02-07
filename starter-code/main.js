@@ -93,7 +93,7 @@ mongoClient.connect(url, (error, db) => {
               console.log(result);
             }
           });              break;
-          case "6":
+          case "6": //ask
           db.collection('companies').find({offices : 0, 0 : "city", 1 : "city", "city" : "Barcelona"}).toArray((error, result) => {
             if (error){
               console.log(error);
@@ -102,9 +102,56 @@ mongoClient.connect(url, (error, db) => {
             }
           });
           break;
-          case "7":
-            listByNameAllCompanies();
+          case "7"://ask
+            db.collection('companies').find({offices : 0, 0 : "city", 1 : "city", "city" : "Barcelona"}).toArray((error, result) => {
+            if (error){
+              console.log(error);
+            } else {
+              console.log(result);
+            }
+          });
           break;
+          case "8":
+            db.collection('companies').find({name:"Facebook"}).toArray((error, result) => {
+              if (error){
+                console.log(error);
+              } else {
+                console.log(result);
+              }
+            });
+          break;
+          case "9":
+          //ask how to enter into an object of an object
+          break;
+
+          case "10":
+
+          break;
+          case "11":
+
+          break;
+          case "12":
+
+          break;
+          case "13":
+
+          break;
+          case "14":
+
+          break;
+          case "15":
+
+          break;
+          case "16":
+
+          break;
+          case "17":
+
+          break;
+          case "18":
+
+          break;
+
           default:
             mainMenu();
             break;

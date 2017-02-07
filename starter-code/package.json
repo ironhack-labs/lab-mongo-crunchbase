@@ -7,9 +7,10 @@
   },
   "author": "",
   "license": "ISC",
-  "description": "",
   "dependencies": {
     "clear": "0.0.1",
     "mongodb": "^2.2.22"
-  }
+  },
+  "devDependencies": {},
+  "description": ""
 }
