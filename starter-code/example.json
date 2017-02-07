@@ -1,0 +1,504 @@
+{
+  "_id": {
+    "$oid": "52cdef7c4bab8bd675297d8c"
+  },
+  "name": "Zoho",
+  "permalink": "abc4",
+  "crunchbase_url": "http://www.crunchbase.com/company/zoho",
+  "homepage_url": "http://zoho.com",
+  "blog_url": "http://blogs.zoho.com/",
+  "blog_feed_url": "http://blogs.zoho.com/feed",
+  "twitter_username": "zoho",
+  "category_code": "software",
+  "number_of_employees": 1600,
+  "founded_year": 2005,
+  "founded_month": 9,
+  "founded_day": 15,
+  "deadpooled_year": 3,
+  "tag_list": "zoho, officesuite, spreadsheet, writer, projects, sheet, crm, show, creator, wiki, planner, suite, notebook, chat, meeting, mail",
+  "alias_list": "",
+  "email_address": "info@zohocorp.com",
+  "phone_number": "1-888-204-3539",
+  "description": "Online Business Apps Suite",
+  "created_at": "Fri May 25 19:30:28 UTC 2007",
+  "updated_at": "Wed Oct 30 00:07:05 UTC 2013",
+  "overview": "<p>Zoho offers a suite of Business, Collaboration &amp; Productivity applications. Apps include CRM, Customer Support, Office Suite, Email Hosting, Project Management, Accounting, App Creator among many others. </p>\n\n<p>Zoho&#8217;s parent company is Zoho Corp (previously AdventNet), &#8220;a software company started in 1996 focusing on building quality and affordable software for businesses.&#8221; </p>\n\n<p>Zoho&#8217;s main competitors are <a href=\"/company/google\" title=\"Google\" rel=\"nofollow\">Google</a> Docs &amp; Spreadsheets, Salesforce as well as <a href=\"/company/microsoft\" title=\"Microsoft\" rel=\"nofollow\">Microsoft</a> Office.</p>",
+  "image": {
+    "available_sizes": [
+      [
+        [
+          150,
+          55
+        ],
+        "assets/images/resized/0000/3946/3946v12-max-150x150.png"
+      ],
+      [
+        [
+          250,
+          92
+        ],
+        "assets/images/resized/0000/3946/3946v12-max-250x250.png"
+      ],
+      [
+        [
+          435,
+          161
+        ],
+        "assets/images/resized/0000/3946/3946v12-max-450x450.png"
+      ]
+    ]
+  },
+  "products": [
+    {
+      "name": "Zoho Office Suite",
+      "permalink": "zoho-office-suite"
+    },
+    {
+      "name": "Zoho CRM",
+      "permalink": "zoho-crm"
+    },
+    {
+      "name": "Zoho Assist",
+      "permalink": "zoho-assist"
+    }
+  ],
+  "relationships": [
+    {
+      "is_past": false,
+      "title": "CEO and Founder",
+      "person": {
+        "first_name": "Sridhar",
+        "last_name": "Vembu",
+        "permalink": "sridhar-vembu"
+      }
+    },
+    {
+      "is_past": false,
+      "title": "VP Product Managment",
+      "person": {
+        "first_name": "Hyther",
+        "last_name": "Nizam",
+        "permalink": "hyther-nizam"
+      }
+    },
+    {
+      "is_past": false,
+      "title": "VP Marketing",
+      "person": {
+        "first_name": "Rodrigo",
+        "last_name": "Vaca",
+        "permalink": "rodrigo-vaca"
+      }
+    },
+    {
+      "is_past": false,
+      "title": "Evangelist",
+      "person": {
+        "first_name": "Raju",
+        "last_name": "Vegesna",
+        "permalink": "raju-vegesna"
+      }
+    },
+    {
+      "is_past": false,
+      "title": "Director of Product Managment",
+      "person": {
+        "first_name": "Gibu",
+        "last_name": "Mathew",
+        "permalink": "gibu-mathew"
+      }
+    },
+    {
+      "is_past": false,
+      "title": "VP Opration",
+      "person": {
+        "first_name": "Neil",
+        "last_name": "Butani",
+        "permalink": "neil-butani"
+      }
+    },
+    {
+      "is_past": false,
+      "title": "Director Of Engineering",
+      "person": {
+        "first_name": "Rajendran",
+        "last_name": "Dandapani",
+        "permalink": "rajendran-dandapani"
+      }
+    },
+    {
+      "is_past": false,
+      "title": "President",
+      "person": {
+        "first_name": "Raj",
+        "last_name": "Sabhlok",
+        "permalink": "raj-sabhlok"
+      }
+    },
+    {
+      "is_past": false,
+      "title": "GM Marketing",
+      "person": {
+        "first_name": "Mouttou",
+        "last_name": "Sidambaram",
+        "permalink": "mouttou-sidambaram"
+      }
+    },
+    {
+      "is_past": false,
+      "title": "Director of Product Management",
+      "person": {
+        "first_name": "Rajesh",
+        "last_name": "Ganesan",
+        "permalink": "rajesh-ganesan"
+      }
+    },
+    {
+      "is_past": false,
+      "title": "Marketing / Business Development Executive",
+      "person": {
+        "first_name": "Aravind",
+        "last_name": "Natarajan",
+        "permalink": "aravind-natarajan"
+      }
+    },
+    {
+      "is_past": true,
+      "title": "Senior Director Strategic Alliances",
+      "person": {
+        "first_name": "Ian",
+        "last_name": "Wenig",
+        "permalink": "ian-wenig"
+      }
+    },
+    {
+      "is_past": true,
+      "title": "Project Manager",
+      "person": {
+        "first_name": "Rajkumar",
+        "last_name": "Radhakrishnan",
+        "permalink": "rajkumar-radhakrishnan"
+      }
+    },
+    {
+      "is_past": true,
+      "title": "Technical Architect",
+      "person": {
+        "first_name": "KP",
+        "last_name": "Saravanan",
+        "permalink": "kp-saravanan"
+      }
+    },
+    {
+      "is_past": true,
+      "title": "Member, Technical Staff",
+      "person": {
+        "first_name": "Thiyagarajan",
+        "last_name": "T",
+        "permalink": "thiyagarajan-t"
+      }
+    },
+    {
+      "is_past": true,
+      "title": "Software Architect & Project Manager",
+      "person": {
+        "first_name": "Rajkumar",
+        "last_name": "Radhakrishnan",
+        "permalink": "rajkumar-radhakrishnan"
+      }
+    },
+    {
+      "is_past": true,
+      "title": "Director, Professional Services",
+      "person": {
+        "first_name": "Thomas",
+        "last_name": "DiGrazia",
+        "permalink": "thomas-digrazia"
+      }
+    },
+    {
+      "is_past": true,
+      "title": "Technical Architect",
+      "person": {
+        "first_name": "Rajaraman",
+        "last_name": "S",
+        "permalink": "rajaraman-s"
+      }
+    }
+  ],
+  "competitions": [
+    {
+      "competitor": {
+        "name": "Empressr",
+        "permalink": "empressr"
+      }
+    },
+    {
+      "competitor": {
+        "name": "Transmedia Corporation",
+        "permalink": "transmedia"
+      }
+    },
+    {
+      "competitor": {
+        "name": "Live Documents",
+        "permalink": "livedocuments"
+      }
+    },
+    {
+      "competitor": {
+        "name": "LongJump",
+        "permalink": "longjump"
+      }
+    },
+    {
+      "competitor": {
+        "name": "Phuser",
+        "permalink": "phuser"
+      }
+    },
+    {
+      "competitor": {
+        "name": "NetSuite",
+        "permalink": "netsuite"
+      }
+    },
+    {
+      "competitor": {
+        "name": "Google",
+        "permalink": "google"
+      }
+    },
+    {
+      "competitor": {
+        "name": "Flypaper",
+        "permalink": "flypaper"
+      }
+    },
+    {
+      "competitor": {
+        "name": "MovingLabs",
+        "permalink": "movinglabs"
+      }
+    },
+    {
+      "competitor": {
+        "name": "Ephox",
+        "permalink": "ephox"
+      }
+    },
+    {
+      "competitor": {
+        "name": "Coghead",
+        "permalink": "coghead"
+      }
+    },
+    {
+      "competitor": {
+        "name": "SlideRocket",
+        "permalink": "sliderocket"
+      }
+    },
+    {
+      "competitor": {
+        "name": "Cozimo",
+        "permalink": "cozimo"
+      }
+    },
+    {
+      "competitor": {
+        "name": "Nordic River",
+        "permalink": "textflow"
+      }
+    },
+    {
+      "competitor": {
+        "name": "Iceberg",
+        "permalink": "iceberg"
+      }
+    },
+    {
+      "competitor": {
+        "name": "Thinkfree",
+        "permalink": "thinkfree"
+      }
+    },
+    {
+      "competitor": {
+        "name": "Bizroof",
+        "permalink": "bizroof"
+      }
+    },
+    {
+      "competitor": {
+        "name": "Wolf Frameworks",
+        "permalink": "wolf-frameworks"
+      }
+    },
+    {
+      "competitor": {
+        "name": "280 North",
+        "permalink": "280-north"
+      }
+    },
+    {
+      "competitor": {
+        "name": "Workday",
+        "permalink": "workday"
+      }
+    },
+    {
+      "competitor": {
+        "name": "coAction.com",
+        "permalink": "coaction-com"
+      }
+    },
+    {
+      "competitor": {
+        "name": "INES CRM",
+        "permalink": "ines-crm"
+      }
+    },
+    {
+      "competitor": {
+        "name": "OpenERP",
+        "permalink": "openerp"
+      }
+    },
+    {
+      "competitor": {
+        "name": "Gurron",
+        "permalink": "gurron"
+      }
+    },
+    {
+      "competitor": {
+        "name": "LiquidPlanner",
+        "permalink": "liquidplanner"
+      }
+    },
+    {
+      "competitor": {
+        "name": "Helpshift, Inc.",
+        "permalink": "helpshift-inc"
+      }
+    }
+  ],
+  "providerships": [],
+  "total_money_raised": "$0",
+  "funding_rounds": [],
+  "investments": [],
+  "acquisition": null,
+  "acquisitions": [],
+  "offices": [
+    {
+      "description": "Headquarters",
+      "address1": "4900 Hopyard Rd",
+      "address2": "Suite 310",
+      "zip_code": "94588",
+      "city": "Pleasanton",
+      "state_code": "CA",
+      "country_code": "USA",
+      "latitude": 37.692934,
+      "longitude": -121.904945
+    }
+  ],
+  "milestones": [
+    {
+      "id": 388,
+      "description": "Zoho Reaches 2 Million Users",
+      "stoned_year": 2008,
+      "stoned_month": 8,
+      "stoned_day": 7,
+      "source_url": "",
+      "source_text": "Mike,\r\n\r\nTomorrow @ 6AM PST, we are announcing that we now have 1 Million users. User registration stats are attached.\r\n\r\nIt took us 1 Year to get the first 100K users, 6 Months to get the second 100K, 4 Months to get the third etc. In the last 1 year we added 700K new users. The pace has been increasing.\r\n\r\nThe registration numbers really jumped after we added support for Google & Yahoo users. Currently over 30% of our users are coming from Google/Yahoo accounts (with more Google users than Yahoo users).\r\n\r\nI'd love to provide more information on this.\r\n\r\nRaju\r\n\r\n",
+      "source_description": "",
+      "stoneable_type": "Company",
+      "stoned_value": null,
+      "stoned_value_type": null,
+      "stoned_acquirer": null,
+      "stoneable": {
+        "name": "Zoho",
+        "permalink": "zoho"
+      }
+    },
+    {
+      "id": 6577,
+      "description": "Zoho Calendar Steps Out Of Beta With Sharing, Subscribing And More",
+      "stoned_year": 2010,
+      "stoned_month": 7,
+      "stoned_day": 7,
+      "source_url": "http://techcrunch.com/2010/07/07/zoho-calendar-steps-out-of-beta-with-sharing-subscribing-and-more/",
+      "source_text": "",
+      "source_description": "Zoho Calendar Steps Out Of Beta With Sharing, Subscribing And More",
+      "stoneable_type": "Company",
+      "stoned_value": null,
+      "stoned_value_type": null,
+      "stoned_acquirer": null,
+      "stoneable": {
+        "name": "Zoho",
+        "permalink": "zoho"
+      }
+    },
+    {
+      "id": 7360,
+      "description": "Zoho Reports Steps Out Of Beta With Pricing Model And New Features",
+      "stoned_year": 2009,
+      "stoned_month": 12,
+      "stoned_day": 15,
+      "source_url": "http://techcrunch.com/2009/12/15/zoho-reports-steps-out-of-beta-with-pricing-model-and-new-features/",
+      "source_text": null,
+      "source_description": "Zoho Reports Steps Out Of Beta",
+      "stoneable_type": "Company",
+      "stoned_value": null,
+      "stoned_value_type": null,
+      "stoned_acquirer": null,
+      "stoneable": {
+        "name": "Zoho",
+        "permalink": "zoho"
+      }
+    }
+  ],
+  "video_embeds": [
+    {
+      "embed_code": "<object width=\"430\" height=\"270\"><param name=\"movie\" value=\"http://www.youtube.com/v/KgNcHyuo2MU&hl=en\"></param><param name=\"wmode\" value=\"transparent\"></param><embed src=\"http://www.youtube.com/v/KgNcHyuo2MU&hl=en\" type=\"application/x-shockwave-flash\" wmode=\"transparent\" width=\"430\" height=\"270\"></embed></object>",
+      "description": "<p><a href=\"http://pitches.techcrunch.com/pitch/10-zoho\" title=\"Zoho&#8217;s pitch\">Zoho&#8217;s pitch</a> from TechCrunch Elevator Pitches</p>"
+    },
+    {
+      "embed_code": "<embed src=\"http://blip.tv/play/hRbO5CAA\" type=\"application/x-shockwave-flash\" width=\"430\" height=\"270\" allowscriptaccess=\"always\" allowfullscreen=\"true\"></embed>",
+      "description": "<p>This video was originally published on <a href=\"http://www.beet.tv/2008/09/zoho-web-apps-c.html\" title=\"Beet.TV\" rel=\"nofollow\">Beet.TV</a></p>"
+    },
+    {
+      "embed_code": "<object width=\"430\" height=\"270\"><param name=\"movie\" value=\"http://www.youtube.com/v/3RD_3wooRjI&color1=0xb1b1b1&color2=0xcfcfcf&hl=en_US&feature=player_embedded&fs=1\"></param><param name=\"allowFullScreen\" value=\"true\"></param><param name=\"allowScriptAccess\" value=\"always\"></param><embed src=\"http://www.youtube.com/v/3RD_3wooRjI&color1=0xb1b1b1&color2=0xcfcfcf&hl=en_US&feature=player_embedded&fs=1\" type=\"application/x-shockwave-flash\" allowfullscreen=\"true\" allowScriptAccess=\"always\" width=\"430\" height=\"270\"></embed></object>",
+      "description": ""
+    }
+  ],
+  "screenshots": [],
+  "external_links": [
+    {
+      "external_url": "http://www.online-tech-tips.com/cool-websites/zoho-free-online-office-applications-word-processor-spreadsheets-etc/",
+      "title": "Zoho Overview"
+    },
+    {
+      "external_url": "http://www.online-tech-tips.com/cool-websites/free-online-web-meetings/",
+      "title": "Zoho Meeting Review"
+    },
+    {
+      "external_url": "http://mashpedia.com/Zoho",
+      "title": "Zoho at Mashpedia"
+    },
+    {
+      "external_url": "http://www.sitebuilderreport.com/reviews/zoho-sites/our-review",
+      "title": "Zoho Sites Review"
+    },
+    {
+      "external_url": "http://www.sitebuilderreport.com/reviews/zoho-sites/our-review",
+      "title": "Zoho Sites Review"
+    },
+    {
+      "external_url": "http://www.sitebuilderreport.com/reviews/zoho-sites/our-review",
+      "title": "Zoho Sites Review"
+    }
+  ],
+  "partners": []
+}
