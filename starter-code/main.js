@@ -110,7 +110,7 @@ mongoClient.connect(url, (error, db) => {
           break;
 
           case "6":
-          db.collection('companies').find({"city" : "New York"}).toArray(function(err, docs){
+          db.collection('companies').find({"offices.city":"Barcelona"},{ "name": 1,  _id: 0}).toArray(function(err, docs){
             if (err){
               console.log(err);
               rl.question(`\nType enter to continue: `,(answer)=>{mainMenu();});
@@ -121,6 +121,42 @@ mongoClient.connect(url, (error, db) => {
           });
           break;
 
+          case "7":
+          db.collection('companies').find({"number_of_employees":{$gt:185000}},{ "name": 1, number_of_employees:1, _id: 0}).sort({"number_of_employees" : -1}).toArray(function(err, docs){
+            if (err){
+              console.log(err);
+              rl.question(`\nType enter to continue: `,(answer)=>{mainMenu();});
+            }else{
+              console.log(docs);
+              rl.question(`\nType enter to continue: `,(answer)=>{mainMenu();});
+            }
+          });
+          break;
+
+
+          case "8":
+          db.collection('companies').find({"name":"Facebook"},{ "name": 1, _id: 0}).toArray(function(err, docs){
+            if (err){
+              console.log(err);
+              rl.question(`\nType enter to continue: `,(answer)=>{mainMenu();});
+            }else{
+              console.log(docs);
+              rl.question(`\nType enter to continue: `,(answer)=>{mainMenu();});
+            }
+          });
+          break;
+
+          case "9":
+          db.collection('companies').find({"name":"Facebook"},{number_of_employees:1, _id: 0}).toArray(function(err, docs){
+            if (err){
+              console.log(err);
+              rl.question(`\nType enter to continue: `,(answer)=>{mainMenu();});
+            }else{
+              console.log(docs);
+              rl.question(`\nType enter to continue: `,(answer)=>{mainMenu();});
+            }
+          });
+          break;
 
           case "0":
             console.log(`👋👋👋👋 😞 \n`);
