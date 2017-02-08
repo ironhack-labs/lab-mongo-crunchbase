@@ -129,7 +129,23 @@ mongoClient.connect(url, (error, db) => {
 								console.log(error);
 								rl.question(`\nType enter to continue: `, (answer) => { mainMenu() });
 							} else {
-								console.log(result);
+								console.log(result[0]["products"]);
+								rl.question(`\nType enter to continue: `, (answer) => { mainMenu() });
+							}
+						})
+						break;
+					case "11":
+						db.collection('companies').find({"name":"Facebook"},{name: 1, relationships: 1}).toArray((error, result) => {
+							if (error) {
+								console.log(error);
+								rl.question(`\nType enter to continue: `, (answer) => { mainMenu() });
+							} else {
+								var relationships = result[0]["relationships"];
+								var personArray = [];
+								for (var i=0; i < relationships.length; i++){
+									personArray.push(relationships[i]["person"]["first_name"] + " " + relationships[i]["person"]["last_name"]);
+								}
+								console.log(personArray);
 								rl.question(`\nType enter to continue: `, (answer) => { mainMenu() });
 							}
 						})
