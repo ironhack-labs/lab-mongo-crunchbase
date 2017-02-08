@@ -135,7 +135,7 @@ mongoClient.connect(url, (error, db) => {
             break;
             case "10":
             //10
-            db.collection('companies').find({"name": "Facebook"}, {"products": 1}).each((error, result) => {
+            db.collection('companies').find({"name": "Facebook"}, {"products.name": 1}).each((error, result) => {
                 if (error) {
                   console.log(error);
                   rl.question(`\nType enter to continue: `, (answer) => { mainMenu() });
