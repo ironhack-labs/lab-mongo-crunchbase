@@ -100,7 +100,7 @@ mongoClient.connect(url, (error, db) => {
                 }
               });
             break;
-          case '6': // 3.- How many companies were founded in 2004?
+          case '6': // 6.- What companies have offices in "Barcelona".
             db.collection('companies').find({ founded_year: { $eq: 2004 } }).count((error, result) => {
               if (error) {
                 console.log(error);
