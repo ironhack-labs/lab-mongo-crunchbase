@@ -115,7 +115,7 @@ mongoClient.connect(url, (error, db) => {
             }
             else
             {
-              console.log(result);
+              console.log(result.reverse());
               rl.question(`\nType enter to continue: `, (answer) =>{ mainMenu()} );
             }
           });
@@ -246,6 +246,50 @@ mongoClient.connect(url, (error, db) => {
               {
                 console.log(result[0].competitions[i].competitor.name);
               }
+
+              rl.question(`\nType enter to continue: `, (answer) =>{ mainMenu()} );
+            }
+          });
+            break;
+          case "15":
+          db.collection('companies').find({tag_list:{$regex: 'social-networking'}}).toArray((error, result) => {
+            if (error)
+            {
+              console.log(error);
+              rl.question(`\nType enter to continue: `, (answer) => { mainMenu() });
+            }
+            else
+            {
+              for(var i = 0 ; i  <result.length; i++)
+              {
+                console.log(result[i].name);
+                console.log(result[i].tag_list);
+                console.log("------");
+
+              }
+
+
+              rl.question(`\nType enter to continue: `, (answer) =>{ mainMenu()} );
+            }
+          });
+            break;
+          case "16":
+          db.collection('companies').find({tag_list:{$regex: 'social-networking'}}).toArray((error, result) => {
+            if (error)
+            {
+              console.log(error);
+              rl.question(`\nType enter to continue: `, (answer) => { mainMenu() });
+            }
+            else
+            {
+              for(var i = 0 ; i  <result.length; i++)
+              {
+                console.log(result[i].name);
+                console.log(result[i].tag_list);
+                console.log("------");
+
+              }
+
 
               rl.question(`\nType enter to continue: `, (answer) =>{ mainMenu()} );
             }
