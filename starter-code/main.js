@@ -274,7 +274,8 @@ mongoClient.connect(url, (error, db) => {
           });
             break;
           case "16":
-          db.collection('companies').find({tag_list:{$regex: 'social-networking'}}).toArray((error, result) => {
+
+          db.collection('companies').find({ $and: [{tag_list:{$regex: 'social-networking'}},{founded_year: { $gt: 2002, $lte: 2016 }}]}).count((error, result) => {
             if (error)
             {
               console.log(error);
@@ -282,14 +283,7 @@ mongoClient.connect(url, (error, db) => {
             }
             else
             {
-              for(var i = 0 ; i  <result.length; i++)
-              {
-                console.log(result[i].name);
-                console.log(result[i].tag_list);
-                console.log("------");
-
-              }
-
+                console.log(result);
 
               rl.question(`\nType enter to continue: `, (answer) =>{ mainMenu()} );
             }
@@ -324,6 +318,22 @@ mongoClient.connect(url, (error, db) => {
             }
           });
             break;
+        case "18":
+
+        db.collection('companies').find({ $and: [{tag_list:{$regex: 'social-networking'}},{founded_year: { $gt: 2002, $lte: 2016 }},{"offices.city": "New York"}]}).count((error, result) => {
+          if (error)
+          {
+            console.log(error);
+            rl.question(`\nType enter to continue: `, (answer) => { mainMenu() });
+          }
+          else
+          {
+              console.log(result);
+
+            rl.question(`\nType enter to continue: `, (answer) =>{ mainMenu()} );
+          }
+        });
+          break;
           case "0":
             console.log(`👋👋👋👋 😞 \n`);
             db.close((error) => { process.exit(0) });
