@@ -43,7 +43,7 @@ mongoClient.connect(url, (error, db) => {
       printMenu();
       rl.question('Type an option: ', (option) => {
         switch (option) {
-          case '1':
+          case '1': // 1.- List by name all companies.
             db.collection('companies').find({}, { name: 1, _id: 0 }).toArray((error, result) => {
               if (error) {
                 console.log(error);
@@ -54,9 +54,194 @@ mongoClient.connect(url, (error, db) => {
               }
             });
             break;
-          case '2':
-            console.log('you typed 2');
-            rl.question('\nType enter to continue: ', (answer) => { mainMenu(); });
+          case '2': // 2.- How many companies are there?
+            db.collection('companies').count((error, result) => {
+              if (error) {
+                console.log(error);
+                rl.question('\nType enter to continue: ', (answer) => { mainMenu(); });
+              } else {
+                console.log(result);
+                rl.question('\nType enter to continue: ', (answer) => { mainMenu(); });
+              }
+            });
+            break;
+          case '3': // 3.- How many companies were founded in 2004?
+            db.collection('companies').find({ founded_year: 2004 }).count((error, result) => {
+              if (error) {
+                console.log(error);
+                rl.question('\nType enter to continue: ', (answer) => { mainMenu(); });
+              } else {
+                console.log(result);
+                rl.question('\nType enter to continue: ', (answer) => { mainMenu(); });
+              }
+            });
+            break;
+          case '4': // 4.- List by name all companies founded in february of 2004.
+            db.collection('companies').find({ founded_year: 2004, founded_month: 2 }).count((error, result) => {
+              if (error) {
+                console.log(error);
+                rl.question('\nType enter to continue: ', (answer) => { mainMenu(); });
+              } else {
+                console.log(result);
+                rl.question('\nType enter to continue: ', (answer) => { mainMenu(); });
+              }
+            });
+            break;
+          case '5': // 5.- List by name all companies founded in the summer of 2004 (april to june) sorted by date.
+            db.collection('companies').find({ founded_year: 2004,
+              $and: [{ founded_month: { $gte: 4 } }, { founded_month: { $lte: 6 } }] })
+              .count((error, result) => {
+                if (error) {
+                  console.log(error);
+                  rl.question('\nType enter to continue: ', (answer) => { mainMenu(); });
+                } else {
+                  console.log(result);
+                  rl.question('\nType enter to continue: ', (answer) => { mainMenu(); });
+                }
+              });
+            break;
+          case '6': // 3.- How many companies were founded in 2004?
+            db.collection('companies').find({ founded_year: { $eq: 2004 } }).count((error, result) => {
+              if (error) {
+                console.log(error);
+                rl.question('\nType enter to continue: ', (answer) => { mainMenu(); });
+              } else {
+                console.log(result);
+                rl.question('\nType enter to continue: ', (answer) => { mainMenu(); });
+              }
+            });
+            break;
+          case '7': // 3.- How many companies were founded in 2004?
+            db.collection('companies').find({ founded_year: { $eq: 2004 } }).count((error, result) => {
+              if (error) {
+                console.log(error);
+                rl.question('\nType enter to continue: ', (answer) => { mainMenu(); });
+              } else {
+                console.log(result);
+                rl.question('\nType enter to continue: ', (answer) => { mainMenu(); });
+              }
+            });
+            break;
+          case '8': // 3.- How many companies were founded in 2004?
+            db.collection('companies').find({ founded_year: { $eq: 2004 } }).count((error, result) => {
+              if (error) {
+                console.log(error);
+                rl.question('\nType enter to continue: ', (answer) => { mainMenu(); });
+              } else {
+                console.log(result);
+                rl.question('\nType enter to continue: ', (answer) => { mainMenu(); });
+              }
+            });
+            break;
+          case '9': // 3.- How many companies were founded in 2004?
+            db.collection('companies').find({ founded_year: { $eq: 2004 } }).count((error, result) => {
+              if (error) {
+                console.log(error);
+                rl.question('\nType enter to continue: ', (answer) => { mainMenu(); });
+              } else {
+                console.log(result);
+                rl.question('\nType enter to continue: ', (answer) => { mainMenu(); });
+              }
+            });
+            break;
+          case '10': // 3.- How many companies were founded in 2004?
+            db.collection('companies').find({ founded_year: { $eq: 2004 } }).count((error, result) => {
+              if (error) {
+                console.log(error);
+                rl.question('\nType enter to continue: ', (answer) => { mainMenu(); });
+              } else {
+                console.log(result);
+                rl.question('\nType enter to continue: ', (answer) => { mainMenu(); });
+              }
+            });
+            break;
+          case '11': // 3.- How many companies were founded in 2004?
+            db.collection('companies').find({ founded_year: { $eq: 2004 } }).count((error, result) => {
+              if (error) {
+                console.log(error);
+                rl.question('\nType enter to continue: ', (answer) => { mainMenu(); });
+              } else {
+                console.log(result);
+                rl.question('\nType enter to continue: ', (answer) => { mainMenu(); });
+              }
+            });
+            break;
+          case '12': // 3.- How many companies were founded in 2004?
+            db.collection('companies').find({ founded_year: { $eq: 2004 } }).count((error, result) => {
+              if (error) {
+                console.log(error);
+                rl.question('\nType enter to continue: ', (answer) => { mainMenu(); });
+              } else {
+                console.log(result);
+                rl.question('\nType enter to continue: ', (answer) => { mainMenu(); });
+              }
+            });
+            break;
+          case '13': // 3.- How many companies were founded in 2004?
+            db.collection('companies').find({ founded_year: { $eq: 2004 } }).count((error, result) => {
+              if (error) {
+                console.log(error);
+                rl.question('\nType enter to continue: ', (answer) => { mainMenu(); });
+              } else {
+                console.log(result);
+                rl.question('\nType enter to continue: ', (answer) => { mainMenu(); });
+              }
+            });
+            break;
+          case '14': // 3.- How many companies were founded in 2004?
+            db.collection('companies').find({ founded_year: { $eq: 2004 } }).count((error, result) => {
+              if (error) {
+                console.log(error);
+                rl.question('\nType enter to continue: ', (answer) => { mainMenu(); });
+              } else {
+                console.log(result);
+                rl.question('\nType enter to continue: ', (answer) => { mainMenu(); });
+              }
+            });
+            break;
+          case '15': // 3.- How many companies were founded in 2004?
+            db.collection('companies').find({ founded_year: { $eq: 2004 } }).count((error, result) => {
+              if (error) {
+                console.log(error);
+                rl.question('\nType enter to continue: ', (answer) => { mainMenu(); });
+              } else {
+                console.log(result);
+                rl.question('\nType enter to continue: ', (answer) => { mainMenu(); });
+              }
+            });
+            break;
+          case '16': // 3.- How many companies were founded in 2004?
+            db.collection('companies').find({ founded_year: { $eq: 2004 } }).count((error, result) => {
+              if (error) {
+                console.log(error);
+                rl.question('\nType enter to continue: ', (answer) => { mainMenu(); });
+              } else {
+                console.log(result);
+                rl.question('\nType enter to continue: ', (answer) => { mainMenu(); });
+              }
+            });
+            break;
+          case '17': // 3.- How many companies were founded in 2004?
+            db.collection('companies').find({ founded_year: { $eq: 2004 } }).count((error, result) => {
+              if (error) {
+                console.log(error);
+                rl.question('\nType enter to continue: ', (answer) => { mainMenu(); });
+              } else {
+                console.log(result);
+                rl.question('\nType enter to continue: ', (answer) => { mainMenu(); });
+              }
+            });
+            break;
+          case '18': // 3.- How many companies were founded in 2004?
+            db.collection('companies').find({ founded_year: { $eq: 2004 } }).count((error, result) => {
+              if (error) {
+                console.log(error);
+                rl.question('\nType enter to continue: ', (answer) => { mainMenu(); });
+              } else {
+                console.log(result);
+                rl.question('\nType enter to continue: ', (answer) => { mainMenu(); });
+              }
+            });
             break;
           case '0':
             console.log('👋👋👋👋 😞 \n');
