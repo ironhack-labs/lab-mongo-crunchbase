@@ -232,12 +232,13 @@ mongoClient.connect(url, (error, db) => {
 
 											case "17":
 											// 17.- Names and locations of companies that have offices in London
-												db.collection('companies').find({"offices.city": "London" }).toArray((error, result) => {
+												db.collection('companies').find({}, {name:1 , "offices": 1, _id: 0}).toArray((error, result) => {
 													if (error) {
 														console.log(error);
 														rl.question(`\nType enter to continue: `, (answer) => { mainMenu() });
 													} else {
-															console.log(result.name, result.offices.latitude, result.offices.longitude);
+															console.log(result.forEach((elem) => elem.offices.filter((office) => office.city == "London")));
+															// .forEach((res) => console.log(res.name, res.city, res.latitude, res.longitude));
 														rl.question(`\nType enter to continue: `, (answer) => { mainMenu() });
 													}
 												})
