@@ -146,28 +146,58 @@ mongoClient.connect(url, (error, db) => {
             break;
 
           case "11":   // 11.- List the people that are working at Facebook right now (check relationships field)
-            db.collection('companies').find({"name":"Facebook"}, {relationships:1, _id:0}).toArray((error, result) => {
+            db.collection('companies').aggregate([
+              {$match:{name:"Facebook"}},
+              {$project: {
+                relationships: {$filter:{
+                  input:'$relationships',
+                  as:'relationship',
+                  cond: {$eq:['$$relationship.is_past', false]}
+                }}
+              }}
+            ]).toArray((error, result) => {
               if (error) {
                 console.log(error);
                 rl.question(`\nType enter to continue: `, (answer) => { mainMenu() });
               } else {
-                console.log(result[0].relationships.filter(el=>!el.is_past).map(el=>el.person.first_name+" "+el.person.last_name));
+                console.log(result[0].relationships.map(el=>el.person.first_name+" "+el.person.last_name));
                 rl.question(`\nType enter to continue: `, (answer) => { mainMenu() });
               }
             })
             break;
 
-            case "12":   //12.- How many people are not working anymore at Facebook
-            db.collection('companies').find({"name":"Facebook"}, {relationships:1, _id:0}).toArray((error, result) => {
+          case "12":    //12.- How many people are not working anymore at Facebook
+            db.collection('companies').aggregate([
+              {$match:{name:"Facebook"}},
+              {$project: {
+                relationships: {$filter:{
+                  input:'$relationships',
+                  as:'relationship',
+                  cond: {$eq:['$$relationship.is_past', true]}
+                }}
+              }}
+            ]).toArray((error, result) => {
               if (error) {
                 console.log(error);
                 rl.question(`\nType enter to continue: `, (answer) => { mainMenu() });
               } else {
-                console.log(result[0].relationships.filter(el=>el.is_past).length);
+                console.log(result[0].relationships.length);
                 rl.question(`\nType enter to continue: `, (answer) => { mainMenu() });
               }
             })
             break;
+
+            // case "12":   //12.- How many people are not working anymore at Facebook
+            // db.collection('companies').find({"name":"Facebook"}, {relationships:1, _id:0}).toArray((error, result) => {
+            //   if (error) {
+            //     console.log(error);
+            //     rl.question(`\nType enter to continue: `, (answer) => { mainMenu() });
+            //   } else {
+            //     console.log(result[0].relationships.filter(el=>el.is_past).length);
+            //     rl.question(`\nType enter to continue: `, (answer) => { mainMenu() });
+            //   }
+            // })
+            // break;
 
           case "13":   // 13.- List all the companies where "david-ebersman" has worked.
             db.collection('companies').find({relationships:{$elemMatch:{"person.first_name":"David", "person.last_name":"Ebersman"}}},{"name":1, _id:0}).toArray((error, result) => {
@@ -194,7 +224,7 @@ mongoClient.connect(url, (error, db) => {
             break;       
 
           case "15":   // 15.- Names of the companies that has "social-networking" in tag-list (be aware that the value of field is a string check regex operators)
-            db.collection('companies').find({tag_list:/social-networking/},{"name":1, _id:0}).toArray((error, result) => {
+            db.collection('companies').find({tag_list:/social-networking/},{"name":1, _id:0}).count((error, result) => {
               if (error) {
                 console.log(error);
                 rl.question(`\nType enter to continue: `, (answer) => { mainMenu() });

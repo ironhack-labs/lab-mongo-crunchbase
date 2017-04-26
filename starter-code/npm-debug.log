@@ -24,7 +24,7 @@
 14 verbose stack     at Process.ChildProcess._handle.onexit (internal/child_process.js:226:5)
 15 verbose pkgid starter-code@1.0.0
 16 verbose cwd /home/darek/Ironhack/week4/day2/lab-mongo-crunchbase/starter-code
-17 error Linux 4.8.0-46-generic
+17 error Linux 4.8.0-49-generic
 18 error argv "/usr/bin/nodejs" "/usr/bin/npm" "start"
 19 error node v7.7.2
 20 error npm  v4.1.2
