@@ -159,24 +159,57 @@ mongoClient.connect(url, (error, db) => {
           break;
 
           case "10":
-          db.collection('companies').find({"name":"Facebook"},{"products.name":1, _id: 0}).forEach(function(err, docs){
+          //db.collection('companies').find({"name":"Facebook"},{"products.name":1, _id: 0}).forEach(function(err, docs){
+          db.collection('companies').find({name: "Facebook"}).toArray((err, docs) => {
             if (err){
               console.log(err);
               rl.question(`\nType enter to continue: `,(answer)=>{mainMenu();});
             }else{
-              console.log(docs);
+              //console.log(docs);
+              docs[0].products.forEach((elem)=> console.log(elem.name));
               rl.question(`\nType enter to continue: `,(answer)=>{mainMenu();});
             }
           });
           break;
 
           case "11":
-          db.collection('companies').find({"name":"Facebook"},{"number_of_employees":1, _id: 0}).toArray(function(err, docs){
+          //db.collection('companies').find({$and:[{"name":"Facebook"},{"relationships.is_past":false}]},{"relationships":1, _id: 0}).forEach(function(err, docs){
+          db.collection('companies').find({name: "Facebook"}).toArray((err, docs) => {
+            if (err){
+              console.log(err);
+              rl.question(`\nType enter to continue: `,(answer)=>{mainMenu();});
+            }else{
+              //console.log(docs);
+              docs[0].relationships.filter((elem) => !elem.is_past).forEach(
+                (elem)=> console.log(elem.person.first_name, elem.person.last_name));
+              rl.question(`\nType enter to continue: `,(answer)=>{mainMenu();});
+            }
+          });
+          break;
+
+          case "12":
+
+          db.collection('companies').find({name: "Facebook"}).toArray((err, docs) => {
+            if (err){
+              console.log(err);
+              rl.question(`\nType enter to continue: `,(answer)=>{mainMenu();});
+            }else{
+              //console.log(docs);
+              console.log(docs[0].relationships.filter((elem) => elem.is_past).length);
+              rl.question(`\nType enter to continue: `,(answer)=>{mainMenu();});
+            }
+          });
+          break;
+
+          case "13":
+          // 13.- List all the companies where "david-ebersman" has worked.
+          db.collection('companies').find({"relationships.person.permalink": "david-ebersman"},{name: 1, _id: 0}).toArray((err, docs) => {
             if (err){
               console.log(err);
               rl.question(`\nType enter to continue: `,(answer)=>{mainMenu();});
             }else{
               console.log(docs);
+              docs.forEach((item)=>console.log(item.name));
               rl.question(`\nType enter to continue: `,(answer)=>{mainMenu();});
             }
           });
