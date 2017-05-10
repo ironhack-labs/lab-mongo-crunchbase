@@ -158,6 +158,30 @@ mongoClient.connect(url, (error, db) => {
           });
           break;
 
+          case "10":
+          db.collection('companies').find({"name":"Facebook"},{"products.name":1, _id: 0}).forEach(function(err, docs){
+            if (err){
+              console.log(err);
+              rl.question(`\nType enter to continue: `,(answer)=>{mainMenu();});
+            }else{
+              console.log(docs);
+              rl.question(`\nType enter to continue: `,(answer)=>{mainMenu();});
+            }
+          });
+          break;
+
+          case "11":
+          db.collection('companies').find({"name":"Facebook"},{"number_of_employees":1, _id: 0}).toArray(function(err, docs){
+            if (err){
+              console.log(err);
+              rl.question(`\nType enter to continue: `,(answer)=>{mainMenu();});
+            }else{
+              console.log(docs);
+              rl.question(`\nType enter to continue: `,(answer)=>{mainMenu();});
+            }
+          });
+          break;
+
           case "0":
             console.log(`👋👋👋👋 😞 \n`);
             db.close((error) => { process.exit(0); });
