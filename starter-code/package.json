@@ -1,0 +1,16 @@
+{
+  "name": "starter-code",
+  "version": "1.0.0",
+  "description": "Daily Exercise - Week 4 - Day 2",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Juan Macías",
+  "license": "ISC",
+  "dependencies": {
+    "clear": "0.0.1",
+    "lodash": "^4.17.4",
+    "mongodb": "^2.2.29"
+  }
+}
