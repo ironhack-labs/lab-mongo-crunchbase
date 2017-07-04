@@ -83,7 +83,7 @@ mongoClient.connect(url, (error, db) => {
           case "4": // List by name all companies founded in february of 2004.
             db.collection('companies').find({
                $and: [ {founded_year : { $eq: 2004}},
-                       {founded_month : { $eq: 1}}
+                       {founded_month : { $eq: 2}}
                     ]},
               {
                 name: 1,
@@ -109,7 +109,7 @@ mongoClient.connect(url, (error, db) => {
             db.collection('companies').find(
                 { $and : [
                       { $and: [ {founded_year : { $eq: 2004}} ]},
-                      { $and: [ { founded_month: { $gte : 3 }} , { founded_month: { $lte : 5 }} ]}
+                      { $and: [ { founded_month: { $gte : 4 }} , { founded_month: { $lte : 6 }} ]}
                     ]
                 },
               {
@@ -117,6 +117,25 @@ mongoClient.connect(url, (error, db) => {
                 _id: 0,
                 founded_year:1,
                 founded_month:1
+             }).sort({founded_month:1,founded_day:1}).toArray((error, result) => {
+              if (error) {
+                console.log(error);
+                rl.question(`\nType enter to continue: `, (answer) => {
+                  mainMenu();
+                });
+              } else {
+                console.log(result);
+                rl.question(`\nType enter to continue: `, (answer) => {
+                  mainMenu();
+                });
+              }
+            });
+            break;
+
+            case "6": // What companies have offices in "Barcelona".
+              db.collection('companies').find(
+                { offices : { $elemMatch: { city : 'Barcelona'} } },
+                { name: 1, _id: 0
              }).toArray((error, result) => {
               if (error) {
                 console.log(error);
@@ -132,6 +151,24 @@ mongoClient.connect(url, (error, db) => {
             });
             break;
 
+            case "7": // List the 10 companies with more employees sorted ascending (show name and employees).
+              db.collection('companies').find(
+                { offices : { $elemMatch: { city : 'Barcelona'} } },
+                { name: 1, _id: 0
+             }).toArray((error, result) => {
+              if (error) {
+                console.log(error);
+                rl.question(`\nType enter to continue: `, (answer) => {
+                  mainMenu();
+                });
+              } else {
+                console.log(result);
+                rl.question(`\nType enter to continue: `, (answer) => {
+                  mainMenu();
+                });
+              }
+            });
+            break;
           case "0":
             console.log(`👋👋👋👋 😞 \n`);
             db.close((error) => {
