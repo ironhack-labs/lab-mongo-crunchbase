@@ -1,0 +1,15 @@
+{
+  "name": "mongo-crunchbase",
+  "version": "1.0.0",
+  "description": "Lab Mongo Crunchbase",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Mario Martin",
+  "license": "ISC",
+  "dependencies": {
+    "clear": "0.0.1",
+    "mongodb": "^2.2.29"
+  }
+}
