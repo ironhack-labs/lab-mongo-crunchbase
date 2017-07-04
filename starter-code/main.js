@@ -184,28 +184,113 @@ mongoClient.connect(url, (error, db) => {
             })
             break;
           case "11":
-            db.collection('companies').aggregate({
-              $match: {
-                name: "Facebook"
+            db.collection('companies').find({
+              name: "Facebook"
+            }, {
+              _id: 0,
+              relationships: 1
+            }).toArray((error, result) => {
+              if (error) {
+                console.log(error);
+                enterToContinue();
+              } else {
+                console.log(result[0]['relationships'].filter((a) => !a.is_past));
+                enterToContinue();
+              }
+            })
+            break;
+          case "12":
+            db.collection('companies').find({
+              name: "Facebook"
+            }, {
+              _id: 0,
+              relationships: 1
+            }).toArray((error, result) => {
+              if (error) {
+                console.log(error);
+                enterToContinue();
+              } else {
+                console.log(result[0]['relationships'].filter((a) => a.is_past).length);
+                enterToContinue();
+              }
+            })
+            break;
+          case "13":
+            db.collection('companies').find({
+              'relationships.person.permalink': 'david-ebersman'
+            }, {
+              name: 1
+            }).toArray((error, result) => {
+              if (error) {
+                console.log(error);
+                enterToContinue();
+              } else {
+                console.log(result);
+                enterToContinue();
+              }
+            })
+            break;
+          case "14":
+            db.collection('companies').find({
+              name: 'Facebook'
+            }, {
+              name: 1,
+              competitions: 1
+            }).toArray((error, result) => {
+              if (error) {
+                console.log(error);
+                enterToContinue();
+              } else {
+                console.log(result[0].competitions.map((a) => `${a.competitor.name}`));
+                enterToContinue();
+              }
+            })
+            break;
+          case "15":
+            db.collection('companies').find({
+              tag_list: {
+                $regex: /social-networking/
               }
             }, {
-              $project: {
-                _id: 0,
-                relationships: 1
+              name: 1
+            }).toArray((error, result) => {
+              if (error) {
+                console.log(error);
+                enterToContinue();
+              } else {
+                console.log(result);
+                enterToContinue();
+              }
+            })
+            break;
+          case "16":
+            db.collection('companies').find({
+              tag_list: {
+                $regex: /social-networking/
+              },
+              founded_year: {
+                $gte: 2002,
+                $lte: 2016
               }
             }, {
-              $project: {
-                _id: 0,
-                relationships: {
-                  $filter: {
-                    input: "$relationships",
-                    as: "relation",
-                    cond: {
-                      $eq: ["$$relation.is_past", false]
-                    }
-                  }
-                }
+              name: 1
+            }).toArray((error, result) => {
+              if (error) {
+                console.log(error);
+                enterToContinue();
+              } else {
+                console.log(result.length);
+                enterToContinue();
               }
+            })
+            break;
+          case "17":
+            db.collection('companies').find({
+              'offices.city': "London"
+            }, {
+              name: 1,
+              location: 1,
+              _id: 0
             }).toArray((error, result) => {
               if (error) {
                 console.log(error);
