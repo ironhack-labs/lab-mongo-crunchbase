@@ -9,6 +9,7 @@
   "author": "Juan Macías",
   "license": "ISC",
   "dependencies": {
+    "clear": "0.0.1",
     "lodash": "^4.17.4",
     "mongodb": "^2.2.29"
   }
