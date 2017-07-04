@@ -145,21 +145,7 @@ mongoClient.connect(url, (error, db) => {
 							}
 						});
 						break;
-						case "11":
-						db.collection('companies').find({"name": {$eq:"Facebook"}},{name:1, relationships:1}).toArray((error, result) => {
-							if (error) {
-								console.log(error);
-								rl.question(`\nType enter to continue: `, (answer) => {
-									mainMenu()
-								});
-							} else {
-								console.log(result);
-								rl.question(`\nType enter to continue: `, (answer) => {
-									mainMenu()
-								});
-							}
-						});
-						break;
+
 						case "9":
 						db.collection('companies').find({"name": {$eq:"Facebook"}},{number_of_employees:1}).toArray((error, result)=> {
 							if (error) {
@@ -184,6 +170,27 @@ mongoClient.connect(url, (error, db) => {
 								});
 							} else {
 								console.log(result);
+
+								rl.question(`\nType enter to continue: `, (answer) => {
+									mainMenu()
+								});
+							}
+						});
+						break;
+            case "11":
+						db.collection('companies').find({"name": "Facebook"}).toArray((error, result) => {
+							if (error) {
+								console.log(error);
+								rl.question(`\nType enter to continue: `, (answer) => {
+									mainMenu()
+								});
+							} else {
+
+								let records = result[0].relationships.filter((record) => 
+									!record.is_past
+								).forEach((record) => {console.log(record.person.first_name, record.person.last_name)})
+
+
 								rl.question(`\nType enter to continue: `, (answer) => {
 									mainMenu()
 								});
@@ -191,14 +198,20 @@ mongoClient.connect(url, (error, db) => {
 						});
 						break;
 						case "12":
-						db.collection('companies').find({$and:[{"name": {$eq: "Facebook"}},{"relationships" : {$elemMatch:{"is_past":true}}}]}).count((error, result) => {
+						db.collection('companies').find({"name": "Facebook"}).toArray((error, result) => {
 							if (error) {
 								console.log(error);
 								rl.question(`\nType enter to continue: `, (answer) => {
 									mainMenu()
 								});
 							} else {
-								console.log(result);
+
+								let cont = 0
+								let records = result[0].relationships.filter((record) => 
+									record.is_past
+								).forEach((record) => {cont++})
+								console.log(cont);
+
 								rl.question(`\nType enter to continue: `, (answer) => {
 									mainMenu()
 								});
@@ -206,13 +219,30 @@ mongoClient.connect(url, (error, db) => {
 						});
 						break;
 						case "13":
-						db.collection('companies').find({"relationships" : {$elemMatch:{"person.first_name": "david-ebersman"}}}).count((error, result) => {
+						db.collection('companies').find({"relationships.person.permalink": "david-eversman"}).toArray((error, result) => {
 							if (error) {
 								console.log(error);
 								rl.question(`\nType enter to continue: `, (answer) => {
 									mainMenu()
 								});
 							} else {
+
+								console.log(result);
+								rl.question(`\nType enter to continue: `, (answer) => {
+									mainMenu()
+								});
+							}
+						});
+						break;
+						case "14":
+						db.collection('companies').find({"relationships.person.permalink": "david-eversman"}).toArray((error, result) => {
+							if (error) {
+								console.log(error);
+								rl.question(`\nType enter to continue: `, (answer) => {
+									mainMenu()
+								});
+							} else {
+
 								console.log(result);
 								rl.question(`\nType enter to continue: `, (answer) => {
 									mainMenu()
