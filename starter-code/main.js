@@ -133,12 +133,17 @@ function mainMenu(){
                 });
           break;
          case "11":
-            db.collection('companies').find({ $and: [{ name : "Facebook" }, { "relationships.is_past": false }]}, { "relationships": 1, _id: 0}).forEach((error, result) => {
+             db.collection('companies').find({name: "Facebook"}).toArray((error, result) => { 
                 if (error) {
                     console.log(error);
                     rl.question(`\nType enter to continue: `, (answer) => { mainMenu() });
                 } else {
-                    console.log(result);
+                   result[0].relationships.filter((_person) => {
+                       return !_person.is_past
+                    }).forEach((_person) => { 
+                        console.log(_person.person.first_name)
+                   });
+    
                     rl.question(`\nType enter to continue: `, (answer) => { mainMenu() });
                 }
                 });
@@ -153,6 +158,76 @@ function mainMenu(){
                     rl.question(`\nType enter to continue: `, (answer) => { mainMenu() });
                 }
                 });
+          break;
+           case "13":
+          db.collection('companies').find({"relationships.person.permalink": "david-ebersman"},{name: 1, _id: 0}).toArray((error, result) => {
+                if (error) {
+                    console.log(error);
+                    rl.question(`\nType enter to continue: `, (answer) => { mainMenu() });
+                } else {
+                    result.forEach((company) => {
+                        console.log(company.name);
+                    });
+                    rl.question(`\nType enter to continue: `, (answer) => { mainMenu() });
+                }
+                });
+          break;
+            case "14":
+         db.collection('companies').find({ name : "Facebook" }, { "competitions": 1, _id: 0 }).toArray((error, result) => { 
+                if (error) {
+                    console.log(error);
+                    rl.question(`\nType enter to continue: `, (answer) => { mainMenu() });
+                } else {
+                     result[0].competitions.forEach((competitors) => {
+                        console.log(competitors.competitor.name);
+                    });
+                    rl.question(`\nType enter to continue: `, (answer) => { mainMenu() });
+                }
+                });
+          break;
+          case "15":
+           db.collection('companies').find({ tag_list: new RegExp('^social-networking') }, { "name": 1, _id: 0 }).toArray((error, result) => { 
+            if (error) {
+                    console.log(error);
+                    rl.question(`\nType enter to continue: `, (answer) => { mainMenu() });
+                } else {
+                    console.log(result);
+                    rl.question(`\nType enter to continue: `, (answer) => { mainMenu() });
+                }
+                });
+          break;
+           case "16":
+           db.collection('companies').count({ $and: [{ tag_list: new RegExp('^social-networking') }, { founded_year : { $gte: 2002 }}, { founded_year : { $lte: 2016 }}]}, { "name": 1, _id: 0 } , (error, result) => { 
+            if (error) {
+                    console.log(error);
+                    rl.question(`\nType enter to continue: `, (answer) => { mainMenu() });
+                } else {
+                    console.log(result);
+                    rl.question(`\nType enter to continue: `, (answer) => { mainMenu() });
+                }
+            });
+            break;
+           case "17":
+            db.collection('companies').find({ "offices.city" : "London" }, {name: 1, offices: 1, _id: 0}).forEach((error, result) => {
+                if (error) {
+                    console.log(error);
+                    rl.question(`\nType enter to continue: `, (answer) => { mainMenu() });
+                } else {
+                    console.log(result);
+                    rl.question(`\nType enter to continue: `, (answer) => { mainMenu() });
+                }
+                });
+          break;
+            case "18":
+            db.collection('companies').count({ $and: [{ tag_list: new RegExp('^social-networking') }, { founded_year : { $gte: 2002 }}, { founded_year : { $lte: 2016 }}, { "offices.city" : "New York" }]}, { "name": 1, _id: 0 } , (error, result) => { 
+            if (error) {
+                    console.log(error);
+                    rl.question(`\nType enter to continue: `, (answer) => { mainMenu() });
+                } else {
+                    console.log(result);
+                    rl.question(`\nType enter to continue: `, (answer) => { mainMenu() });
+                }
+            });
           break;
           case "0":
             console.log(`👋👋👋👋 😞 \n`);
