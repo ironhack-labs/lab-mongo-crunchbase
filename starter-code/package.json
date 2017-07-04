@@ -1,0 +1,15 @@
+{
+  "name": "crunch",
+  "version": "1.0.0",
+  "description": "package used for the lab mongo crunchbase exercise",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "salvocosta",
+  "license": "ISC",
+  "dependencies": {
+    "clear": "0.0.1",
+    "mongodb": "^2.2.29"
+  }
+}
