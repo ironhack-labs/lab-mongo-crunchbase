@@ -124,7 +124,8 @@ mongoClient.connect(url, (error, db) => {
 
   }
 });
-
+//
+//
 function printMenu(){
 	console.log(`
 0.- Exit
