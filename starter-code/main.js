@@ -23,8 +23,7 @@ function mainMenu(){
       rl.question('Type an option: ', (option) => {
         switch(option){
           case "1":
-               //db.collection('companies').find({}, {name: 1, _id: 0}).toArray((error, result) => {
-                db.collection('companies').find({}).toArray((error, result) => {
+               db.collection('companies').find({}, {name: 1, _id: 0}).toArray((error, result) => {
                 if (error) {
                     console.log(error);
                     rl.question(`\nType enter to continue: `, (answer) => { mainMenu() });
