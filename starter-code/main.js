@@ -258,104 +258,109 @@ mongoClient.connect(url, (error, db) => {
               }
             });
             break;
-						case "12":
-	            db.collection('companies').find({
-	              name: 'Facebook'
-	            }, {}).toArray((error, result) => {
-	              if (error) {
-	                console.log(error);
-	                rl.question(`\nType enter to continue: `, (answer) => {
-	                  mainMenu();
-	                });
-	              } else {
-									const notWorking = result[0].relationships.filter(e => e.is_past).length;
-	                console.log(`there are ${notWorking} person not working in Facebook anymore`);
-	                rl.question(`\nType enter to continue: `, (answer) => {
-	                  mainMenu();
-	                });
-	              }
-	            });
-	            break;
-							case "13":
-		            db.collection('companies').find({
-		              'relationships.person.permalink': 'david-ebersman'
-		            }, {
-									name: 1,
-									_id: 0
-								}).toArray((error, result) => {
-		              if (error) {
-		                console.log(error);
-		                rl.question(`\nType enter to continue: `, (answer) => {
-		                  mainMenu();
-		                });
-		              } else {
-		                console.log(result);
-		                rl.question(`\nType enter to continue: `, (answer) => {
-		                  mainMenu();
-		                });
-		              }
-		            });
-		            break;
-								case "14":
-			            db.collection('companies').find({
-			              name: 'Facebook'
-			            }, {
-										competitions: 1,
-										_id: 0
-									}).toArray((error, result) => {
-			              if (error) {
-			                console.log(error);
-			                rl.question(`\nType enter to continue: `, (answer) => {
-			                  mainMenu();
-			                });
-			              } else {
-			                result[0].competitions.map(e => console.log(e.competitor.name));
-			                rl.question(`\nType enter to continue: `, (answer) => {
-			                  mainMenu();
-			                });
-			              }
-			            });
-			            break;
-									case "15":
-				            db.collection('companies').find({
-				              tag_list: {$regex: /social-network/}
-				            }, {
-											name: 1,
-											_id: 0
-										}).toArray((error, result) => {
-				              if (error) {
-				                console.log(error);
-				                rl.question(`\nType enter to continue: `, (answer) => {
-				                  mainMenu();
-				                });
-				              } else {
-												console.log(result);
-				                rl.question(`\nType enter to continue: `, (answer) => {
-				                  mainMenu();
-				                });
-				              }
-				            });
-				            break;
-										case "16":
-					            db.collection('companies').count({
-					              tag_list: {$regex: /social-network/},
-					                  founded_year: {
-					                    $gte: 2002, $lte: 2016
-					                  }
-					            }, (error, result) => {
-					              if (error) {
-					                console.log(error);
-					                rl.question(`\nType enter to continue: `, (answer) => {
-					                  mainMenu();
-					                });
-					              } else {
-													console.log(`there are ${result} companies`);
-					                rl.question(`\nType enter to continue: `, (answer) => {
-					                  mainMenu();
-					                });
-					              }
-					            });
-					            break;
+          case "12":
+            db.collection('companies').find({
+              name: 'Facebook'
+            }, {}).toArray((error, result) => {
+              if (error) {
+                console.log(error);
+                rl.question(`\nType enter to continue: `, (answer) => {
+                  mainMenu();
+                });
+              } else {
+                const notWorking = result[0].relationships.filter(e => e.is_past).length;
+                console.log(`there are ${notWorking} person not working in Facebook anymore`);
+                rl.question(`\nType enter to continue: `, (answer) => {
+                  mainMenu();
+                });
+              }
+            });
+            break;
+          case "13":
+            db.collection('companies').find({
+              'relationships.person.permalink': 'david-ebersman'
+            }, {
+              name: 1,
+              _id: 0
+            }).toArray((error, result) => {
+              if (error) {
+                console.log(error);
+                rl.question(`\nType enter to continue: `, (answer) => {
+                  mainMenu();
+                });
+              } else {
+                console.log(result);
+                rl.question(`\nType enter to continue: `, (answer) => {
+                  mainMenu();
+                });
+              }
+            });
+            break;
+          case "14":
+            db.collection('companies').find({
+              name: 'Facebook'
+            }, {
+              competitions: 1,
+              _id: 0
+            }).toArray((error, result) => {
+              if (error) {
+                console.log(error);
+                rl.question(`\nType enter to continue: `, (answer) => {
+                  mainMenu();
+                });
+              } else {
+                result[0].competitions.map(e => console.log(e.competitor.name));
+                rl.question(`\nType enter to continue: `, (answer) => {
+                  mainMenu();
+                });
+              }
+            });
+            break;
+          case "15":
+            db.collection('companies').find({
+              tag_list: {
+                $regex: /social-network/
+              }
+            }, {
+              name: 1,
+              _id: 0
+            }).toArray((error, result) => {
+              if (error) {
+                console.log(error);
+                rl.question(`\nType enter to continue: `, (answer) => {
+                  mainMenu();
+                });
+              } else {
+                console.log(result);
+                rl.question(`\nType enter to continue: `, (answer) => {
+                  mainMenu();
+                });
+              }
+            });
+            break;
+          case "16":
+            db.collection('companies').count({
+              tag_list: {
+                $regex: /social-network/
+              },
+              founded_year: {
+                $gte: 2002,
+                $lte: 2016
+              }
+            }, (error, result) => {
+              if (error) {
+                console.log(error);
+                rl.question(`\nType enter to continue: `, (answer) => {
+                  mainMenu();
+                });
+              } else {
+                console.log(`there are ${result} companies`);
+                rl.question(`\nType enter to continue: `, (answer) => {
+                  mainMenu();
+                });
+              }
+            });
+            break;
 
           case "0":
             console.log(`👋👋👋👋 😞 \n`);
