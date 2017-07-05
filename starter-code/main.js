@@ -225,7 +225,7 @@ mongoClient.connect(url, (error, db) => {
                     mainMenu();
                   });
                 } else {
-                  console.log(result);
+                  console.log(result[0].products.forEach(product => console.log(product.name)));
                   rl.question(`\nType enter to continue: `, (answer) => {
                     mainMenu();
                   });
