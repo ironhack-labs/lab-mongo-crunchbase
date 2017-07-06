@@ -1,15 +1,19 @@
 {
-  "name": "crunchbase",
+  "name": "mongoose-example",
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
   "scripts": {
+    "start-dev": "nodemon index.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
-  "author": "JB Tellez",
+  "keywords": [],
+  "author": "",
   "license": "ISC",
   "dependencies": {
-    "clear": "0.0.1",
-    "mongodb": "^2.2.29"
+    "mongoose": "^4.11.1"
+  },
+  "devDependencies": {
+    "nodemon": "^1.11.0"
   }
 }
