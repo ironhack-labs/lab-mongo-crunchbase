@@ -183,44 +183,161 @@ mongoClient.connect(url, (error, db) => {
 
                     case "11": // Working at Facebook right now
 
-                        console.log(
-                            db.collection('companies')
-                                .aggregate([{ $unwind: "$relationships" }, { $match: { "name": "Facebook", "relationships.is_past": false } }])
-                                .project({ 'relationships.person': 1 })
-                                .toArray((error, result) => {
-                                    if (error) {
-                                        console.log(error);
-                                        rl.question(`\nType enter to continue: `, (answer) => { mainMenu() });
-                                    } else {
-                                        const names = result.map(p => p.relationships.person.first_name + ' ' + p.relationships.person.last_name);
-                                        console.log('names', names);
-                                        rl.question(`\nType enter to continue: `, (answer) => { mainMenu() });
-                                    }
-                                })
-                        );
+                        db.collection('companies')
+                            .aggregate([{ $unwind: "$relationships" }, { $match: { "name": "Facebook", "relationships.is_past": false } }])
+                            .project({ 'relationships.person': 1 })
+                            .toArray((error, result) => {
+                                if (error) {
+                                    console.log(error);
+                                    rl.question(`\nType enter to continue: `, (answer) => { mainMenu() });
+                                } else {
+                                    const names = result.map(p => p.relationships.person.first_name + ' ' + p.relationships.person.last_name);
+                                    console.log('names', names);
+                                    rl.question(`\nType enter to continue: `, (answer) => { mainMenu() });
+                                }
+                            })
+
 
 
                         break;
 
                     case "12": // not Working at Facebook right now
 
-                        console.log(
-                            db.collection('companies')
-                                .aggregate([{ $unwind: "$relationships" }, { $match: { "name": "Facebook", "relationships.is_past": true } }])
-                                .project({ 'relationships.person': 1 })
-                                .toArray((error, result) => {
-                                    if (error) {
-                                        console.log(error);
-                                        rl.question(`\nType enter to continue: `, (answer) => { mainMenu() });
-                                    } else {
-                                        const names = result.map(p => p.relationships.person.first_name + ' ' + p.relationships.person.last_name);
-                                        console.log('names', names);
-                                        rl.question(`\nType enter to continue: `, (answer) => { mainMenu() });
-                                    }
-                                })
-                        );
+                        db.collection('companies')
+                            .aggregate([{ $unwind: "$relationships" }, { $match: { "name": "Facebook", "relationships.is_past": true } }])
+                            .project({ 'relationships.person': 1 })
+                            .toArray((error, result) => {
+                                if (error) {
+                                    console.log(error);
+                                    rl.question(`\nType enter to continue: `, (answer) => { mainMenu() });
+                                } else {
+                                    const names = result.map(p => p.relationships.person.first_name + ' ' + p.relationships.person.last_name);
+                                    console.log('names', names);
+                                    rl.question(`\nType enter to continue: `, (answer) => { mainMenu() });
+                                }
+                            })
+
 
                         break;
+
+                    case "13": // david-ebersman companies
+
+                        db.collection('companies')
+                            .find({ 'relationships.person.permalink': 'david-ebersman' })
+                            .project({ _id: 0, name: 1 })
+                            .toArray((error, result) => {
+                                if (error) {
+                                    console.log(error);
+                                    rl.question(`\nType enter to continue: `, (answer) => { mainMenu() });
+                                } else {
+                                    console.log(result.map(elem => elem.name).join('\n'));
+                                    rl.question(`\nType enter to continue: `, (answer) => { mainMenu() });
+                                }
+                            })
+
+
+                        break;
+
+                    case "14": // Facebook competitors
+                        db.collection('companies')
+                            .find({ name: 'Facebook' })
+                            .project({ _id: 0, 'competitions.competitor.name': 1 })
+                            .toArray((error, result) => {
+                                if (error) {
+                                    console.log(error);
+                                    rl.question(`\nType enter to continue: `, (answer) => { mainMenu() });
+                                } else {
+                                    console.log(result[0].competitions.map(elem => elem.competitor.name).join('\n'));
+                                    rl.question(`\nType enter to continue: `, (answer) => { mainMenu() });
+                                }
+                            })
+
+
+                        break;
+
+                    case "15": // social-networking companies
+                        db.collection('companies')
+                            .find({
+                                tag_list: { $regex: 'social-networking' }
+                            })
+                            .project({ _id: 0, 'name': 1 })
+                            .toArray((error, result) => {
+                                if (error) {
+                                    console.log(error);
+                                    rl.question(`\nType enter to continue: `, (answer) => { mainMenu() });
+                                } else {
+                                    console.log(result.map(elem => elem.name).join('\n'));
+                                    rl.question(`\nType enter to continue: `, (answer) => { mainMenu() });
+                                }
+                            })
+
+
+                        break;
+
+                    case "16": // social-networking companies founded 2002=2016
+                        db.collection('companies')
+                            .find({
+                                tag_list: { $regex: 'social-networking' },
+                                founded_year: { $gte: 2002, $lte: 2016 }
+                            })
+                            .project({ _id: 0, 'name': 1 })
+                            .toArray((error, result) => {
+                                if (error) {
+                                    console.log(error);
+                                    rl.question(`\nType enter to continue: `, (answer) => { mainMenu() });
+                                } else {
+                                    console.log(result.map(elem => elem.name).join('\n'));
+                                    rl.question(`\nType enter to continue: `, (answer) => { mainMenu() });
+                                }
+                            })
+
+
+                        break;
+
+                    case "17": // have offices in London, show name and location
+
+                        db.collection('companies')
+                            .aggregate([{ $unwind: "$offices" }, { $match: { "offices.city": "London" } }])
+                            .project({ '_id': 0, 'name': 1, 'offices.city': 1, 'offices.latitude': 1, 'offices.longitude': 1 }).toArray(
+                            (error, result) => {
+
+                                if (error) {
+                                    console.log(error);
+                                    rl.question(`\nType enter to continue: `, (answer) => { mainMenu() });
+                                } else {
+                                    // console.log(result);
+                                    console.log(result.map(elem => `${elem.name} : ${elem.offices.city} (${elem.offices.latitude},${elem.offices.longitude})`).join('\n'));
+                                    rl.question(`\nType enter to continue: `, (answer) => { mainMenu() });
+                                }
+                            });
+
+
+
+
+                        break;
+
+                    case "18": // social-networking companies founded 2002=2016 and NY office
+                        db.collection('companies')
+                            .find({
+                                tag_list: { $regex: 'social-networking' },
+                                founded_year: { $gte: 2002, $lte: 2016 },
+                                'offices.city': 'New York'
+                            })
+                            .project({ _id: 0, 'name': 1 })
+                            .toArray((error, result) => {
+                                if (error) {
+                                    console.log(error);
+                                    rl.question(`\nType enter to continue: `, (answer) => { mainMenu() });
+                                } else {
+                                    console.log(result.map(elem => elem.name).join('\n'));
+                                    rl.question(`\nType enter to continue: `, (answer) => { mainMenu() });
+                                }
+                            })
+
+
+                        break;
+
+
 
                     case "0":
                         console.log(`👋👋👋👋 😞 \n`);
