@@ -260,6 +260,75 @@ mongoClient.connect(url, (error, db) => {
                                       //console.log('you typed 2');
                                       //rl.question(`\nType enter to continue: `, (answer) => {mainMenu();});
                                       break;
+
+                                      case "16":
+                                        db.collection("companies").find({$and : [
+                                          {"tag_list": /.*social-networking*./},
+                                          {"founded_year": {$gte : 2002, $lte :2016}}
+                                        ]}, {"name":1,"founded_year": 1,"_id": 0} ).toArray((err, res)=>{
+                                          if(err){
+                                            console.log(err);
+                                            rl.question(`\nType enter to continue: `, (answer) => {mainMenu();});
+                                          } else {
+                                              console.log(res.length);
+
+                                            rl.question(`\nType enter to continue: `, (answer) => {mainMenu();});
+                                          }
+                                        });
+                                        //console.log('you typed 2');
+                                        //rl.question(`\nType enter to continue: `, (answer) => {mainMenu();});
+                                        break;
+
+                                        case "17":
+                                          db.collection("companies").find(
+                                            {"offices": {
+                                              $elemMatch :
+                                                {"city" : {$eq : "London"}}
+                                              }
+                                            },
+                                            {"name":1, "offices":1,"_id": 0} ).toArray((err, res)=>{
+                                            if(err){
+                                              console.log(err);
+                                              rl.question(`\nType enter to continue: `, (answer) => {mainMenu();});
+                                            } else {
+                                                res.forEach((res)=>{
+                                                    res.offices.forEach((office)=>{
+
+                                                      console.log(res.name, office.city);
+                                                    });
+
+                                                });
+
+
+                                              rl.question(`\nType enter to continue: `, (answer) => {mainMenu();});
+                                            }
+                                          });
+                                          //console.log('you typed 2');
+                                          //rl.question(`\nType enter to continue: `, (answer) => {mainMenu();});
+                                          break;
+                                          case "18":
+                                          db.collection("companies").find({$and : [
+                                            {"tag_list": /.*social-networking*./},
+                                            {"founded_year": {$gte : 2002, $lte :2016}},
+                                            {"offices": {
+                                              $elemMatch :
+                                                {"city" : {$eq : "New York"}}
+                                              }
+                                            }
+                                          ]}, {"name":1,"offices":1,"_id": 0} ).toArray((err, res)=>{
+                                            if(err){
+                                              console.log(err);
+                                              rl.question(`\nType enter to continue: `, (answer) => {mainMenu();});
+                                            } else {
+                                                console.log(res.length);
+                                                
+
+                                              rl.question(`\nType enter to continue: `, (answer) => {mainMenu();});
+                                            }
+                                          });
+                                          //console.log('you typed 2');
+                                          //rl.question(`\nType enter to continue: `, (answer) => {mainMenu();});
+                                            break;
           case "0":
             console.log(`👋👋👋👋 😞 \n`);
             db.close((error) => { process.exit(0); });
