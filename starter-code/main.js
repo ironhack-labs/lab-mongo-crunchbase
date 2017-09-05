@@ -228,15 +228,6 @@ mongoClient.connect(url, (error, db) => {
                 });
                 break;
             case "19":
-                // db.collection("companies").distinct("name").toArray((error, result) => {
-                // if (error) {
-                //     console.log(error);
-                //     rl.question(`\nType enter to continue: `, (answer) => { mainMenu() });
-                // } else {
-                //     console.log((result.map((item)=>item.name)).length);
-                //     rl.question(`\nType enter to continue: `, (answer) => { mainMenu() });
-                //     }
-                // });
                 break;
             case "20":
                 break;
