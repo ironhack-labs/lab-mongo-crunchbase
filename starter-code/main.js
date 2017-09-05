@@ -15,41 +15,38 @@ mongoClient.connect(url, (error, db) => {
     console.log(error)
   } else {
     console.log('Connection established correctly!! 😬')
-
-    function mainMenu() {
-      clear()
-      printMenu()
-      rl.question('Type an option: ', (option) => {
-        switch (option) {
-          case "1":
-            console.log('you typed 1')
-            rl.question(`\nType enter to continue: `, (answer) => {
-              mainMenu()
-            })
-            break
-          case "2":
-            console.log('you typed 2')
-            rl.question(`\nType enter to continue: `, (answer) => {
-              mainMenu()
-            })
-            break
-          case "0":
-            console.log(`👋👋👋👋 😞 \n`)
-            db.close((error) => {
-              process.exit(0)
-            })
-            break
-          default:
-            mainMenu()
-            break
-        }
-      })
-    }
-
-    mainMenu()
-
+    mainMenu(db)
   }
 })
+
+function mainMenu(db) {
+  clear()
+  printMenu()
+  rl.question('Type an option: ', (option) => {
+    switch (option) {
+      case "1": listAllCompaniesName(db); break;
+      case "2": numberOfCompanies(db); break;
+      case "3": numberOfCompaniesFoundedIn2004(db); break;
+      case "4": listByNameCompaniesFoundedInFebruary2004(db); break;
+      case "5": listByNameCompaniesFoundedInSummer2004SortByDate(db); break;
+      case "6": companiesWithOfficesInBcn(db); break;
+      case "7": the10CompaniesWithMoreEmployeesAscSort(db); break;
+      case "8": getFacebookCompany(db); break;
+      case "9": numFacebookEmployees(db); break;
+      case "10": allFacebookProducts(db); break;
+
+      case "0":
+        console.log(`👋👋👋👋 😞 \n`)
+        db.close((error) => {
+          process.exit(0)
+        })
+        break
+      default:
+        mainMenu(db)
+        break
+    }
+  })
+}
 
 function printMenu() {
   console.log(`
@@ -73,4 +70,80 @@ function printMenu() {
 17.- Names and locations of companies that have offices in London
 18.- How many companies that has "social-network" in tag-list and founded between 2002 and 2016 inclusive and has offices in New York
 `)
+}
+
+function listAllCompaniesName(db) {
+  db.collection('companies').find({}, {name: 1, _id: 0}).toArray((error, result) => {
+    errorOrResult(error, result, db)
+  })
+}
+
+function numberOfCompanies(db) {
+  db.collection('companies').count((error, result) => {
+    errorOrResult(error, result, db)
+  })
+}
+
+function numberOfCompaniesFoundedIn2004(db) {
+  db.collection('companies').find({"founded_year": 2004}, {name: 1, founded_year: 1, _id: 0}).count((error, result) => {
+    errorOrResult(error, result, db)
+  })
+}
+
+function listByNameCompaniesFoundedInFebruary2004(db) {
+  db.collection('companies').find({"founded_year": 2004, "founded_month": 2}, {name: 1, _id: 0}).toArray((error, result) => {
+    errorOrResult(error, result, db)
+  })
+}
+
+function listByNameCompaniesFoundedInSummer2004SortByDate(db) {
+  db.collection('companies').find(
+    {$and: [ {"founded_year": 2004}, {"founded_month": {$gt: 3}}, {"founded_month": {$lt: 7}}]},
+    {name: 1, _id: 0}).sort({"founded_year": 1, "founded_month": 1, "founded_day": 1}).toArray((error, result) => {
+    errorOrResult(error, result, db)
+  })
+}
+
+function companiesWithOfficesInBcn(db) {
+  db.collection('companies').find({"offices.city": "Barcelona"}, {name: 1, _id: 0}).toArray((error, result) => {
+    errorOrResult(error, result, db)
+  })
+}
+
+function the10CompaniesWithMoreEmployeesAscSort(db) {
+  db.collection('companies').find({}, {name: 1, number_of_employees: 1, _id: 0}).sort({"number_of_employees": -1}).limit(10).toArray((error, result) => {
+    errorOrResult(error, result, db)
+  })
+}
+
+function getFacebookCompany(db) {
+  db.collection('companies').find({name: "Facebook"}, {name: 1, _id: 0}).toArray((error, result) => {
+    errorOrResult(error, result, db)
+  })
+}
+
+function numFacebookEmployees(db) {
+  db.collection('companies').find({name: "Facebook"}, {name: 1, number_of_employees:1, _id: 0}).toArray((error, result) => {
+    errorOrResult(error, result, db)
+  })
+}
+
+function allFacebookProducts(db) {
+  db.collection('companies').find({name: "Facebook"}, {name: 1, "products.name": 1, _id: 0}).toArray((error, result) => {
+    errorOrResult(error, result, db)
+  })
+}
+
+function errorOrResult(error, result, db) {
+  if (error) {
+    console.log(error)
+    rl.question(`\nType enter to continue: `, (answer) => {
+      mainMenu(db)
+    })
+  } else {
+    console.log(result)
+    rl.question(`\nType enter to continue: `, (answer) => {
+      mainMenu(db)
+    })
+  }
 }
