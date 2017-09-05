@@ -12,7 +12,7 @@ Crunchbase is the premier destination for discovering industry trends, investmen
 
 ## Quering Crunchbase
 
-Download crunchbase dataset from [here](https://github.com/ironhack-labs/lab-mongo-crunchbase/blob/master/starter-code/Crunchbase%20Dataset.zip)
+Download crunchbase dataset from [here]()
 
 Use mongoimport to import into `companies` collection in `crunchbase` database
 
