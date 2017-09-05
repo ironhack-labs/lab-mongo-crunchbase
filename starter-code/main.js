@@ -78,6 +78,17 @@ mongoClient.connect(url, (error, db) => {
 							}
 						})
             break;
+					case "3":
+					db.collection('companies').find({founded_year: 2004}).count((error, result) => {
+						if (error) {
+						console.log(error);
+						rl.question(`\nType enter to continue: `, (answer) => { mainMenu() });
+							} else {
+								console.log(result);
+								rl.question(`\nType enter to continue: `, (answer) => { mainMenu() });
+							}
+						})
+            break;
           case "0":
             console.log(`👋👋👋👋 😞 \n`);
             db.close((error) => { process.exit(0) });
