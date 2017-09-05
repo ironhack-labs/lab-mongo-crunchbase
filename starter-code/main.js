@@ -66,7 +66,7 @@ mongoClient.connect(url, (error, db) => {
 
               break;
               case "4":
-              db.collection('companies').find({$and: [{"founded_year": 2004},{"founded_month": 2 }]}).toArray((error, result) => {
+              db.collection('companies').find({$and: [{"founded_year": 2004},{"founded_month": 2 }]},{name: 1, _id: 0}).toArray((error, result) => {
                 if (error) {
                   console.log(error);
                   rl.question(`\nType enter to continue: `, (answer) => { mainMenu(); });
@@ -78,7 +78,7 @@ mongoClient.connect(url, (error, db) => {
 
                 break;
                 case "5":
-                db.collection('companies').find({"founded_year": 2004,"founded_month":{$gte:4, $lte:6} }).toArray((error, result) => {
+                db.collection('companies').find({"founded_year": 2004,"founded_month":{$gte:4, $lte:6} },{name: 1, _id: 0}).toArray((error, result) => {
                   if (error) {
                     console.log(error);
                     rl.question(`\nType enter to continue: `, (answer) => { mainMenu(); });
@@ -89,7 +89,7 @@ mongoClient.connect(url, (error, db) => {
                   });
                   break;
                   case "6":
-                  db.collection('companies').find({"offices":{ $elemMatch: {"city":"Barcelona"}}}).toArray((error, result) => {
+                  db.collection('companies').find({"offices":{ $elemMatch: {"city":"Barcelona"}}},{name: 1, _id: 0}).toArray((error, result) => {
                     if (error) {
                       console.log(error);
                       rl.question(`\nType enter to continue: `, (answer) => { mainMenu(); });
@@ -100,8 +100,20 @@ mongoClient.connect(url, (error, db) => {
                     });
 
                     break;
+                    case "7":
+                    db.collection('companies').find({}, {name: 1, _id: 0}).sort( { "number_of_employees": -1 } ).limit(10).toArray((error, result) => {
+                      if (error) {
+                        console.log(error);
+                        rl.question(`\nType enter to continue: `, (answer) => { mainMenu(); });
+                      } else {
+                        console.log(result);
+                        rl.question(`\nType enter to continue: `, (answer) => { mainMenu(); });
+                        }
+                      });
+
+                      break;
                     case "8":
-                    db.collection('companies').find({"name":"Facebook"}).toArray((error, result) => {
+                    db.collection('companies').find({"name":"Facebook"},{name: 1, _id: 0}).toArray((error, result) => {
                       if (error) {
                         console.log(error);
                         rl.question(`\nType enter to continue: `, (answer) => { mainMenu(); });
@@ -113,7 +125,7 @@ mongoClient.connect(url, (error, db) => {
 
                       break;
                       case "9":
-                      db.collection('companies').find({"names":"Facebook","number_of_employees":""}).toArray((error, result) => {
+                      db.collection('companies').find({"name":"Facebook"}, {number_of_employees: 1, _id: 0}).toArray((error, result) => {
                         if (error) {
                           console.log(error);
                           rl.question(`\nType enter to continue: `, (answer) => { mainMenu(); });
