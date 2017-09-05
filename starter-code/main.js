@@ -17,118 +17,174 @@ mongoClient.connect(url, (error, db) => {
     console.log('Connection established correctly!! 😬');
   }
 
-function mainMenu() {
-  clear();
-  printMenu();
-  rl.question('Type an option: ', (option) => {
-    switch (option) {
-      case "1":
-        db.collection('companies').find({}, {
-          name: 1,
-          _id: 0
-        }).toArray((error, result) => {
-          if (error) {
-            console.log(error);
-            rl.question(`\nType enter to continue: `, (answer) => {
-              mainMenu();
-            });
-          } else {
-            console.log(result);
-            rl.question(`\nType enter to continue: `, (answer) => {
-              mainMenu();
-            });
-          }
-        });
-        break;
-      case "2":
-        db.collection('companies').find({}).count((error, result) => {
-          if (error) {
-            console.log(error);
-            rl.question(`\nType enter to continue: `, (answer) => {
-              mainMenu();
-            });
-          } else {
-            console.log(result);
-            rl.question(`\nType enter to continue: `, (answer) => {
-              mainMenu();
-            });
-          }
-        });
-        break;
-      case "3":
-      db.collection('companies').find({"founded_year": 2004}).count((error, result) => {
-        if (error) {
-          console.log(error);
-          rl.question(`\nType enter to continue: `, (answer) => {
-            mainMenu();
+  function mainMenu() {
+    clear();
+    printMenu();
+    rl.question('Type an option: ', (option) => {
+      switch (option) {
+        case "1":
+          db.collection('companies').find({}, {
+            name: 1,
+            _id: 0
+          }).toArray((error, result) => {
+            if (error) {
+              console.log(error);
+              rl.question(`\nType enter to continue: `, (answer) => {
+                mainMenu();
+              });
+            } else {
+              console.log(result);
+              rl.question(`\nType enter to continue: `, (answer) => {
+                mainMenu();
+              });
+            }
           });
-        } else {
-          console.log(result);
-          rl.question(`\nType enter to continue: `, (answer) => {
-            mainMenu();
+          break;
+        case "2":
+          db.collection('companies').find({}).count((error, result) => {
+            if (error) {
+              console.log(error);
+              rl.question(`\nType enter to continue: `, (answer) => {
+                mainMenu();
+              });
+            } else {
+              console.log(result);
+              rl.question(`\nType enter to continue: `, (answer) => {
+                mainMenu();
+              });
+            }
           });
-        }
-      });
-      break;
-      case "4":
-      db.collection('companies').find({"founded_year": 2004, "founded_month": 2}, {
-        name: 1,
-        _id: 0
-      }).toArray((error, result) => {
-        if (error) {
-          console.log(error);
-          rl.question(`\nType enter to continue: `, (answer) => {
-            mainMenu();
+          break;
+        case "3":
+          db.collection('companies').find({
+            "founded_year": 2004
+          }).count((error, result) => {
+            if (error) {
+              console.log(error);
+              rl.question(`\nType enter to continue: `, (answer) => {
+                mainMenu();
+              });
+            } else {
+              console.log(result);
+              rl.question(`\nType enter to continue: `, (answer) => {
+                mainMenu();
+              });
+            }
           });
-        } else {
-          console.log(result);
-          rl.question(`\nType enter to continue: `, (answer) => {
-            mainMenu();
+          break;
+        case "4":
+          db.collection('companies').find({
+            "founded_year": 2004,
+            "founded_month": 2
+          }, {
+            name: 1,
+            _id: 0
+          }).toArray((error, result) => {
+            if (error) {
+              console.log(error);
+              rl.question(`\nType enter to continue: `, (answer) => {
+                mainMenu();
+              });
+            } else {
+              console.log(result);
+              rl.question(`\nType enter to continue: `, (answer) => {
+                mainMenu();
+              });
+            }
           });
-        }
-      });
-      break;
-      case "5":
-        break;
-      case "6":
-        break;
-      case "7":
-        break;
-      case "8":
-        break;
-      case "9":
-        break;
-      case "10":
-        break;
-      case "11":
-        break;
-      case "12":
-        break;
-      case "13":
-        break;
-      case "14":
-        break;
-      case "15":
-        break;
-      case "16":
-        break;
-      case "17":
-        break;
-      case "18":
-        break;
-      case "0":
-        console.log(`👋👋👋👋 😞 \n`);
-        db.close((error) => {
-          process.exit(0);
-        });
-        break;
-      default:
-        mainMenu();
-        break;
-    }
-  });
-}
-mainMenu();
+          break;
+        case "5":
+          db.collection('companies').find({
+            $and: [{
+                "founded_year": 2004
+              },
+              {
+                $or: [{
+                    "founded_month": 3
+                  },
+                  {
+                    "founded_month": 4
+                  },
+                  {
+                    "founded_month": 5
+                  }
+                ]
+              }
+            ]
+          }, {
+            name: 1,
+            _id: 0
+          }).sort({
+            "founded_month": 1
+          }).toArray((error, result) => {
+            if (error) {
+              console.log(error);
+              rl.question(`\nType enter to continue: `, (answer) => {
+                mainMenu();
+              });
+            } else {
+              console.log(result);
+              rl.question(`\nType enter to continue: `, (answer) => {
+                mainMenu();
+              });
+            }
+          });
+          break;
+        case "6":
+          db.collection('companies').find({"offices.city": "Barcelona"}, {
+            name: 1,
+            _id: 0
+          }).toArray((error, result) => {
+            if (error) {
+              console.log(error);
+              rl.question(`\nType enter to continue: `, (answer) => {
+                mainMenu();
+              });
+            } else {
+              console.log(result);
+              rl.question(`\nType enter to continue: `, (answer) => {
+                mainMenu();
+              });
+            }
+          });
+          break;
+        case "7":
+          break;
+        case "8":
+          break;
+        case "9":
+          break;
+        case "10":
+          break;
+        case "11":
+          break;
+        case "12":
+          break;
+        case "13":
+          break;
+        case "14":
+          break;
+        case "15":
+          break;
+        case "16":
+          break;
+        case "17":
+          break;
+        case "18":
+          break;
+        case "0":
+          console.log(`👋👋👋👋 😞 \n`);
+          db.close((error) => {
+            process.exit(0);
+          });
+          break;
+        default:
+          mainMenu();
+          break;
+      }
+    });
+  }
+  mainMenu();
 
 });
 
