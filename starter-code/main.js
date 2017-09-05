@@ -181,8 +181,7 @@ mongoClient.connect(url, (error, db) => {
                   console.log(error);
                   rl.question(`\nType enter to continue: `, (answer) => { mainMenu() });
               } else {
-								let competition = (result[0].competition) => item.is_past == false);
-									console.log(competition.map((item) => item.competitor.name));
+									console.log((result[0].competitions).map((item) => item.competitor.name));
                   rl.question(`\nType enter to continue: `, (answer) => { mainMenu() });
                   }
               });
