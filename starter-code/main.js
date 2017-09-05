@@ -86,6 +86,67 @@ mongoClient.connect(url, (error, db) => {
                 }
               });
                 break;
+
+                case "6":
+                db.collection('companies').find({"offices.city": "Barcelona"}, {name: 1, _id: 0}).toArray((error, result) => {
+                  if (error) {
+                    console.log(error);
+                    rl.question(`\nType enter to continue: `, (answer) => { mainMenu(); });
+                  } else {
+                    console.log(result);
+                    rl.question(`\nType enter to continue: `, (answer) => { mainMenu(); });
+                  }
+                });
+                  break;
+
+                  case "7":
+                  db.collection('companies').find({"name": "", "employees": ""}, {name: 1, _id: 0}).sort({"name": -1}).limit(10).toArray((error, result) => {
+                    if (error) {
+                      console.log(error);
+                      rl.question(`\nType enter to continue: `, (answer) => { mainMenu(); });
+                    } else {
+                      console.log(result);
+                      rl.question(`\nType enter to continue: `, (answer) => { mainMenu(); });
+                    }
+                  });
+                    break;
+
+                    case "8":
+                    db.collection('companies').find({"name": "Facebook"}, {name: 1, _id: 0}).toArray((error, result) => {
+                      if (error) {
+                        console.log(error);
+                        rl.question(`\nType enter to continue: `, (answer) => { mainMenu(); });
+                      } else {
+                        console.log(result);
+                        rl.question(`\nType enter to continue: `, (answer) => { mainMenu(); });
+                      }
+                    });
+                      break;
+
+                      case "9":
+                      db.collection('companies').find({"name": "Facebook"}, {employees: 1, _id:0}).count((error, result) => {
+                        if (error) {
+                          console.log(error);
+                          rl.question(`\nType enter to continue: `, (answer) => { mainMenu(); });
+                        } else {
+                          console.log(result);
+                          rl.question(`\nType enter to continue: `, (answer) => { mainMenu(); });
+                        }
+                      });
+                        break;
+
+                        case "10":
+                        db.collection('companies').find({"name": "Facebook"}, {products: 1, _id:0}).toArray((error, result) => {
+                          if (error) {
+                            console.log(error);
+                            rl.question(`\nType enter to continue: `, (answer) => { mainMenu(); });
+                          } else {
+                            console.log(result);
+                            rl.question(`\nType enter to continue: `, (answer) => { mainMenu(); });
+                          }
+                        });
+                          break;
+
           default:
             mainMenu();
             break;
