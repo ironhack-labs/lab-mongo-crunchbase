@@ -129,8 +129,6 @@ mongoClient.connect(url, (error, db) => {
 							}
 						})
             break;
-
-            break;
           case "0":
             console.log(`👋👋👋👋 😞 \n`);
             db.close((error) => { process.exit(0) });
