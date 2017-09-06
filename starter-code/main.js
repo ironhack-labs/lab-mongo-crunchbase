@@ -118,8 +118,8 @@ mongoClient.connect(url, (error, db) => {
 							}
 						})
             break;
-					case "7":
-					db.collection('companies').find({}, {name: 1, _id: 0, number_of_employees: 1}).sort({"number_of_employees": -1}).limit(10).toArray((error, result) => {
+					case "6":
+					db.collection('companies').find({"offices.city": "Barcelona"}, {name: 1, _id: 0}).toArray((error, result) => {
 						if (error) {
 						console.log(error);
 						rl.question(`\nType enter to continue: `, (answer) => { mainMenu() });
@@ -129,6 +129,16 @@ mongoClient.connect(url, (error, db) => {
 							}
 						})
             break;
+						case "7"
+						db.collection('companies').find({}, {name: 1, _id: 0, number_of_employees: 1}).sort({"number_of_employees": -1}).limit(10).toArray((error, result) => {
+							if (error) {
+							console.log(error);
+							rl.question(`\nType enter to continue: `, (answer) => { mainMenu() });
+								} else {
+									console.log(result);
+									rl.question(`\nType enter to continue: `, (answer) => { mainMenu() });
+								}
+							})
           case "0":
             console.log(`👋👋👋👋 😞 \n`);
             db.close((error) => { process.exit(0) });
