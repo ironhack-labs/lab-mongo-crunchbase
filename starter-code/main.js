@@ -125,12 +125,67 @@ mongoClient.connect(url, (error, db) => {
             })
             break
           case "10":
-            db.collection('companies').find({"name": "Facebook"}).map((error, result) => {
+            db.collection('companies').find({"name": "Facebook"}).toArray((error, result) => {
+              if (error) {
+                console.log(error)
+                rl.question(`\nType enter to continue: `, (answer) => { mainMenu() })
+              } else {
+                result[0].products.forEach(e => console.log(`Product name: ${e.name} | permalink: ${e.permalink}`))
+                rl.question(`\nType enter to continue: `, (answer) => { mainMenu() })
+              }
+            })
+            break
+          case "11":
+            db.collection('companies').find({"name": "Facebook"}).toArray((error, result) => {
+              if (error) {
+                console.log(error)
+                rl.question(`\nType enter to continue: `, (answer) => { mainMenu() })
+              } else {
+                result[0].relationships.filter(e => !e.is_past).forEach(e => console.log(`${e.person.first_name} ${e.person.last_name}`))
+                rl.question(`\nType enter to continue: `, (answer) => { mainMenu() })
+              }
+            })
+            break
+          case "12":
+            db.collection('companies').find({"name": "Facebook"}).toArray((error, result) => {
+              if (error) {
+                console.log(error)
+                rl.question(`\nType enter to continue: `, (answer) => { mainMenu() })
+              } else {
+                console.log(result[0].relationships.filter(e => e.is_past).length)
+                rl.question(`\nType enter to continue: `, (answer) => { mainMenu() })
+              }
+            })
+            break
+          case "13":
+            db.collection('companies').find({"relationships.person.permalink": "david-ebersman"}, {"name":1, "_id":0}).toArray((error, result) => {
               if (error) {
                 console.log(error)
                 rl.question(`\nType enter to continue: `, (answer) => { mainMenu() })
               } else {
                 console.log(result)
+                rl.question(`\nType enter to continue: `, (answer) => { mainMenu() })
+              }
+            })
+            break
+          case "14":
+            db.collection('companies').find({"name": "Facebook"}).toArray((error, result) => {
+              if (error) {
+                console.log(error)
+                rl.question(`\nType enter to continue: `, (answer) => { mainMenu() })
+              } else {
+                result[0].competitions.forEach(e => console.log(e.competitor.name))
+                rl.question(`\nType enter to continue: `, (answer) => { mainMenu() })
+              }
+            })
+            break
+          case "15":
+            db.collection('companies').find({"name": "Facebook"}).toArray((error, result) => {
+              if (error) {
+                console.log(error)
+                rl.question(`\nType enter to continue: `, (answer) => { mainMenu() })
+              } else {
+                result[0].competitions.forEach(e => console.log(e.competitor.name))
                 rl.question(`\nType enter to continue: `, (answer) => { mainMenu() })
               }
             })
