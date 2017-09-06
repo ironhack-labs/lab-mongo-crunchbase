@@ -1,0 +1,16 @@
+{
+  "name": "newpack",
+  "version": "1.0.0",
+  "description": "it's a newpack",
+  "main": "index.js",
+  "scripts": {
+    "start": "node main.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "me",
+  "license": "ISC",
+  "dependencies": {
+    "clear": "0.0.1",
+    "mongodb": "^2.2.31"
+  }
+}
