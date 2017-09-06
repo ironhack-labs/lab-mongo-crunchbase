@@ -1,0 +1,16 @@
+{
+  "name": "crunchbase",
+  "version": "1.0.0",
+  "description": "dayli week4",
+  "main": "index.js",
+  "scripts": {
+    "start": "node main.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "mercedes",
+  "license": "ISC",
+  "dependencies": {
+    "clear": "0.0.1",
+    "mongodb": "^2.2.31"
+  }
+}
