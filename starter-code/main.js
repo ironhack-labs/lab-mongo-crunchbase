@@ -234,7 +234,7 @@ mongoClient.connect(url, (error, db) => {
 				db.collection('companies').findOne({
 					"name": "Facebook", "relationships.is_past": false
 				}, {
-					"relationships.person.first_name": 1,
+					"relationships.person": 1,
 					_id: 0
 				}, (error, result) => {
 					if (error) {
