@@ -149,24 +149,26 @@ mongoClient.connect(url, (error, db) => {
           });
           break;
         case "7":
-				db.collection('companies').find({}, {
-					name: 1,
-					number_of_employees: 1,
-					_id: 0
-				}).sort({'number_of_employees':-1}).limit(10).toArray((error, result) => {
-					if (error) {
-						console.log(error);
-						rl.question(`\nType enter to continue: `, (answer) => {
-							mainMenu();
-						});
-					} else {
-						console.log(result);
-						rl.question(`\nType enter to continue: `, (answer) => {
-							mainMenu();
-						});
-					}
-				});
-				break;
+          db.collection('companies').find({}, {
+            name: 1,
+            number_of_employees: 1,
+            _id: 0
+          }).sort({
+            'number_of_employees': -1
+          }).limit(10).toArray((error, result) => {
+            if (error) {
+              console.log(error);
+              rl.question(`\nType enter to continue: `, (answer) => {
+                mainMenu();
+              });
+            } else {
+              console.log(result);
+              rl.question(`\nType enter to continue: `, (answer) => {
+                mainMenu();
+              });
+            }
+          });
+          break;
         case "8":
           db.collection('companies').find({
             "name": "Facebook"
@@ -209,13 +211,12 @@ mongoClient.connect(url, (error, db) => {
 				  });
 				  break;
         case "10":
-          db.collection('companies').find({
+          db.collection('companies').findOne({
             "name": "Facebook"
           }, {
-            name: 1,
-            products: 1,
+            "products.name": 1,
             _id: 0
-          }).toArray((error, result) => {
+          },(error, result) => {
             if (error) {
               console.log(error);
               rl.question(`\nType enter to continue: `, (answer) => {
@@ -230,7 +231,25 @@ mongoClient.connect(url, (error, db) => {
           });
           break;
         case "11":
-          break;
+				db.collection('companies').findOne({
+					"name": "Facebook", "relationships.is_past": false
+				}, {
+					"relationships.person.first_name": 1,
+					_id: 0
+				}, (error, result) => {
+					if (error) {
+						console.log(error);
+						rl.question(`\nType enter to continue: `, (answer) => {
+							mainMenu();
+						});
+					} else {
+						console.log(result);
+						rl.question(`\nType enter to continue: `, (answer) => {
+							mainMenu();
+						});
+					}
+				});
+				break;
         case "12":
           break;
         case "13":
