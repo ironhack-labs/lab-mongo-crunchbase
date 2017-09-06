@@ -8,7 +8,7 @@ const url = `mongodb://localhost:27017/crunchbase`;
 
 mongoClient.connect(url, (error, db) => {
   if (error) {
-    
+
     console.log('Error trying to connect to the Database');
     console.log(error);
   } else {
@@ -20,49 +20,82 @@ mongoClient.connect(url, (error, db) => {
       rl.question('Type an option: ', (option) => {
         switch (option) {
           case "1":
-          db.collection('companies').find({}, {name: 1, _id: 0}).toArray((error, result) => {
-if (error) {
-  console.log(error);
-  rl.question(`\nType enter to continue: `, (answer) => { mainMenu(); });
-} else {
-  console.log(result);
-  rl.question(`\nType enter to continue: `, (answer) => { mainMenu(); });
-}
-});
+            db.collection('companies').find({}, {
+              name: 1,
+              _id: 0
+            }).toArray((error, result) => {
+              if (error) {
+                console.log(error);
+                rl.question(`\nType enter to continue: `, (answer) => {
+                  mainMenu();
+                });
+              } else {
+                console.log(result);
+                rl.question(`\nType enter to continue: `, (answer) => {
+                  mainMenu();
+                });
+              }
+            });
             break;
           case "2":
-          db.collection('companies').count((error, result) => {
-if (error) {
-  console.log(error);
-  rl.question(`\nType enter to continue: `, (answer) => { mainMenu(); });
-} else {
-  console.log(result);
-  rl.question(`\nType enter to continue: `, (answer) => { mainMenu(); });
-}
-});
+            db.collection('companies').count((error, result) => {
+              if (error) {
+                console.log(error);
+                rl.question(`\nType enter to continue: `, (answer) => {
+                  mainMenu();
+                });
+              } else {
+                console.log(result);
+                rl.question(`\nType enter to continue: `, (answer) => {
+                  mainMenu();
+                });
+              }
+            });
             break;
-            case "3":
-            db.collection('companies').find({founded_year: {$eq:2004}}, {}).count((error, result) => {
-  if (error) {
-    console.log(error);
-    rl.question(`\nType enter to continue: `, (answer) => { mainMenu(); });
-  } else {
-    console.log(result);
-    rl.question(`\nType enter to continue: `, (answer) => { mainMenu(); });
-  }
-  });
-              break;
-              case "4":
-              db.collection('companies').find({founded_year: {$eq:2004},founded_month: {$eq:2}},{name: 1, _id: 0}).toArray((error, result) => {
-    if (error) {
-      console.log(error);
-      rl.question(`\nType enter to continue: `, (answer) => { mainMenu(); });
-    } else {
-      console.log(result);
-      rl.question(`\nType enter to continue: `, (answer) => { mainMenu(); });
-    }
-    });
-                break;
+          case "3":
+            db.collection('companies').find({
+              founded_year: {
+                $eq: 2004
+              }
+            }, {}).count((error, result) => {
+              if (error) {
+                console.log(error);
+                rl.question(`\nType enter to continue: `, (answer) => {
+                  mainMenu();
+                });
+              } else {
+                console.log(result);
+                rl.question(`\nType enter to continue: `, (answer) => {
+                  mainMenu();
+                });
+              }
+            });
+            break;
+          case "4":
+            db.collection('companies').find({
+              founded_year: {
+                $eq: 2004
+              },
+              founded_month: {
+                $eq: 2
+              }
+            }, {
+              name: 1,
+              _id: 0
+            }).toArray((error, result) => {
+              if (error) {
+                console.log(error);
+                rl.question(`\nType enter to continue: `, (answer) => {
+                  mainMenu();
+                });
+              } else {
+                console.log(result);
+                rl.question(`\nType enter to continue: `, (answer) => {
+                  mainMenu();
+                });
+              }
+            });
+            break;
           case "0":
             console.log(`👋👋👋👋 😞 \n`);
             db.close((error) => {
