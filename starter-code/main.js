@@ -193,6 +193,20 @@ mongoClient.connect(url, (error, db) => {
               });
                 break;
 
+              case "15":
+              db.collection('companies').find( {"tag_list": "social-networking"}, {_id: 0, "name": 1} ).toArray((error, result) => {
+                if (error) {
+                  console.log(error);
+                  rl.question(`\nType enter to continue: `, (answer) => { mainMenu() });
+                } else {
+                  console.log( result  );
+                  rl.question(`\nType enter to continue: `, (answer) => { mainMenu() });
+                }
+              });
+                break;
+
+
+
 
 
           case "0":
