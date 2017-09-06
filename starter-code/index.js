@@ -132,11 +132,58 @@ mongoClient.connect(url, (error, db) => {
                 console.log(error);
                 rl.question(`\nType enter to continue: `, (answer) => { mainMenu(); });
               } else {
+                result = result[0].products.forEach( (e) => console.log(e.name));
                 console.log(result);
                 rl.question(`\nType enter to continue: `, (answer) => { mainMenu(); });
               }
             });
             break;
+          case "11":
+            db.collection('companies').find({"name":"Facebook"}, {"relationships": 1, _id: 0}).toArray((error, result) => {
+              if (error) {
+                console.log(error);
+                rl.question(`\nType enter to continue: `, (answer) => { mainMenu(); });
+              } else {
+                result = result[0].relationships.filter( (e) => !e.is_past ).forEach( (e) => console.log(e.person.first_name));
+                console.log(result);
+                rl.question(`\nType enter to continue: `, (answer) => { mainMenu(); });
+              }
+            });
+            break;
+          case "12":
+            db.collection('companies').find({"name":"Facebook"}, {"relationships": 1, _id: 0}).toArray((error, result) => {
+              if (error) {
+                console.log(error);
+                rl.question(`\nType enter to continue: `, (answer) => { mainMenu(); });
+              } else {
+                result = result[0].relationships.filter( (e) => e.is_past ).length;
+                console.log(result);
+                rl.question(`\nType enter to continue: `, (answer) => { mainMenu(); });
+              }
+            });
+            break;
+          case "13":
+            db.collection('companies').find({"relationships.person.permalink":"david-ebersman"}, {"name": 1, _id: 0}).toArray((error, result) => {
+              if (error) {
+                console.log(error);
+                rl.question(`\nType enter to continue: `, (answer) => { mainMenu(); });
+              } else {
+                console.log(result);
+                rl.question(`\nType enter to continue: `, (answer) => { mainMenu(); });
+              }
+            });
+              break;
+            case "14":
+              db.collection('companies').find({"competitions.competitor.name":"Facebook"}, {"name": 1, _id: 0}).toArray((error, result) => {
+                if (error) {
+                  console.log(error);
+                  rl.question(`\nType enter to continue: `, (answer) => { mainMenu(); });
+                } else {
+                  console.log(result);
+                  rl.question(`\nType enter to continue: `, (answer) => { mainMenu(); });
+                }
+              });
+                break;
 
           case "0":
             console.log(`👋👋👋👋 😞 \n`);
