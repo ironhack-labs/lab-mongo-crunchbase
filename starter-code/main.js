@@ -254,7 +254,7 @@ mongoClient.connect(url, (error, db) => {
           case "12":
             db.collection('companies').find({
               'name': 'Facebook'
-            }, {}).toArray((error, result) => {
+            }, {'relationships':1, _id:0}).toArray((error, result) => {
               if (error) {
                 console.log(error);
                 rl.question(`\nType enter to continue: `, (answer) => {
@@ -269,8 +269,7 @@ mongoClient.connect(url, (error, db) => {
             });
             break;
           case "13":
-            db.collection('companies').find({
-              "relationships.person.permalink": "david-ebersman"
+            db.collection('companies').find({'relationships.person.permalink':'david-ebersman'
             }, {
               name: 1,
               _id: 0
