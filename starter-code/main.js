@@ -34,7 +34,17 @@ function mainMenu(db) {
       case "8": getFacebookCompany(db); break;
       case "9": numFacebookEmployees(db); break;
       case "10": allFacebookProducts(db); break;
+      case "11": employeesNamesNowAtFacebook(db); break;
+      case "12": numFacebookExEmployees(db); break;
+      case "13": allCompaniesWhereDavidEbersmanHasWorked(db); break;
 
+
+
+      case "14": facebookCompetitorsSortByName(db); break;
+      case "15": companiesNameWithSocialNetworkingAsTagList(db); break;
+      case "16": numCompaniesWithSocialNetworkingAsTagListFounded2002And2016(db); break;
+      case "17": companiesNamesAndLocationWithLondonOffices(db); break;
+      case "18": numCompaniesWithSocialNetworkingAsTagListFounded2002And2016inNY(db); break;
       case "0":
         console.log(`👋👋👋👋 😞 \n`)
         db.close((error) => {
@@ -133,6 +143,68 @@ function allFacebookProducts(db) {
     errorOrResult(error, result, db)
   })
 }
+
+function employeesNamesNowAtFacebook(db) {
+  db.collection('companies').find({name: "Facebook"}, {"relationships.person": 1, _id: 0}).toArray((error, result) => {
+    result = result[0].relationships.filter(e => !e.is_past)
+    errorOrResult(error, result, db)
+  })
+}
+
+function numFacebookExEmployees(db) {
+  db.collection('companies').find({name: "Facebook"}, {"relationships": 1, _id: 0}).toArray((error, result) => {
+    result = result[0].relationships.filter(e => e.is_past).length
+    errorOrResult(error, result, db)
+  })
+}
+
+function allCompaniesWhereDavidEbersmanHasWorked(db) {
+  db.collection('companies').find({"relationships.person.permalink": "david-ebersman"}, {name: 1, _id: 0}).toArray((error, result) => {
+    errorOrResult(error, result, db)
+  })
+}
+
+
+
+
+//TODO
+
+
+
+
+
+
+
+function facebookCompetitorsSortByName(db) {
+  // db.collection('companies').find({name: "Facebook"}, {name: 1, "products.name": 1, _id: 0}).toArray((error, result) => {
+  //   errorOrResult(error, result, db)
+  // })
+}
+
+function companiesNameWithSocialNetworkingAsTagList(db) {
+  // db.collection('companies').find({name: "Facebook"}, {name: 1, "products.name": 1, _id: 0}).toArray((error, result) => {
+  //   errorOrResult(error, result, db)
+  // })
+}
+
+function numCompaniesWithSocialNetworkingAsTagListFounded2002And2016(db) {
+  // db.collection('companies').find({name: "Facebook"}, {name: 1, "products.name": 1, _id: 0}).toArray((error, result) => {
+  //   errorOrResult(error, result, db)
+  // })
+}
+
+function companiesNamesAndLocationWithLondonOffices(db) {
+  // db.collection('companies').find({name: "Facebook"}, {name: 1, "products.name": 1, _id: 0}).toArray((error, result) => {
+  //   errorOrResult(error, result, db)
+  // })
+}
+
+function numCompaniesWithSocialNetworkingAsTagListFounded2002And2016inNY(db) {
+  // db.collection('companies').find({name: "Facebook"}, {name: 1, "products.name": 1, _id: 0}).toArray((error, result) => {
+  //   errorOrResult(error, result, db)
+  // })
+}
+
 
 function errorOrResult(error, result, db) {
   if (error) {
