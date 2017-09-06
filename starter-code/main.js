@@ -8,6 +8,7 @@ const url = `mongodb://localhost:27017/crunchbase`;
 
 mongoClient.connect(url, (error, db) => {
   if (error) {
+    
     console.log('Error trying to connect to the Database');
     console.log(error);
   } else {
