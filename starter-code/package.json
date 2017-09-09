@@ -1,0 +1,19 @@
+{
+  "name": "starter-code",
+  "version": "1.0.0",
+  "main": "index.js",
+  "scripts": {
+    "start": "nodemon main.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "clear": "0.0.1",
+    "mongodb": "^2.2.31",
+    "nodemon": "^1.12.0",
+    "save": "^2.3.1"
+  },
+  "description": ""
+}
