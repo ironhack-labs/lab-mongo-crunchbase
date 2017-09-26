@@ -1,0 +1,228 @@
+{
+	"_id": {
+		"$oid": "52cdef7c4bab8bd675297d90"
+	},
+	"name": "Postini",
+	"permalink": "postini",
+	"crunchbase_url": "http://www.crunchbase.com/company/postini",
+	"homepage_url": "http://postini.com",
+	"blog_url": "",
+	"blog_feed_url": "",
+	"twitter_username": null,
+	"category_code": "web",
+	"number_of_employees": null,
+	"founded_year": 1999,
+	"founded_month": 6,
+	"founded_day": 2,
+	"deadpooled_year": null,
+	"deadpooled_month": null,
+	"deadpooled_day": null,
+	"deadpooled_url": null,
+	"tag_list": "",
+	"alias_list": null,
+	"email_address": "",
+	"phone_number": "888.584.3150",
+	"description": null,
+	"created_at": "Fri Jun 08 12:19:51 UTC 2007",
+	"updated_at": "Sat Aug 13 18:02:34 UTC 2011",
+	"overview": "<p>Postini focuses on two main issues: security and compliance. Postini states that it handles more than 1 billion messages everyday and protects more than 35,000 businesses worldwide.</p>\n\n<p>Postini offers solutions that protect your company from malicious internet attacks. The Postini Communications Suite eliminates unwanted content from email, instant messaging, and the web. Postini aims to increase business productivity. It will also automatically encrypt senstive messages between you and business partners.</p>\n\n<p>Postini currently holds two patents in the area of security and compliance. It was acquired by <a href=\"/company/google\" title=\"Google\" rel=\"nofollow\">Google</a> in 2007 and now operates as a subsidiary.</p>",
+	"image": {
+		"available_sizes": [
+			[
+				[150, 61], "assets/images/resized/0000/3697/3697v1-max-150x150.png"
+			],
+			[
+				[183, 75], "assets/images/resized/0000/3697/3697v1-max-250x250.png"
+			],
+			[
+				[183, 75], "assets/images/resized/0000/3697/3697v1-max-450x450.png"
+			]
+		],
+		"attribution": null
+	},
+	"products": [{
+		"name": "Postini Solutions",
+		"permalink": "postini-solutions"
+	}],
+	"relationships": [{
+		"is_past": false,
+		"title": "Board",
+		"person": {
+			"first_name": "Scott",
+			"last_name": "Petry",
+			"permalink": "scott-petry"
+		}
+	}, {
+		"is_past": null,
+		"title": "Board",
+		"person": {
+			"first_name": "Don",
+			"last_name": "Beck",
+			"permalink": "don-beck"
+		}
+	}, {
+		"is_past": null,
+		"title": "Board",
+		"person": {
+			"first_name": "Murray",
+			"last_name": "J. Demo",
+			"permalink": "murray-j-demo"
+		}
+	}, {
+		"is_past": false,
+		"title": "Director",
+		"person": {
+			"first_name": "Harrison",
+			"last_name": "B. Miller",
+			"permalink": "harrison-b-miller"
+		}
+	}, {
+		"is_past": true,
+		"title": "CFO",
+		"person": {
+			"first_name": "Murray",
+			"last_name": "J. Demo",
+			"permalink": "murray-j-demo"
+		}
+	}, {
+		"is_past": true,
+		"title": "VP Marketing",
+		"person": {
+			"first_name": "Steve",
+			"last_name": "Kahan",
+			"permalink": "steve-kahan"
+		}
+	}, {
+		"is_past": true,
+		"title": "SVP Sales and Marketing",
+		"person": {
+			"first_name": "Mike",
+			"last_name": "Purcell",
+			"permalink": "mike-purcell"
+		}
+	}, {
+		"is_past": true,
+		"title": "Executive Vice President",
+		"person": {
+			"first_name": "Jocelyn",
+			"last_name": "Ding",
+			"permalink": "jocelyn-ding"
+		}
+	}, {
+		"is_past": true,
+		"title": "Board",
+		"person": {
+			"first_name": "Quentin",
+			"last_name": "Gallivan",
+			"permalink": "quentin-gallivan"
+		}
+	}, {
+		"is_past": true,
+		"title": "Sr. EMEA Operations & Tech Support Manager",
+		"person": {
+			"first_name": "James",
+			"last_name": "Chivers",
+			"permalink": "james-chivers"
+		}
+	}, {
+		"is_past": true,
+		"title": "VP Client Services",
+		"person": {
+			"first_name": "Mark",
+			"last_name": "Fishwick",
+			"permalink": "mark-fishwick"
+		}
+	}, {
+		"is_past": true,
+		"title": "Board Member",
+		"person": {
+			"first_name": "Raman",
+			"last_name": "Khanna",
+			"permalink": "raman-khanna"
+		}
+	}, {
+		"is_past": true,
+		"title": "Board Member",
+		"person": {
+			"first_name": "Ryan",
+			"last_name": "McIntyre",
+			"permalink": "ryan-mcintyre"
+		}
+	}, {
+		"is_past": true,
+		"title": "Investor",
+		"person": {
+			"first_name": "John",
+			"last_name": "Johnston",
+			"permalink": "john-johnston"
+		}
+	}, {
+		"is_past": true,
+		"title": "Board Member",
+		"person": {
+			"first_name": "Roger",
+			"last_name": "S. Siboni",
+			"permalink": "roger-s-siboni"
+		}
+	}, {
+		"is_past": true,
+		"title": "Channel Sales",
+		"person": {
+			"first_name": "Al",
+			"last_name": "Powell",
+			"permalink": "al-powell"
+		}
+	}],
+	"competitions": [{
+		"competitor": {
+			"name": "RescueTime",
+			"permalink": "rescuetime"
+		}
+	}, {
+		"competitor": {
+			"name": "MailBlocks",
+			"permalink": "mailblocks"
+		}
+	}, {
+		"competitor": {
+			"name": "Suzerein Solutions",
+			"permalink": "suzerein-solutions"
+		}
+	}],
+	"providerships": [],
+	"total_money_raised": "$0",
+	"funding_rounds": [],
+	"investments": [],
+	"acquisition": {
+		"price_amount": 625000000,
+		"price_currency_code": "USD",
+		"term_code": "cash",
+		"source_url": "http://www.techcrunch.com/2007/07/09/google-acquires-postini-for-625-million/",
+		"source_description": "http://www.techcrunch.com/2007/07/09/google-acquires-postini-for-625-million/",
+		"acquired_year": 2007,
+		"acquired_month": 7,
+		"acquired_day": 9,
+		"acquiring_company": {
+			"name": "Google",
+			"permalink": "google"
+		}
+	},
+	"acquisitions": [],
+	"offices": [{
+		"description": null,
+		"address1": "959 Skyway Road, Suite 200",
+		"address2": null,
+		"zip_code": "94070",
+		"city": "San Carlos",
+		"state_code": "CA",
+		"country_code": "USA",
+		"latitude": 37.506885,
+		"longitude": -122.247573
+	}],
+	"milestones": [],
+	"ipo": null,
+	"video_embeds": [],
+	"screenshots": [],
+	"external_links": [],
+	"partners": []
+}
