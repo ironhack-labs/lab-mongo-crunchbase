@@ -235,6 +235,111 @@ function mainMenu(){
 						 }
 						});
 					break;
+					case "14": //14.- List by name the competitors of Facebook
+						console.log('you typed 14');
+						db.collection('companies')
+							.find({ $where: "this.competitions.length > 0" },{"name":"1","competitions":1})
+							.toArray((error, result) => {
+								if (error) {
+								 console.log(error);
+								 continueEnter();
+							 } else {
+								 let listOfCompetitors = [];
+								 console.log("Competitors Facebook");
+								 result.forEach((competitors) =>{
+									 competitors.competitions.forEach((allcompetitors) =>{
+										 if (allcompetitors.competitor.name == "Facebook"){
+											 listOfCompetitors.push(competitors.name);
+										 }
+									 });
+								 });
+								 console.log(`Facebook competitors: ${listOfCompetitors}`);
+								 continueEnter();
+						 }
+						});
+					break;
+					case "15": //14.- List by name the competitors of Facebook
+						console.log('you typed 15');
+						db.collection('companies')
+							.find({ "tag_list": {$regex : "social-networking"} },{"name":"1","tag_list":1})
+							.toArray((error, result) => {
+								if (error) {
+								 console.log(error);
+								 continueEnter();
+							 } else {
+								 console.log(result);
+								 continueEnter();
+						 }
+						});
+					break;
+					case "16": //14.- List by name the competitors of Facebook
+						console.log('you typed 16');
+						db.collection('companies')
+							.find({$and:
+								[{"founded_year" : {$gte: 2002}},{"founded_year" : {$lte: 2016}}],
+								 "tag_list": {$regex : "social-networking"} },{"name":"1","tag_list":1, "founded_year":1})
+							.toArray((error, result) => {
+								if (error) {
+								 console.log(error);
+								 continueEnter();
+							 } else {
+								 console.log(result);
+								 continueEnter();
+						 }
+						});
+					break;
+					case "17": //17.- Names and locations of companies that have offices in London
+						console.log('you typed 17');
+						db.collection('companies')
+							.find({}, {"name":1, "_id":0, "offices.city":1})
+							.toArray((error, result) => {
+								if (error) {
+								 console.log(error);
+								 continueEnter();
+							 } else {
+								 console.log(result)
+								 let placeAndLocation = [];
+								 result.forEach((listOffices) =>{
+									 let placesTemp = [];
+									 let swContain = 0;
+									 listOffices.offices.forEach((placeOffices) =>{
+										 placesTemp.push(placeOffices.city);
+										 if (placeOffices.city == "London" || swContain != 0)
+										 	swContain = 1;
+									 });
+									 if (swContain != 0){
+										 placeAndLocation.push(listOffices.name,placesTemp);
+									 }
+								 });
+								 console.log("Office's company locations with company in London")
+								 console.log(placeAndLocation);
+								 continueEnter();
+						 }
+						});
+					case "18": //14.- List by name the competitors of Facebook
+						console.log('you typed 18');
+						db.collection('companies')
+							.find({$and:
+								[{"founded_year" : {$gte: 2002}},{"founded_year" : {$lte: 2016}}],
+								 "tag_list": {$regex : "social-networking"} },{"name":"1","tag_list":1, "founded_year":1, "offices":1})
+							.toArray((error, result) => {
+								if (error) {
+								console.log(error)
+								//  console.log(error);
+								 continueEnter();
+							 } else {
+								 let count=0;
+								 result.forEach((listOffices) =>{
+									 listOffices.offices.forEach((placeOffices) =>{
+										 if (placeOffices.city == "New York")
+										 	count++;
+									 });
+								 });
+								 console.log(`There are ${count} companies with tag-list social-networking, founded >2002 2016< with offices in NY`);
+								 continueEnter();
+						 }
+						});
+					break;
           case "0":
             console.log(`👋👋👋👋 😞 \n`);
             db.close((error) => { process.exit(0) });
