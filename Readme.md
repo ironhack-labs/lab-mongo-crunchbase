@@ -77,21 +77,32 @@ Until now we have created the connection with MongoDB Database.
 
 Let's create the mainMenu, copy the following function after `mongoClient.connect();`
 
+mongoimport --db crunchbase  --collection companies --file companies.json
 
 ```javascript
 function printMenu(){
 	console.log(`
 0.- Exit
 1.- List by name all companies.
+```db.companies.find({}, {name: 1, _id: 0})```
 2.- How many companies are there?
+```db.companies.count()```
 3.- How many companies were founded in 2004?
+```db.companies.find({"founded_year" : 2004}).count()```
 4.- List by name all companies founded in february of 2004.
+```db.companies.find({$and:[{"founded_year" : 2004 },{"founded_month" : 2}]},{name: 1, _id: 0})```
 5.- List by name all companies founded in the summer of 2004 (april to june) sorted by date.
+```db.companies.find({$and:[{"founded_year" : 2004 },{$or:[{"founded_month" : 4},{"founded_month" : 5},{"founded_month" : 6}]}]},{name: 1, _id: 0}).sort({"founded_month":-1})```
 6.- What companies have offices in "Barcelona".
+```db.companies.find({"offices.city": "Barcelona"},{ name: 1, _id: 0})```
 7.- List the 10 companies with more employees sorted ascending (show name and employees).
+```db.companies.find({}, {"name":1, _id: 0}).sort({"number_of_employees":-1}).limit(10);```
 8.- Find the company with the name "Facebook"
+```db.companies.find({"name":"Facebook"});```
 9.- How many employees has Facebook?
+```db.companies.find({"name":"Facebook"},{"number_of_employees": 1, _id: 0})```
 10.- List the name of all the products of Facebook
+```db.companies.find({"name":"Facebook"},{"products.name":1, _id:0}).pretty();```
 11.- List the people that are working at Facebook right now (check relationships field)
 12.- How many people are not working anymore at Facebook
 13.- List all the companies where "david-ebersman" has worked.
