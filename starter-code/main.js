@@ -100,7 +100,8 @@ mongoClient.connect(url, (error, db) => {
                 console.log(error);
                 rl.question(`\nType enter to continue: `, (answer) => { mainMenu() });
               } else {
-                console.log(result.reverse()); rl.question(`\nType enter to continue: `, (answer) => { mainMenu() });
+                console.log(result.reverse());
+                rl.question(`\nType enter to continue: `, (answer) => { mainMenu() });
               }
             });
             break;
@@ -137,6 +138,121 @@ mongoClient.connect(url, (error, db) => {
               } else {
                 result[0].products.forEach(function(e){
                   console.log(e.name);
+                });
+                rl.question(`\nType enter to continue: `, (answer) => { mainMenu() });
+              }
+            });
+            break;
+          case "11":
+            db.collection('companies').find({name:'Facebook'}, {relationships:1, _id: 0})
+            .toArray((error, result) => {
+              if (error) {
+                console.log(error);
+                rl.question(`\nType enter to continue: `, (answer) => { mainMenu() });
+              } else {
+                  result[0].relationships.forEach(function(e){
+                    if(!e.is_past) console.log(`${e.person.first_name} ${e.person.last_name} ${e.title}`);
+                  });
+                rl.question(`\nType enter to continue: `, (answer) => { mainMenu() });
+              }
+            });
+            break;
+          case "12":
+            db.collection('companies').find({name:'Facebook'}, {relationships:1, _id: 0})
+            .toArray((error, result) => {
+              if (error) {
+                console.log(error);
+                rl.question(`\nType enter to continue: `, (answer) => { mainMenu() });
+              } else {
+                let sum = 0;
+                result[0].relationships.forEach(function(e){
+                  if(e.is_past) sum++
+                });
+                console.log(sum);
+                rl.question(`\nType enter to continue: `, (answer) => { mainMenu() });
+              }
+            });
+            break;
+          case "13":
+            db.collection('companies').find( { 'relationships.person.first_name': 'David',
+            'relationships.person.last_name': 'Ebersman' }, { name: 1, _id: 0})
+            .toArray((error, result) => {
+              if (error) {
+                console.log(error);
+                rl.question(`\nType enter to continue: `, (answer) => { mainMenu() });
+              } else {
+                console.log(result);
+                rl.question(`\nType enter to continue: `, (answer) => { mainMenu() });
+              }
+            });
+            break;
+          case "14":
+            db.collection('companies').find( { name: 'Facebook' } , { competitions: 1, _id: 0 })
+            .toArray((error, result) => {
+              if (error) {
+                console.log(error);
+                rl.question(`\nType enter to continue: `, (answer) => { mainMenu() });
+              } else {
+                result[0].competitions.forEach(function(e){
+                  console.log(e.competitor.name);
+                });
+                rl.question(`\nType enter to continue: `, (answer) => { mainMenu() });
+              }
+            });
+            break;
+          case "15":
+            db.collection('companies').find({ tag_list: { $regex: /social-networking/ }},
+              {name: 1, tag_list: 1, _id: 0}).toArray((error, result) => {
+              if (error) {
+                console.log(error);
+                rl.question(`\nType enter to continue: `, (answer) => { mainMenu() });
+              } else {
+                result.forEach(function(e){
+                  console.log(e.name);
+                })
+                rl.question(`\nType enter to continue: `, (answer) => { mainMenu() });
+              }
+            });
+            break;
+          case "16":
+            db.collection('companies').find({ tag_list: { $regex: /social-networking/ } ,
+              founded_year: { $gte: 2002, $lte: 2016 } },
+               {name: 1, tag_list: 1, founded_year:1, _id: 0}).count((error, result) => {
+              if (error) {
+                console.log(error);
+                rl.question(`\nType enter to continue: `, (answer) => { mainMenu() });
+              } else {
+                console.log(result);
+                rl.question(`\nType enter to continue: `, (answer) => { mainMenu() });
+              }
+            });
+            break;
+          case "17":
+            db.collection('companies').find({'offices.city':'London'}, {name:1, offices:1, _id:0})
+            .toArray((error, result) => {
+              if (error) {
+                console.log(error);
+                rl.question(`\nType enter to continue: `, (answer) => { mainMenu() });
+              } else {
+                result.forEach(function(e){
+                  console.log(`Empresa ${e.name}:`);
+                  console.log(e.offices);
+                });
+                rl.question(`\nType enter to continue: `, (answer) => { mainMenu() });
+              }
+            });
+            break;
+          case "18":
+            db.collection('companies').find({ tag_list: { $regex: /social-networking/ } ,
+              founded_year: { $gte: 2002, $lte: 2016 } , 'offices.city':'New York' },
+               {name:1, founded_year:1, offices:1, _id: 0}).toArray((error, result) => {
+              if (error) {
+                console.log(error);
+                rl.question(`\nType enter to continue: `, (answer) => { mainMenu() });
+              } else {
+                //console.log(result);
+                result.forEach(function(e){
+                  console.log(e);
                 });
                 rl.question(`\nType enter to continue: `, (answer) => { mainMenu() });
               }
