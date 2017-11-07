@@ -16,7 +16,6 @@ Inside the starter-code folder you will find the crunchdatabase file.
 
 Use mongoimport to import into `companies` collection in `crunchbase` database
 
-
 💡 Check mongoimport documentation if you don't remember how to do it. 💡
 
 

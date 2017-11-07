@@ -3,12 +3,11 @@ const mongoClient = MongoDB.MongoClient;
 const clear = require('clear');
 const readline = require('readline');
 const rl = readline.createInterface({
-	input: process.stdin,
-	output: process.stdout
+  input: process.stdin,
+  output: process.stdout
 });
 
 const url = `mongodb://localhost:27017/crunchbase`
-
 mongoClient.connect(url, (error, db) => {
   if (error) {
     console.log('Error trying to connect to the Database');
@@ -19,8 +18,8 @@ mongoClient.connect(url, (error, db) => {
   }
 });
 
-function printMenu(){
-	console.log(`
+function printMenu() {
+  console.log(`
 0.- Exit
 1.- List by name all companies.
 2.- How many companies are there?
@@ -41,4 +40,68 @@ function printMenu(){
 17.- Names and locations of companies that have offices in London
 18.- How many companies that has "social-network" in tag-list and founded between 2002 and 2016 inclusive and has offices in New York
 `);
+}
+
+
+mongoClient.connect(url, (error, db) => {
+  if (error) {
+    console.log('Error trying to connect to the Database');
+    console.log(error);
+  } else {
+    console.log('Connection established correctly!! 😬');
+    function mainMenu() {
+      clear();
+      printMenu();
+      rl.question('Type an option: ', (option) => {
+        switch (option) {
+          case "1":
+          db.collection('companies').find({}, {
+            name: 1, _id: 0
+          }).toArray((error, result) => {
+            if (error) {
+              console.log(error);
+              rl.question(`\nType enter to continue: `, (answer) => { mainMenu() });
+            } else {
+              console.log(result);
+              rl.question(`\nType enter to continue: `, (answer) => { mainMenu() });
+            }
+          });
+          break;
+
+          case "2":
+            db.collection('companies').find({}, {name: 1,_id: 0}).count((error, result) => {
+              if (error) {
+                console.log(error);
+                rl.question(`\nType enter to continue: `, (answer) => {
+                  mainMenu();
+                });
+              }else {
+                console.log(result);
+                rl.question(`\nType enter to continue: `, (answer) => {
+                  mainMenu();
+                });
+              }
+            });
+            break;
+            
+          case "0":
+            console.log(`👋👋👋👋 😞 \n`);
+            db.close((error) => {
+              process.exit(0)
+            });
+            break;
+
+          default:
+            mainMenu();
+            break;
+        }
+      });
+    }
+
+    mainMenu();
+
+  }
+});
+
+function printMenu() {
 }
