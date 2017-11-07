@@ -1,0 +1,28 @@
+{
+  "name": "lab-mongo-crunchbase",
+  "version": "1.0.0",
+  "description": "Ironhack Daily Exercise",
+  "main": "main.js",
+  "scripts": {
+    "test": "test"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/cucharadepalo/lab-mongo-shop.git"
+  },
+  "keywords": [
+    "ironhack",
+    "mongo",
+    "crunchbase"
+  ],
+  "author": "Abraham Castro",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/cucharadepalo/lab-mongo-shop/issues"
+  },
+  "homepage": "https://github.com/cucharadepalo/lab-mongo-shop#readme",
+  "dependencies": {
+    "clear": "0.0.1",
+    "mongodb": "^2.2.33"
+  }
+}
