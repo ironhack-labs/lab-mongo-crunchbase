@@ -31,7 +31,7 @@ function mainMenu(){
 	                continueEnter();
 	              } else {
 	                console.log(result);
-	                continueEnter();s
+	                continueEnter();
 	              }
 	            })
             break;
