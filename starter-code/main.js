@@ -109,7 +109,7 @@ mongoClient.connect(url, (error, db) => {
                 console.log(error);
                 rl.question(`\nType enter to continue: `, (answer) => { mainMenu() });
               } else {
-                console.log(result);
+                console.log(result.reverse());
                 rl.question(`\nType enter to continue: `, (answer) => { mainMenu() });
               }
             })
