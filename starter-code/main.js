@@ -465,6 +465,41 @@ mongoClient.connect(url, (error, db) => {
               }
             })
             break;
+          case "21":
+            db.collection('companies').aggregate([{
+                $match: {
+                  "founded_year": 2004
+                }
+              },
+              {
+                $unwind: "$funding_rounds"
+              },
+              {
+                $group: {
+                  _id: "$name",
+                  "fundSum": {
+                    $sum: "$funding_rounds.raised_amount"
+                  },
+                  "allFunds" :
+                    { $push: "$funding_rounds"},
+                },
+              }
+            ], (error, result) => {
+              if (error) {
+                console.log(error);
+                rl.question(`\nType enter to continue: `, (answer) => {
+                  mainMenu()
+                });
+              } else {
+                result.map(e=>{
+                  if(e.allFunds.length>=5) console.log(`Company: ${e._id}, Funds Average: ${e.fundSum/e.allFunds.length}`)
+                });
+                rl.question(`\nType enter to continue: `, (answer) => {
+                  mainMenu()
+                });
+              }
+            })
+            break;
           case "0":
             console.log(`👋👋👋👋 😞 \n`);
             db.close((error) => {
