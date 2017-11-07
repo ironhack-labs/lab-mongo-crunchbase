@@ -54,6 +54,7 @@ mongoClient.connect(url, (error, db) => {
       printMenu();
       rl.question('Type an option: ', (option) => {
         switch (option) {
+
           case "1":
           db.collection('companies').find({}, {
             name: 1, _id: 0
@@ -83,7 +84,73 @@ mongoClient.connect(url, (error, db) => {
               }
             });
             break;
-            
+
+            case "3":
+            db.collection('companies').find({"founded_year":2004}).count((error, result) => {
+              if (error) {
+                console.log(error);
+                rl.question(`\nType enter to continue: `, (answer) => {
+                  mainMenu();
+               });
+             } else {
+               console.log(result);
+                rl.question(`\nType enter to continue: `, (answer) => {
+                  mainMenu();
+                });
+              }
+            });
+            break;
+
+            case "4":
+            db.collection('companies').find({founded_year:2004,founded_month:2},{name:1,_id:0}).toArray((error, result) => {
+              if (error) {
+                console.log(error);
+                pressEnter();
+              }else{
+                console.log(result);
+                pressEnter();
+              }
+            })
+            break; 
+
+            case "5":
+              db.companies.find({"founded_year": 2004} && {"founded_month": { $gt: 3 }} && {"founded_month": { $lt: 7 }}, {name: 1, _id: 0}).sort({"founded_day": -1});
+            break;
+
+            case "6":
+              db.companies.find({"offices.city" : "Barcelona"}, {name: 1, _id: 0})
+            break;
+
+            case "8":
+              db.companies.find({"name":"Facebook"})
+            break;
+
+            case "9":
+              db.companies.find({"name":"Facebook"}, {"number_of_employees":1, _id:0})
+            break;
+
+            case "10":
+              db.companies.find({name: "Facebook"},{"products.name": 1, "_id":0 }).pretty()
+            break;
+
+            case "11":
+            db.collection('companies').find({"name":"Facebook"},{"relationships":1})
+            		.toArray((error, result) => {
+                        if (error) {
+                            console.log(error);
+                            continueEnter();
+                        } else {
+                            var fb = result[0];
+                            fb.relationships.forEach(function( employee ) {
+                            if (!employee.is_past) {
+                                console.log(employee.person);
+                            }
+                        });
+                        continueEnter();
+                        }
+                    });
+            break;
+
           case "0":
             console.log(`👋👋👋👋 😞 \n`);
             db.close((error) => {
