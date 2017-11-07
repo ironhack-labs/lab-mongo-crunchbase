@@ -283,6 +283,49 @@ mongoClient.connect(url, (error, db) => {
             }
           })
           break;
+					//BONUSES!
+					case "19":
+					db.collection('companies').distinct('category_code', (error, result) => {
+						if (error) {
+							console.log(error);
+							rl.question(`\nType enter to continue: `, (answer) => { mainMenu() });
+						} else {
+							console.log(result);
+							rl.question(`\nType enter to continue: `, (answer) => { mainMenu() });
+						}
+					})
+					break;
+					case "20":
+          db.collection('companies').find({$text: {$search: 'Google'}}, {name: 1, _id: 0}).count((error, result) => {
+            if (error) {
+              console.log(error);
+              rl.question(`\nType enter to continue: `, (answer) => { mainMenu() });
+            } else {
+              console.log(result);
+              rl.question(`\nType enter to continue: `, (answer) => { mainMenu() });
+            }
+          })
+          break;
+					case "21":
+          db.collection('companies').aggregate([
+						{ $match: {"founded_year": 2004}},
+						{ $project: {name: 1, funding_rounds: 1, _id: 1}},
+						{ $group: {_id: "$funding_rounds"}}
+						//Con esto filtro por año de fundación, selecciono el nombre,
+						//las rondas de selección y el id. Luego agrupo pero no encuentro
+						//cómo contar los elementos de "funding". He probado con $count, pero
+						//no me sale. Y tampoco encuentro cómo evaluar condiciones en esta versión
+						//de Mongo, la 2.6
+					], (error, result) => {
+						if (error) {
+							console.log(error);
+							rl.question(`\nType enter to continue: `, (answer) => { mainMenu() });
+						} else {
+							console.log(result);
+							rl.question(`\nType enter to continue: `, (answer) => { mainMenu() });
+						}
+					})
+          break;
           case "0":
             console.log(`👋👋👋👋 😞 \n`);
             db.close((error) => { process.exit(0) });
@@ -318,5 +361,9 @@ function printMenu(){
      16.- How many companies that has "social-network" in tag-list and founded between 2002 and 2016 inclusive
      17.- Names and locations of companies that have offices in London
      18.- How many companies that has "social-network" in tag-list and founded between 2002 and 2016 inclusive and has offices in New York
+		 --BONUSES--
+		 19.- Find all the distinct categories, so list all unique categories
+		 20.- How many companies Google in their overview
+		 21.- Find companies founded in 2004 and having 5 or more rounds of funding, calculate the average amount raised (Doesn't work)
      `);
    }
