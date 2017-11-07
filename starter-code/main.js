@@ -67,7 +67,36 @@ mongoClient.connect(url, (error, db) => {
 									rl.question(`\nType enter to continue: `, (answer) => { mainMenu(); });
 								}
 							});
+
 								break;
+								case "5":
+									db.collection('companies')
+									.find({
+										"founded_year":2004,
+										$and: [{"founded_month":{ $gt: 3 }},{"founded_month": { $lt: 7 }}]},{"name":true,"_id":false}).sort( { "founded_year": 1, "founded_month": 1,"founded_day": 1 } ).toArray((error, result) => {
+									if (error) {
+										console.log(error);
+										rl.question(`\nType enter to continue: `, (answer) => { mainMenu(); });
+									} else {
+										console.log(result);
+										rl.question(`\nType enter to continue: `, (answer) => { mainMenu(); });
+									}
+								});
+									break;
+
+									case "6":
+										db.collection('companies')
+										.find( { "offices.city" : "Barcelona" } , {"name":true,"_id":false}).toArray((error, result) => {
+										if (error) {
+											console.log(error);
+											rl.question(`\nType enter to continue: `, (answer) => { mainMenu(); });
+										} else {
+											console.log(result);
+											rl.question(`\nType enter to continue: `, (answer) => { mainMenu(); });
+										}
+									});
+										break;
+
 
 
           case "0":
