@@ -33,7 +33,7 @@ mongoClient.connect(url, (error, db) => {
           });
             break;
           case "2":
-          db.collection('companies').find({}, {name: 1, _id: 0}).count((error, result) => {
+          db.collection('companies').count({}, {name: 1, _id: 0} , (error, result) => {
             if (error) {
               console.log(error);
               rl.question(`\nType enter to continue: `, (answer) => { mainMenu() });
@@ -44,7 +44,7 @@ mongoClient.connect(url, (error, db) => {
           });
             break;
           case "3":
-            db.collection('companies').find({"founded_year": 2004}, {_id: 1,}).count((error, result) => {
+            db.collection('companies').count({"founded_year": 2004}, {_id: 1,}, (error, result) => {
               if (error) {
                 console.log(error);
                 rl.question(`\nType enter to continue: `, (answer) => { mainMenu() });
@@ -215,9 +215,9 @@ mongoClient.connect(url, (error, db) => {
             });
             break;
           case "16":
-            db.collection('companies').find({ tag_list: { $regex: /social-networking/ } ,
+            db.collection('companies').count({ tag_list: { $regex: /social-networking/ } ,
               founded_year: { $gte: 2002, $lte: 2016 } },
-               {name: 1, tag_list: 1, founded_year:1, _id: 0}).count((error, result) => {
+               {name: 1, tag_list: 1, founded_year:1, _id: 0} , (error, result) => {
               if (error) {
                 console.log(error);
                 rl.question(`\nType enter to continue: `, (answer) => { mainMenu() });
