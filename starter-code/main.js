@@ -141,6 +141,20 @@ mongoClient.connect(url, (error, db) => {
        });
       break;
 
+		  	case "11":
+		  	 db.collection('companies').find({"name": "Facebook"}, {relationships: 1, _id: 0}).toArray((error, result) => {
+		  	 if (error) {
+		  		 console.log(error);
+		  		 rl.question(`\nType enter to continue: `, (answer) => { mainMenu(); });
+		  	 } else {
+					 console.log(result[0].relationships.filter(e => { if (e.is_past == false) return e;}).map(e => {
+                  return `${e.person.first_name} ${e.person.last_name}`;
+                }));
+			  	 rl.question(`\nType enter to continue: `, (answer) => { mainMenu(); });
+		  	 }
+		   });
+		  break;
+
           case "0":
             console.log(`👋👋👋👋 😞 \n`);
             db.close((error) => { process.exit(0); });
