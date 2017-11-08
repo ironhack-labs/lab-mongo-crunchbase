@@ -1,3 +1,5 @@
+'use strict';
+
 const MongoDB = require('mongodb');
 const mongoClient = MongoDB.MongoClient;
 const clear = require('clear');
@@ -55,15 +57,34 @@ mongoClient.connect(url, (error, db) => {
 						});
 					break;
 					case "4":
+						/* Didn't know there was `founded_month`! */
 						// db.collection('companies').find({created_at: {$regex: ".*2004-02.*"}}, {name: 1, _id: 0}, (error, result) => {
-						// 	if (error) {
-						// 		console.log(error);
-						// 		rl.question(`\nType enter to continue: `, (answer) => {mainMenu()});
-						// 	} else {
-						// 		console.log(result);
-						// 		rl.question(`\nType enter to continue: `, (answer) => {mainMenu()});
-						// 	}
-						// });
+						db.collection('companies').find({founded_year: 2004, founded_month: 2}, {name: 1, _id: 0}).toArray((error, result) => {
+							if (error) {
+								console.log(error);
+								rl.question(`\nType enter to continue: `, (answer) => {mainMenu()});
+							} else {
+								console.log(result);
+								rl.question(`\nType enter to continue: `, (answer) => {mainMenu()});
+							}
+						});
+					break;
+					case "5":
+						db.collection('companies').find({
+								founded_year: 2004,
+								founded_month: {$gte: 4, $lte: 6}
+							},
+							{name: 1, founded_month: 1, founded_year: 1, _id: 0},
+							{sort: [["founded_month", "desc"], ["founded_day", "desc"]]}
+						).toArray((error, result) => {
+							if (error) {
+								console.log(error);
+								rl.question(`\nType enter to continue: `, (answer) => {mainMenu()});
+							} else {
+								console.log(result);
+								rl.question(`\nType enter to continue: `, (answer) => {mainMenu()});
+							}
+						});
 					break;
 					case "6":
 						db.collection('companies').find({"offices.city": "Barcelona"}, {name: 1, _id: 0}).toArray((error, result) => {
@@ -77,7 +98,9 @@ mongoClient.connect(url, (error, db) => {
 						});
 					break;
 					case "7":
-						db.collection('companies').find({}, {name: 1, number_of_employees: 1, _id: 0}).sort({number_of_employees: -1}).limit(10).toArray((error, result) => {
+						db.collection('companies').find({}, {name: 1, number_of_employees: 1, _id: 0})
+						.sort({number_of_employees: -1})
+						.limit(10).toArray((error, result) => {
 							if (error) {
 								console.log(error);
 								rl.question(`\nType enter to continue: `, (answer) => {mainMenu()});
@@ -121,12 +144,21 @@ mongoClient.connect(url, (error, db) => {
 						});
 					break;
 					case "11":
-						db.collection('companies').find({name: "Facebook", "relationships.is_past": false}, {"relationships.person.first_name": 1, _id: 0}).toArray((error, result) => {
+						db.collection('companies').find(
+								{name: "Facebook", "relationships.is_past": false},
+								{"relationships": 1, _id: 0}
+							).toArray((error, result) => {
 							if (error) {
 								console.log(error);
 								rl.question(`\nType enter to continue: `, (answer) => {mainMenu()});
 							} else {
-								console.log(JSON.stringify(result));
+								// console.log(JSON.stringify(result));
+								// This is a correction
+								result[0].relationships.filter((person) => {
+									return person.is_past === false;
+								}).forEach((worker) => {
+									console.log(`${worker.person.first_name} ${worker.person.last_name}`);
+								});
 								rl.question(`\nType enter to continue: `, (answer) => {mainMenu()});
 							}
 						});
@@ -198,7 +230,10 @@ mongoClient.connect(url, (error, db) => {
 						});
 					break;
 					case "18":
-						db.collection('companies').find({tag_list: "social-networking", founded_year: {$gte: 2002, $lte: 2016}, "offices.city": "New York"}, {name: 1, _id: 0}).count((error, result) => {
+						db.collection('companies').find(
+								{tag_list: "social-networking", founded_year: {$gte: 2002, $lte: 2016}, "offices.city": "New York"},
+								{name: 1, _id: 0}
+							).count((error, result) => {
 							if (error) {
 								console.log(error);
 								rl.question(`\nType enter to continue: `, (answer) => {mainMenu()});
