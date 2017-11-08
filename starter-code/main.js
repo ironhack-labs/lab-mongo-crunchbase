@@ -85,10 +85,69 @@ mongoClient.connect(url, (error, db) => {
               }
             });
             break;
-            
 
+            /*case "5":
+            console.log('you typed 5');
+            db.collection('companies').find({"created_at":10},{
+              name: 1,
+              _id: 0}).sort({created_at:-1}).toArray((error, result) => {
+              if (error) {
+                console.log(error);
+                rl.question(`\nType enter to continue: `, (answer) => {
+                  mainMenu();
+                });
+              } else {
+                console.log(result);
+                rl.question(`\nType enter to continue: `, (answer) => {
+                  mainMenu();
+                });
+              }
+            });
 
+//db.collection.find( { field: { $gt: value1, $lt: value2 } } );
+            break;*/
 
+            case "6":
+            console.log('you typed 6');
+            db.collection('companies').find({"offices.city" :"Barcelona"},{
+              name: 1,
+              _id: 0}).toArray((error, result) => {
+              if (error) {
+                console.log(error);
+                rl.question(`\nType enter to continue: `, (answer) => {
+                  mainMenu();
+                });
+              } else {
+                console.log(result);
+                rl.question(`\nType enter to continue: `, (answer) => {
+                  mainMenu();
+                });
+              }
+            });
+            break;
+
+            case "7":
+            console.log('you typed 7');
+            db.collection('companies').find({},{
+              number_of_employees :1,
+              name: 1,
+              _id: 0
+            }).sort({number_of_employees:-1}).limit(10).toArray((error, result) => {
+              if (error) {
+                console.log(error);
+                rl.question(`\nType enter to continue: `, (answer) => {
+                  mainMenu();
+                });
+              } else {
+                console.log(result);
+                rl.question(`\nType enter to continue: `, (answer) => {
+                  mainMenu();
+                });
+              }
+            });
+            break;
+            case "8":
+            break;
           case "0":
             console.log(`👋👋👋👋 😞 \n`);
             db.close((error) => {
