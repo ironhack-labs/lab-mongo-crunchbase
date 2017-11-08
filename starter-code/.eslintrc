@@ -1,0 +1,11 @@
+.eslintrc siempre en la raiz de cada proyecto, al aldo de git
+
+{
+    "parserOptions": {
+        "ecmaVersion": 6,
+        "sourceType": "module",
+    },
+    "rules": {
+        "semi": 2
+    }
+}
