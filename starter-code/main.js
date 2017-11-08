@@ -135,7 +135,7 @@ mongoClient.connect(url, (error, db) => {
            console.log(error);
            rl.question(`\nType enter to continue: `, (answer) => { mainMenu(); });
          } else {
-           console.log(result);
+           console.log(result[0].products.map(e => { return e.name; }));
            rl.question(`\nType enter to continue: `, (answer) => { mainMenu(); });
          }
        });
