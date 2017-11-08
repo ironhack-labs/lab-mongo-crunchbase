@@ -66,7 +66,7 @@ mongoClient.connect(url, (error, db) => {
 						// });
 					break;
 					case "6":
-						db.collection('companies').find({"offices.city": "Barcelona"}, {name: 1, _id: 0}, (error, result) => {
+						db.collection('companies').find({"offices.city": "Barcelona"}, {name: 1, _id: 0}).toArray((error, result) => {
 							if (error) {
 								console.log(error);
 								rl.question(`\nType enter to continue: `, (answer) => {mainMenu()});
@@ -77,7 +77,7 @@ mongoClient.connect(url, (error, db) => {
 						});
 					break;
 					case "7":
-						db.collection('companies').find({}, {name: 1, number_of_employees: 1, _id: 0}).sort({number_of_employees: -1}).limit(10, (error, result) => {
+						db.collection('companies').find({}, {name: 1, number_of_employees: 1, _id: 0}).sort({number_of_employees: -1}).limit(10).toArray((error, result) => {
 							if (error) {
 								console.log(error);
 								rl.question(`\nType enter to continue: `, (answer) => {mainMenu()});
@@ -88,7 +88,7 @@ mongoClient.connect(url, (error, db) => {
 						});
 					break;
 					case "8":
-						db.collection('companies').find({name: "Facebook"}, (error, result) => {
+						db.collection('companies').find({name: "Facebook"}).toArray((error, result) => {
 							if (error) {
 								console.log(error);
 								rl.question(`\nType enter to continue: `, (answer) => {mainMenu()});
@@ -99,7 +99,7 @@ mongoClient.connect(url, (error, db) => {
 						});
 					break;
 					case "9":
-						db.collection('companies').find({name: "Facebook"}, {number_of_employees: 1, _id: 0}, (error, result) => {
+						db.collection('companies').find({name: "Facebook"}, {number_of_employees: 1, _id: 0}).toArray((error, result) => {
 							if (error) {
 								console.log(error);
 								rl.question(`\nType enter to continue: `, (answer) => {mainMenu()});
@@ -110,7 +110,7 @@ mongoClient.connect(url, (error, db) => {
 						});
 					break;
 					case "10":
-						db.collection('companies').find({name: "Facebook"}, {"products.name": 1, _id: 0}, (error, result) => {
+						db.collection('companies').find({name: "Facebook"}, {"products.name": 1, _id: 0}).toArray((error, result) => {
 							if (error) {
 								console.log(error);
 								rl.question(`\nType enter to continue: `, (answer) => {mainMenu()});
@@ -121,12 +121,12 @@ mongoClient.connect(url, (error, db) => {
 						});
 					break;
 					case "11":
-						db.collection('companies').find({name: "Facebook", "relationships.is_past": false}, {"relationships.person": 1, _id: 0}, (error, result) => {
+						db.collection('companies').find({name: "Facebook", "relationships.is_past": false}, {"relationships.person.first_name": 1, _id: 0}).toArray((error, result) => {
 							if (error) {
 								console.log(error);
 								rl.question(`\nType enter to continue: `, (answer) => {mainMenu()});
 							} else {
-								console.log(result);
+								console.log(JSON.stringify(result));
 								rl.question(`\nType enter to continue: `, (answer) => {mainMenu()});
 							}
 						});
@@ -143,7 +143,7 @@ mongoClient.connect(url, (error, db) => {
 						});
 					break;
 					case "13":
-						db.collection('companies').find({"relationships.person.permalink": "david-ebersman"}, {name: 1, _id:0}, (error, result) => {
+						db.collection('companies').find({"relationships.person.permalink": "david-ebersman"}, {name: 1, _id:0}).toArray((error, result) => {
 							if (error) {
 								console.log(error);
 								rl.question(`\nType enter to continue: `, (answer) => {mainMenu()});
@@ -154,7 +154,7 @@ mongoClient.connect(url, (error, db) => {
 						});
 					break;
 					case "14":
-						db.collection('companies').find({"competitions.competitor.name": "Facebook"}, {name: 1, _id: 0}, (error, result) => {
+						db.collection('companies').find({"competitions.competitor.name": "Facebook"}, {name: 1, _id: 0}).toArray((error, result) => {
 							if (error) {
 								console.log(error);
 								rl.question(`\nType enter to continue: `, (answer) => {mainMenu()});
@@ -165,7 +165,7 @@ mongoClient.connect(url, (error, db) => {
 						});
 					break;
 					case "15":
-						db.collection('companies').find({tag_list: "social-networking"}, {name: 1, _id: 0}, (error, result) => {
+						db.collection('companies').find({tag_list: "social-networking"}, {name: 1, _id: 0}).toArray((error, result) => {
 							if (error) {
 								console.log(error);
 								rl.question(`\nType enter to continue: `, (answer) => {mainMenu()});
@@ -176,7 +176,7 @@ mongoClient.connect(url, (error, db) => {
 						});
 					break;
 					case "16":
-						db.collection('companies').find({tag_list: "social-networking", founded_year: {$gte: 2002, $lte: 2016} }, {name: 1, _id: 0}, (error, result) => {
+						db.collection('companies').find({tag_list: "social-networking", founded_year: {$gte: 2002, $lte: 2016} }, {name: 1, _id: 0}).toArray((error, result) => {
 							if (error) {
 								console.log(error);
 								rl.question(`\nType enter to continue: `, (answer) => {mainMenu()});
@@ -187,7 +187,7 @@ mongoClient.connect(url, (error, db) => {
 						});
 					break;
 					case "17":
-						db.collection('companies').find({"offices.city": "London"}, {name: 1, "offices.address1":1, "offices.address2":1, _id: 0}, (error, result) => {
+						db.collection('companies').find({"offices.city": "London"}, {name: 1, "offices.address1":1, "offices.address2":1, _id: 0}).toArray((error, result) => {
 							if (error) {
 								console.log(error);
 								rl.question(`\nType enter to continue: `, (answer) => {mainMenu()});
