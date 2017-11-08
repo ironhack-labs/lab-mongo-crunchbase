@@ -340,6 +340,54 @@ function mainMenu(){
 						 }
 						});
 					break;
+					case "19":
+						console.log('you typed 19');
+						db.collection('companies')
+							.distinct("category_code",(error, result) => {
+								if (error) {
+								console.log(error)
+								//  console.log(error);
+								 continueEnter();
+							 } else {
+								 console.log(result);
+								 continueEnter();
+						 }
+						});
+					break;
+					case "20":
+					db.collection('companies')
+					  .find({ $text: { $search: "Google" } })
+						.toArray((error, result) => {
+							if (error){
+								console.log(error);
+								continueEnter();
+							} else {
+									let count = 0;
+									result.forEach((e) => {
+										count++;
+									})
+									console.log(`There are ${count} companys with google in his overview`);
+									continueEnter();
+							}
+
+						});
+					break;
+					case "21":
+					db.collection('companies').aggregate([
+					  { "$match": { "founded_year":2004 } },
+						{ "$unwind": "$funding_rounds"},
+						{ "$group": {
+										"_id": "$_id",
+						        "funding_rounds": { "$avg": "$funding_rounds.raised_amount" },
+										"funding_numbers": { "$sum" : 1 }
+						    }
+						},
+						{ "$match":{ "funding_numbers": {$gt: 4} } }
+					], (err,result) => {
+						console.log(result)
+						continueEnter();
+					});
+					break;
           case "0":
             console.log(`👋👋👋👋 😞 \n`);
             db.close((error) => { process.exit(0) });
@@ -379,5 +427,8 @@ function printMenu(){
 16.- How many companies that has "social-network" in tag-list and founded between 2002 and 2016 inclusive
 17.- Names and locations of companies that have offices in London
 18.- How many companies that has "social-network" in tag-list and founded between 2002 and 2016 inclusive and has offices in New York
+19.- Find all the distinct categories, so list all unique categories use distinct method
+20.- How many companies mention Google in their overview
+21.- Find companies founded in 2004 and having 5 or more rounds of funding, calculate the average amount raised.
 `);
 }
