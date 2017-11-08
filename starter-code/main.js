@@ -40,7 +40,7 @@ mongoClient.connect(url, (error, db) => {
               });
             break;
           case "2":
-            db.collection("companies").count(function(error, count) {
+            db.collection("companies").count({}, (error, count) => {
               if (error) {
                 console.log(error);
               } else {
@@ -54,7 +54,7 @@ mongoClient.connect(url, (error, db) => {
           case "3":
             db
               .collection("companies")
-              .count({ founded_year: 2004 }, function(error, count) {
+              .count({ founded_year: 2004 }, (error, count) => {
                 if (error) {
                   console.log(error);
                 } else {
