@@ -1,0 +1,16 @@
+{
+    "name": "starter-code",
+    "version": "1.0.0",
+    "description": "",
+    "main": "main.js",
+    "scripts": {
+        "start": "node main.js",
+        "test": "node test.js"
+    },
+    "author": "Sergio de Diego",
+    "license": "ISC",
+    "dependencies": {
+        "clear": "0.0.1",
+        "mongodb": "^2.2.33"
+    }
+}
