@@ -37,7 +37,7 @@ $ npm init
 Now that we have created the project, add the following packages`clear` and `mongodb`
 
 ```javascript
-$ npm install --save mongodb
+$ npm install --save mongodb@2
 $ npm install --save clear
 ```
 
