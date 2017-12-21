@@ -7,7 +7,7 @@ const rl = readline.createInterface({
   output: process.stdout
 });
 
-const url = `mongodb://localhost:27017/crunchbase`
+const url = `mongodb://localhost:27017/crunchbase`;
 
 mongoClient.connect(url, (error, db) => {
   if (error) {
@@ -26,26 +26,35 @@ mongoClient.connect(url, (error, db) => {
               if (error) {
                 console.log(error);
                 rl.question(`\nType enter to continue: `, (answer) => {
-                  mainMenu()
+                  mainMenu();
                 });
               } else {
                 console.log(result);
                 rl.question(`\nType enter to continue: `, (answer) => {
-                  mainMenu()
+                  mainMenu();
                 });
               }
-            })
+            });
             break;
           case "2":
-            console.log('you typed 2');
-            rl.question(`\nType enter to continue: `, (answer) => {
-              mainMenu()
+            db.collection('companies').count((error, result) => {
+              if (error) {
+                console.log(error);
+                rl.question(`\nType enter to continue: `, (answer) => {
+                  mainMenu();
+                });
+              } else {
+                console.log(result);
+                rl.question(`\nType enter to continue: `, (answer) => {
+                  mainMenu();
+                });
+              }
             });
             break;
           case "0":
             console.log(`👋👋👋👋 😞 \n`);
             db.close((error) => {
-              process.exit(0)
+              process.exit(0);
             });
             break;
           default:
