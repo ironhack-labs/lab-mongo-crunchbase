@@ -1,0 +1,46 @@
+{
+    "css.lint.duplicateProperties": "warning",
+    "css.lint.emptyRules": "warning",
+    "css.lint.float": "warning",
+    "eslint.alwaysShowStatus": true,
+    "bracketPairColorizer.consecutivePairColors": [
+        "()",
+        "[]",
+        "{}",
+        [
+            "Green",
+            "Orchid",
+            "LightSkyBlue"
+        ],
+        "Red"
+    ],
+    "bracketPairColorizer.independentPairColors": [
+        [
+            "()",
+            [
+                "Green",
+                "Orchid",
+                "LightSkyBlue"
+            ],
+            "Red"
+        ],
+        [
+            "[]",
+            [
+                "Green",
+                "Orchid",
+                "LightSkyBlue"
+            ],
+            "Red"
+        ],
+        [
+            "{}",
+            [
+                "Green",
+                "Orchid",
+                "LightSkyBlue"
+            ],
+            "Red"
+        ]
+    ]
+}
