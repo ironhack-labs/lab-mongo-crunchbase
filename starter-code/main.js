@@ -284,6 +284,30 @@ mongoClient.connect(url, (error, db) => {
               }
             });
             break;
+            //13.- List all the companies where "david-ebersman" has worked.
+          case "13":
+            db.collection('companies').find({
+              "relationships.person.permalink": "david-ebersman"
+            }, {
+              name: 1
+            }).toArray((error, result) => {
+              if (error) {
+                console.log(error);
+                rl.question(`\nType enter to continue: `, (answer) => {
+                  mainMenu();
+                });
+              } else {
+                console.log(result);
+
+                // result.forEach(element => {
+                //   console.log(element);
+                // });
+                rl.question(`\nType enter to continue: `, (answer) => {
+                  mainMenu();
+                });
+              }
+            });
+            break;
           default:
             mainMenu();
             break;
