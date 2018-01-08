@@ -117,7 +117,6 @@ mongoClient.connect(url, (error, db) => {
             }).sort({
               founded_month: 1
             }).toArray((error, result) => {
-              // db.collection('companies').count((error, result) => {
               if (error) {
                 console.log(error);
                 rl.question(`\nType enter to continue: `, (answer) => {
@@ -138,7 +137,6 @@ mongoClient.connect(url, (error, db) => {
               name: 1,
               _id: 0
             }).toArray((error, result) => {
-              // db.collection('companies').count((error, result) => {
               if (error) {
                 console.log(error);
                 rl.question(`\nType enter to continue: `, (answer) => {
@@ -160,7 +158,6 @@ mongoClient.connect(url, (error, db) => {
             }).sort({
               "number_of_employees": -1
             }).limit(10).toArray((error, result) => {
-              // db.collection('companies').count((error, result) => {
               if (error) {
                 console.log(error);
                 rl.question(`\nType enter to continue: `, (answer) => {
@@ -174,14 +171,12 @@ mongoClient.connect(url, (error, db) => {
               }
             });
             break;
-            //8.- Find the company with the name "Facebook"
           case "8":
             db.collection('companies').find({name:"Facebook"}, {
               name: 1,
               number_of_employees: 1,
               _id: 0
             }).toArray((error, result) => {
-              // db.collection('companies').count((error, result) => {
               if (error) {
                 console.log(error);
                 rl.question(`\nType enter to continue: `, (answer) => {
@@ -189,6 +184,45 @@ mongoClient.connect(url, (error, db) => {
                 });
               } else {
                 console.log(result);
+                rl.question(`\nType enter to continue: `, (answer) => {
+                  mainMenu();
+                });
+              }
+            });
+            break;
+          case "9":
+            db.collection('companies').find({name:"Facebook"}, {
+              name: 1,
+              number_of_employees: 1,
+              _id: 0
+            }).toArray((error, result) => {
+              if (error) {
+                console.log(error);
+                rl.question(`\nType enter to continue: `, (answer) => {
+                  mainMenu();
+                });
+              } else {
+                console.log(result);
+                rl.question(`\nType enter to continue: `, (answer) => {
+                  mainMenu();
+                });
+              }
+            });
+            break;
+            case "10":
+            db.collection('companies').find({name:"Facebook"}, {
+              products:1,
+              _id: 0
+            }).toArray((error, result) => {
+              if (error) {
+                console.log(error);
+                rl.question(`\nType enter to continue: `, (answer) => {
+                  mainMenu();
+                });
+              } else {
+                result.forEach(element => {
+                  console.log(element);                  
+                });
                 rl.question(`\nType enter to continue: `, (answer) => {
                   mainMenu();
                 });
