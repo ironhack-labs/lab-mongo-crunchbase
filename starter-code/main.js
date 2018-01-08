@@ -114,7 +114,9 @@ mongoClient.connect(url, (error, db) => {
               founded_year: 1,
               founded_month: 1,
               _id: 0
-            }).sort({founded_month:1}).toArray((error, result) => {
+            }).sort({
+              founded_month: 1
+            }).toArray((error, result) => {
               // db.collection('companies').count((error, result) => {
               if (error) {
                 console.log(error);
@@ -129,14 +131,36 @@ mongoClient.connect(url, (error, db) => {
               }
             });
             break;
-            //6.- What companies have offices in "Barcelona".
           case "6":
             db.collection('companies').find({
-              "offices.city":"Barcelona"
+              "offices.city": "Barcelona"
             }, {
               name: 1,
               _id: 0
             }).toArray((error, result) => {
+              // db.collection('companies').count((error, result) => {
+              if (error) {
+                console.log(error);
+                rl.question(`\nType enter to continue: `, (answer) => {
+                  mainMenu();
+                });
+              } else {
+                console.log(result);
+                rl.question(`\nType enter to continue: `, (answer) => {
+                  mainMenu();
+                });
+              }
+            });
+            break;
+            //7.- List the 10 companies with more employees sorted ascending (show name and employees).
+          case "7":
+            db.collection('companies').find({}, {
+              name: 1,
+              number_of_employees: 1,
+              _id: 0
+            }).sort({
+              "number_of_employees": -1
+            }).limit(10).toArray((error, result) => {
               // db.collection('companies').count((error, result) => {
               if (error) {
                 console.log(error);
