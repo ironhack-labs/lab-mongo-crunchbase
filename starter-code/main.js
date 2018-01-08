@@ -305,9 +305,9 @@ mongoClient.connect(url, (error, db) => {
             break;
           case "14":
             db.collection('companies').find({
-             name:"Facebook"
+              name: "Facebook"
             }, {
-              "competitions.competitor.name":1
+              "competitions.competitor.name": 1
             }).toArray((error, result) => {
               if (error) {
                 console.log(error);
@@ -324,13 +324,15 @@ mongoClient.connect(url, (error, db) => {
               }
             });
             break;
-            case "15":
+          case "15":
             db.collection('companies').find({
-              description: { $regex: /Social Networking/g},
+              description: {
+                $regex: /Social Networking/g
+              },
             }, {
-              name:1,
-              description:1,
-              _id:0
+              name: 1,
+              description: 1,
+              _id: 0
             }).toArray((error, result) => {
               if (error) {
                 console.log(error);
@@ -345,20 +347,20 @@ mongoClient.connect(url, (error, db) => {
               }
             });
             break;
-            //16.- How many companies that has "social-network" 
-            //in tag-list and founded between 2002 and 2016 inclusive
-            case "16":
+          case "16":
             db.collection('companies').find({
-              description: { $regex: /Social Networking/g},
+              description: {
+                $regex: /Social Networking/g
+              },
               founded_year: {
                 $gte: 2002,
                 $lte: 2016
               }
             }, {
-              name:1,
-              founded_year:1,
-              description:1,
-              _id:0
+              name: 1,
+              founded_year: 1,
+              description: 1,
+              _id: 0
             }).toArray((error, result) => {
               if (error) {
                 console.log(error);
@@ -367,6 +369,32 @@ mongoClient.connect(url, (error, db) => {
                 });
               } else {
                 console.log(result);
+                rl.question(`\nType enter to continue: `, (answer) => {
+                  mainMenu();
+                });
+              }
+            });
+            break;
+            //17.- Names and locations of companies that have offices in London
+          case "17":
+            db.collection('companies').find({
+              "offices.city": "London"
+            }, {
+              name: 1,
+              "offices.city": 1,
+              description: 1,
+              _id: 0
+            }).toArray((error, result) => {
+              if (error) {
+                console.log(error);
+                rl.question(`\nType enter to continue: `, (answer) => {
+                  mainMenu();
+                });
+              } else {
+                result.forEach(element => {
+                  console.log(element.name);
+                  console.log(element.offices);
+                });
                 rl.question(`\nType enter to continue: `, (answer) => {
                   mainMenu();
                 });
