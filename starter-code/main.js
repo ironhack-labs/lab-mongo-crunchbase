@@ -375,7 +375,6 @@ mongoClient.connect(url, (error, db) => {
               }
             });
             break;
-            //17.- Names and locations of companies that have offices in London
           case "17":
             db.collection('companies').find({
               "offices.city": "London"
@@ -395,6 +394,47 @@ mongoClient.connect(url, (error, db) => {
                   console.log(element.name);
                   console.log(element.offices);
                 });
+                rl.question(`\nType enter to continue: `, (answer) => {
+                  mainMenu();
+                });
+              }
+            });
+            break;
+            //18.- How many companies that has "social-network" in tag-list and founded 
+            //between 2002 and 2016 inclusive and has offices in New York
+          case "18":
+            db.collection('companies').find({
+              "tag_list": {
+                $regex: /social-network/g
+              },
+              "offices.city": "New York",
+              founded_year: {
+                $gte: 2002,
+                $lte: 2016
+              }
+            }, {
+              name: 1,
+              "tag_list":1,
+              "offices.city": 1,
+              founded_year: 1,
+              description: 1,
+              _id: 0
+            }).count((error, result) => {
+              if (error) {
+                console.log(error);
+                rl.question(`\nType enter to continue: `, (answer) => {
+                  mainMenu();
+                });
+              } else {
+
+                console.log(result);                
+
+                // result.forEach(element => {
+                //   console.log(element.name);
+                //   console.log(element.offices);
+                //   console.log(element.tag_list);
+                //   console.log(element.founded_year);
+                // });
                 rl.question(`\nType enter to continue: `, (answer) => {
                   mainMenu();
                 });
