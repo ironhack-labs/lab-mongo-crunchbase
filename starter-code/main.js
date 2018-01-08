@@ -284,7 +284,6 @@ mongoClient.connect(url, (error, db) => {
               }
             });
             break;
-            //13.- List all the companies where "david-ebersman" has worked.
           case "13":
             db.collection('companies').find({
               "relationships.person.permalink": "david-ebersman"
@@ -298,10 +297,76 @@ mongoClient.connect(url, (error, db) => {
                 });
               } else {
                 console.log(result);
-
-                // result.forEach(element => {
-                //   console.log(element);
-                // });
+                rl.question(`\nType enter to continue: `, (answer) => {
+                  mainMenu();
+                });
+              }
+            });
+            break;
+          case "14":
+            db.collection('companies').find({
+             name:"Facebook"
+            }, {
+              "competitions.competitor.name":1
+            }).toArray((error, result) => {
+              if (error) {
+                console.log(error);
+                rl.question(`\nType enter to continue: `, (answer) => {
+                  mainMenu();
+                });
+              } else {
+                result.forEach(element => {
+                  console.log(element.competitionsxº);
+                });
+                rl.question(`\nType enter to continue: `, (answer) => {
+                  mainMenu();
+                });
+              }
+            });
+            break;
+            case "15":
+            db.collection('companies').find({
+              description: { $regex: /Social Networking/g},
+            }, {
+              name:1,
+              description:1,
+              _id:0
+            }).toArray((error, result) => {
+              if (error) {
+                console.log(error);
+                rl.question(`\nType enter to continue: `, (answer) => {
+                  mainMenu();
+                });
+              } else {
+                console.log(result);
+                rl.question(`\nType enter to continue: `, (answer) => {
+                  mainMenu();
+                });
+              }
+            });
+            break;
+            //16.- How many companies that has "social-network" 
+            //in tag-list and founded between 2002 and 2016 inclusive
+            case "16":
+            db.collection('companies').find({
+              description: { $regex: /Social Networking/g},
+              founded_year: {
+                $gte: 2002,
+                $lte: 2016
+              }
+            }, {
+              name:1,
+              founded_year:1,
+              description:1,
+              _id:0
+            }).toArray((error, result) => {
+              if (error) {
+                console.log(error);
+                rl.question(`\nType enter to continue: `, (answer) => {
+                  mainMenu();
+                });
+              } else {
+                console.log(result);
                 rl.question(`\nType enter to continue: `, (answer) => {
                   mainMenu();
                 });
