@@ -1,2 +1,4 @@
 node_modules
 main1.js
+.eslintrc
+.jshintrc
