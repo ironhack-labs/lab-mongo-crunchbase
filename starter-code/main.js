@@ -39,12 +39,14 @@ mongoClient.connect(url, (error, db) => {
               db.collection('companies').distinct('name', (error, result) => {
                 if(error) {
                   console.log(error);
+                  rl.question(`\nType enter to continue: `, (answer) => { mainMenu() });
                 }
                 else {
                   console.log("Companies number: " + result.length);
+                  rl.question(`\nType enter to continue: `, (answer) => { mainMenu() });
                 }
               })
-              rl.question(`\nType enter to continue: `, (answer) => { mainMenu() });
+              
               break;
             case "3":
               db.collection('companies').find({"founded_year": 2004}, {name: 1, _id: 0}).count((error, result) => {
@@ -52,10 +54,22 @@ mongoClient.connect(url, (error, db) => {
                   console.log(error);
                   rl.question(`\nType enter to continue: `, (answer) => { mainMenu() });
                 } else {
-                  console.log("Companies founded on 2004:" + result);
+                  console.log("Companies number founded on 2004: " + result);
                   rl.question(`\nType enter to continue: `, (answer) => { mainMenu() });
                 }
               })
+              break;
+              case "4":
+                db.collection('companies').find({ $and: [ {"founded_year": 2004}, {"founded_month": 2} ] }).toArray((error, result) => {
+                  if (error) {
+                    console.log(error);
+                    rl.question(`\nType enter to continue: `, (answer) => { mainMenu() });
+                  } else {
+                    console.log("Companies founded on February 2004: \r");
+                    console.log(result);
+                    rl.question(`\nType enter to continue: `, (answer) => { mainMenu() });
+                  }
+                })
               break;
             default:
               mainMenu();
