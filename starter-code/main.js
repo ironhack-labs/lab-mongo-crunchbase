@@ -60,7 +60,7 @@ mongoClient.connect(url, (error, db) => {
               })
               break;
               case "4":
-                db.collection('companies').find({ $and: [ {"founded_year": 2004}, {"founded_month": 2} ] }).toArray((error, result) => {
+                db.collection('companies').find({ $and: [ {"founded_year": 2004}, {"founded_month": 2} ] }, {'name': 1, 'founded_year': 1, 'founded_month': 1, '_id': 0}).toArray((error, result) => {
                   if (error) {
                     console.log(error);
                     rl.question(`\nType enter to continue: `, (answer) => { mainMenu() });
@@ -71,6 +71,29 @@ mongoClient.connect(url, (error, db) => {
                   }
                 })
               break;
+              case "5":
+              db.collection('companies').find({
+                "founded_year": 2004,
+                "founded_month": {
+                  $gte: 4,
+                  $lte: 6
+                }
+              }, {
+                'name': 1,
+                'founded_year': 1,
+                'founded_month': 1,
+                '_id': 0
+              }).sort({"founded_month": 1}).toArray((error, result) => {
+                if (error) {
+                  console.log(error);
+                  rl.question(`\nType enter to continue: `, (answer) => { mainMenu() });
+                } else {
+                  console.log("Companies founded between April to June 2004: \r");
+                  console.log(result);
+                  rl.question(`\nType enter to continue: `, (answer) => { mainMenu() });
+                }
+              })
+            break;
             default:
               mainMenu();
               break;
