@@ -57,9 +57,25 @@ mongoClient.connect(url, (error, db) => {
               }
             });
             break;
-            //How many companies were founded in 2004?
           case "3":
           db.collection('companies').find({founded_year: 2004}, {founded_year: 2004, _id: 0}).count((error, result) => {
+            // db.collection('companies').count((error, result) => {
+              if (error) {
+                console.log(error);
+                rl.question(`\nType enter to continue: `, (answer) => {
+                  mainMenu();
+                });
+              } else {
+                console.log(result);
+                rl.question(`\nType enter to continue: `, (answer) => {
+                  mainMenu();
+                });
+              }
+            });
+            break;
+            // 4.- List by name all companies founded in february of 2004.
+          case "4":
+          db.collection('companies').find({founded_year: 2004, founded_month:2}, {name:1, _id: 0}).toArray((error, result) => {
             // db.collection('companies').count((error, result) => {
               if (error) {
                 console.log(error);
