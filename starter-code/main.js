@@ -223,6 +223,99 @@ mongoClient.connect(url, (error, db) => {
 							}
 						})
 						break;
+					case "14":
+						db.collection(companies).find({"name": "Facebook"},{name:1, competitions:1, _id:0}).toArray((error,result) => {
+							if (error) {
+								console.log(error);
+								rl.question(`\nType enter to continue: `, (answer) => {
+									mainMenu();
+								});
+							} else {
+								console.log(result[0].competitions.map(e => {
+									return e.competitor.name;
+								}))
+								rl.question(`\nType enter to continue: `, (answer) => {
+									mainMenu();
+								});
+							}
+						})
+						break;
+					case "15":
+						db.collection(companies).find({},{name:1, tag_list:1, _id:0}).toArray((error,result) => {
+							if (error) {
+								console.log(error);
+								rl.question(`\nType enter to continue: `, (answer) => {
+									mainMenu();
+								});
+							} else {
+								result.map(e => {
+									if(e.tag_list){
+										if(e.tag_list.includes("social-networking")) console.log(e.name);
+									}
+								})
+								rl.question(`\nType enter to continue: `, (answer) => {
+									mainMenu();
+								});
+							}
+						})
+						break;
+					case "16":
+						/*db.collection(companies).find({$and: [{"founded_year": {$gte:2002}},{"founded_year": {$lte: 2016}}]},{name:1, tag_list:1, _id:0}).toArray((error,result) ={
+							if (error) {
+								console.log(error);
+								rl.question(`\nType enter to continue: `, (answer) => {
+									mainMenu();
+								});
+							} else {
+								result.forEach(e => {
+									if(e.tag_list != undefined){
+										if(e.tag_list.search(/social-network/) != -1) console.log(e.name);
+									}
+								})
+								rl.question(`\nType enter to continue: `, (answer) => {
+									mainMenu();
+								});
+							}
+						})*/
+						break;
+					case "17":
+						db.collection(companies).find({},{name:1, offices:1, _id:0}).toArray((error, result) => {
+							if (error) {
+								console.log(error);
+								rl.question(`\nType enter to continue: `, (answer) => {
+									mainMenu();
+								});
+							} else {
+								result.filter(e => {
+									if(e.offices.length>0 && e.offices[0].city == "London") console.log(e.name)
+								});
+								rl.question(`\nType enter to continue: `, (answer) => {
+									mainMenu();
+								});
+							}
+						})
+						break;
+					case "18":
+						db.collection(companies).find({ $and: [{"founded_year": {$gte: 2002}},{"founded_year": {$lte: 2016}}]},{ name:1, tag_list:1, offices:1, _id:0}).toArray((error,result) => {
+							if (error) {
+								console.log(error);
+								rl.question(`\nType enter to continue: `, (answer) => {
+									mainMenu();
+								});
+							} else {
+								result.filter(e => {
+									if(e.tag_list != undefined){
+										if(e.tag_list.search(/social-nertwork/) != -1){
+											if(e.offices.length > 0 && e.offices[0].city == "New York") return e;
+										}
+									}
+								});
+								rl.question(`\nType enter to continue: `, (answer) => {
+									mainMenu();
+								});
+							}
+						})
+						break;
           case "0":
             console.log(`👋👋👋👋 😞 \n`);
             db.close((error) => { process.exit(0) });
