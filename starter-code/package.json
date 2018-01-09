@@ -1,0 +1,15 @@
+{
+  "name": "crunch",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "test"
+  },
+  "author": "Diana",
+  "license": "ISC",
+  "dependencies": {
+    "clear": "0.0.1",
+    "mongodb": "^2.2.33"
+  }
+}
