@@ -141,6 +141,39 @@ mongoClient.connect(url, (error, db) => {
 														}
 														})
 												break;
+												case "11":
+													db.collection('companies').find({"relationships.is_past" : "false"},{name: 1, "relationships.person.first_name": 1, "relationships.person.last_name": 1, _id: 0}).toArray((error, result) => {
+															if (error) {
+															console.log(error);
+															rl.question(`\nType enter to continue: `, (answer) => { mainMenu() });
+															} else {
+															console.log(result);
+															rl.question(`\nType enter to continue: `, (answer) => { mainMenu() });
+															}
+															})
+													break;
+													case "12":
+														db.collection('companies').find({"relationships.is_past" : "false"},{name: 1, relationships:1, _id: 0}).toArray((error, result) => {
+																if (error) {
+																console.log(error);
+																rl.question(`\nType enter to continue: `, (answer) => { mainMenu() });
+																} else {
+																console.log(result);
+																rl.question(`\nType enter to continue: `, (answer) => { mainMenu() });
+																}
+																})
+														break;
+														case "13":
+															db.collection('companies').find({"relationships.is_past" : "true"},{name: 1, "relationships.is_past": 1, _id: 0}).toArray((error, result) => {
+																	if (error) {
+																	console.log(error);
+																	rl.question(`\nType enter to continue: `, (answer) => { mainMenu() });
+																	} else {
+																	console.log(result);
+																	rl.question(`\nType enter to continue: `, (answer) => { mainMenu() });
+																	}
+																	})
+															break;
           case "0":
             console.log(`👋👋👋👋 😞 \n`);
             db.close((error) => { process.exit(0) });
