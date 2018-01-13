@@ -1,0 +1,17 @@
+{
+  "name": "crunch",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "clear": "0.0.1",
+    "eslint": "^4.13.1",
+    "jshint": "^2.9.5",
+    "mongodb": "^2.2.33"
+  }
+}
