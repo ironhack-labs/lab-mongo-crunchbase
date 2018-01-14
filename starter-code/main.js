@@ -210,9 +210,95 @@ mongoClient.connect(url, (error, db) => {
                   console.log(error);
                   rl.question(`\nType enter to continue: `, (answer) => { mainMenu() });
                 } else {
+                      console.log("Competitors list of Facebook:")
                       console.log(result[0].competitions.map( (e) => {
                         return e.competitor.name;
                       }));
+                  rl.question(`\nType enter to continue: `, (answer) => { mainMenu() });
+                }
+              })
+              break;
+            case "15":
+              db.collection('companies').find({},{name:1, tag_list:1, _id:0}).toArray((error, result) => {
+                if (error) {
+                  console.log(error);
+                  rl.question(`\nType enter to continue: `, (answer) => { mainMenu() });
+                } else {
+                    console.log("Companies with tag social-network: ");
+                      var snCompanies = result.map( (e)=> {
+                        if(e.tag_list) {
+                          if (e.tag_list.includes("social-network")) {
+                            console.log(e.name);
+                          }
+                        }
+                      });
+                  rl.question(`\nType enter to continue: `, (answer) => { mainMenu() });
+                }
+              })
+              break;
+            case "16":
+              db.collection('companies').find({
+                "founded_year": {
+                  $gte: 2002,
+                  $lte: 2016
+                }
+              },{name:1, tag_list:1, _id:0}).toArray((error, result) => {
+                if (error) {
+                  console.log(error);
+                  rl.question(`\nType enter to continue: `, (answer) => { mainMenu() });
+                } else {
+                    console.log("Companies founded between 2002-2016 with tag social-network: ");
+                      var snCompanies = result.map( (e)=> {
+                        if(e.tag_list) {
+                          if (e.tag_list.includes("social-network")) {
+                            console.log(e.name);
+                          }
+                        }
+                      });
+                  rl.question(`\nType enter to continue: `, (answer) => { mainMenu() });
+                }
+              })
+              break;
+            case "17":
+              db.collection('companies').find({
+                "offices.city": "London"
+              }, {
+                'name': 1,
+                'offices.city': 1,
+                '_id': 0
+              }).toArray((error, result) => {
+                if (error) {
+                  console.log(error);
+                  rl.question(`\nType enter to continue: `, (answer) => { mainMenu() });
+                } else {
+                  console.log("Companies with offices in London: \r");
+                  result.map( (e) => {
+                    console.log(e.name);
+                  });
+                  rl.question(`\nType enter to continue: `, (answer) => { mainMenu() });
+                }
+              })
+              break;
+            case "18":
+              db.collection('companies').find({
+                "founded_year": {
+                  $gte: 2002,
+                  $lte: 2016
+                },
+                "offices.city": "New York"
+              },{name:1, tag_list:1, _id:0}).toArray((error, result) => {
+                if (error) {
+                  console.log(error);
+                  rl.question(`\nType enter to continue: `, (answer) => { mainMenu() });
+                } else {
+                      var snCompanies = result.filter( (e)=> {
+                        if(e.tag_list) {
+                          return e.tag_list.includes("social-network");
+                        }
+                      }).map( (e) => {
+                        console.log(e.name);
+                      });
+                      console.log("Number of companies founded between 2002-2016 with tag social-network and office in New York: " + snCompanies.length);
                   rl.question(`\nType enter to continue: `, (answer) => { mainMenu() });
                 }
               })
