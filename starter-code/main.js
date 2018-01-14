@@ -154,7 +154,7 @@ mongoClient.connect(url, (error, db) => {
                   console.log(error);
                   rl.question(`\nType enter to continue: `, (answer) => { mainMenu() });
                 } else {
-                  console.log("Listado de productos de Facebook: ");
+                  console.log("Facebook product list: ");
                   result[0].products.forEach( (product) => {
                     console.log(product.name);
                   });
@@ -168,17 +168,55 @@ mongoClient.connect(url, (error, db) => {
                   console.log(error);
                   rl.question(`\nType enter to continue: `, (answer) => { mainMenu() });
                 } else {
-                  console.log("Personas trabajando en Facebook: ");
-                    var rel = result[0].relationships.filter( (e) => {
-                       return e.is_past == false;
-                      }).map( (e) => {
-                        return `${e.person.first_name} ${e.person.last_name}`;
+                  console.log("People working at Facebook: ");
+                    var persons = result[0].relationships.filter( (p) => {
+                       return p.is_past == false;
+                      }).map( (p) => {
+                        return `${p.person.first_name} ${p.person.last_name}`;
                       });
-                    console.log(rel);
+                    console.log(persons);
+                  rl.question(`\nType enter to continue: `, (answer) => { mainMenu() });
+                }
+              })
+              break;
+            case "12":
+              db.collection('companies').find({"name": "Facebook",},{"relationships": 1,"_id": 0}).toArray((error, result) => {
+                if (error) {
+                  console.log(error);
+                  rl.question(`\nType enter to continue: `, (answer) => { mainMenu() });
+                } else {
+                    var numPersons = result[0].relationships.filter( (p) => {
+                       return p.is_past == true;
+                      }).length;
+                      console.log("People number not working at Facebook anymore: " + numPersons);
                   rl.question(`\nType enter to continue: `, (answer) => { mainMenu() });
                 }
               })
               break; 
+            case "13":
+              db.collection('companies').find({"relationships.person.first_name": "David", "relationships.person.last_name": "Ebersman"},{name:1, _id:0}).toArray((error, result) => {
+                if (error) {
+                  console.log(error);
+                  rl.question(`\nType enter to continue: `, (answer) => { mainMenu() });
+                } else {
+                      console.log(result);
+                  rl.question(`\nType enter to continue: `, (answer) => { mainMenu() });
+                }
+              })
+              break;
+            case "14":
+              db.collection('companies').find({"name": "Facebook"},{name:1, competitions:1, _id:0}).toArray((error, result) => {
+                if (error) {
+                  console.log(error);
+                  rl.question(`\nType enter to continue: `, (answer) => { mainMenu() });
+                } else {
+                      console.log(result[0].competitions.map( (e) => {
+                        return e.competitor.name;
+                      }));
+                  rl.question(`\nType enter to continue: `, (answer) => { mainMenu() });
+                }
+              })
+              break;
             default:
               mainMenu();
               break;
