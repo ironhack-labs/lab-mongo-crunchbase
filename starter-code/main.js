@@ -112,9 +112,9 @@ mongoClient.connect(url, (error, db) => {
               })
               break;
             case "7":
-                // find().sort().limit() == find().limit().sort()
-                db.collection('companies').find({},{name: 1, number_of_employees:1, _id: 0}).sort({"number_of_employees": -1}).limit(10).toArray((error, result) => {
-                //db.collection('companies').find({},{name: 1, number_of_employees:1, _id: 0}).limit(10).sort({"number_of_employees": -1}).toArray((error, result) => {
+              // find().sort().limit() == find().limit().sort()
+              db.collection('companies').find({},{name: 1, number_of_employees:1, _id: 0}).sort({"number_of_employees": -1}).limit(10).toArray((error, result) => {
+              //db.collection('companies').find({},{name: 1, number_of_employees:1, _id: 0}).limit(10).sort({"number_of_employees": -1}).toArray((error, result) => {
                 if (error) {
                   console.log(error);
                   rl.question(`\nType enter to continue: `, (answer) => { mainMenu() });
@@ -125,8 +125,60 @@ mongoClient.connect(url, (error, db) => {
                 }
               })
               break;
-
-              
+            case "8":
+              db.collection('companies').find({"name": "Facebook"},{name: 1, _id: 0}).toArray((error, result) => {
+                if (error) {
+                  console.log(error);
+                  rl.question(`\nType enter to continue: `, (answer) => { mainMenu() });
+                } else {
+                  console.log("Company Facebook \r");
+                  console.log(result);
+                  rl.question(`\nType enter to continue: `, (answer) => { mainMenu() });
+                }
+              })
+              break;
+            case "9":
+              db.collection('companies').find({"name": "Facebook"},{number_of_employees: 1, _id: 0}).toArray((error, result) => {
+                if (error) {
+                  console.log(error);
+                  rl.question(`\nType enter to continue: `, (answer) => { mainMenu() });
+                } else {
+                  console.log("Number of Facebook employees: " + result[0].number_of_employees);
+                  rl.question(`\nType enter to continue: `, (answer) => { mainMenu() });
+                }
+              })
+              break; 
+            case "10":
+              db.collection('companies').find({"name": "Facebook"}).toArray((error, result) => {
+                if (error) {
+                  console.log(error);
+                  rl.question(`\nType enter to continue: `, (answer) => { mainMenu() });
+                } else {
+                  console.log("Listado de productos de Facebook: ");
+                  result[0].products.forEach( (product) => {
+                    console.log(product.name);
+                  });
+                  rl.question(`\nType enter to continue: `, (answer) => { mainMenu() });
+                }
+              })
+              break; 
+            case "11":
+              db.collection('companies').find({"name": "Facebook",},{"relationships": 1,"_id": 0}).toArray((error, result) => {
+                if (error) {
+                  console.log(error);
+                  rl.question(`\nType enter to continue: `, (answer) => { mainMenu() });
+                } else {
+                  console.log("Personas trabajando en Facebook: ");
+                    var rel = result[0].relationships.filter( (e) => {
+                       return e.is_past == false;
+                      }).map( (e) => {
+                        return `${e.person.first_name} ${e.person.last_name}`;
+                      });
+                    console.log(rel);
+                  rl.question(`\nType enter to continue: `, (answer) => { mainMenu() });
+                }
+              })
+              break; 
             default:
               mainMenu();
               break;
