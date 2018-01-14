@@ -59,7 +59,7 @@ mongoClient.connect(url, (error, db) => {
                 }
               })
               break;
-              case "4":
+            case "4":
                 db.collection('companies').find({ $and: [ {"founded_year": 2004}, {"founded_month": 2} ] }, {'name': 1, 'founded_year': 1, 'founded_month': 1, '_id': 0}).toArray((error, result) => {
                   if (error) {
                     console.log(error);
@@ -71,7 +71,7 @@ mongoClient.connect(url, (error, db) => {
                   }
                 })
               break;
-              case "5":
+            case "5":
               db.collection('companies').find({
                 "founded_year": 2004,
                 "founded_month": {
@@ -93,7 +93,40 @@ mongoClient.connect(url, (error, db) => {
                   rl.question(`\nType enter to continue: `, (answer) => { mainMenu() });
                 }
               })
-            break;
+              break;
+            case "6":
+              db.collection('companies').find({
+                "offices.city": "Barcelona"
+              }, {
+                'name': 1,
+                '_id': 0
+              }).toArray((error, result) => {
+                if (error) {
+                  console.log(error);
+                  rl.question(`\nType enter to continue: `, (answer) => { mainMenu() });
+                } else {
+                  console.log("Companies with offices in Barcelona: \r");
+                  console.log(result);
+                  rl.question(`\nType enter to continue: `, (answer) => { mainMenu() });
+                }
+              })
+              break;
+            case "7":
+                // find().sort().limit() == find().limit().sort()
+                db.collection('companies').find({},{name: 1, number_of_employees:1, _id: 0}).sort({"number_of_employees": -1}).limit(10).toArray((error, result) => {
+                //db.collection('companies').find({},{name: 1, number_of_employees:1, _id: 0}).limit(10).sort({"number_of_employees": -1}).toArray((error, result) => {
+                if (error) {
+                  console.log(error);
+                  rl.question(`\nType enter to continue: `, (answer) => { mainMenu() });
+                } else {
+                  console.log("Top 10 companies with more employees \r");
+                  console.log(result);
+                  rl.question(`\nType enter to continue: `, (answer) => { mainMenu() });
+                }
+              })
+              break;
+
+              
             default:
               mainMenu();
               break;
