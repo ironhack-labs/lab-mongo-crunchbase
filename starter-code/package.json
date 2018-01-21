@@ -1,0 +1,16 @@
+{
+  "name": "starter-code",
+  "version": "1.0.0",
+  "description": "",
+  "main": "main.js",
+  "scripts": {
+    "test": "there is no test",
+    "start": "node main.js"
+  },
+  "author": "AlexBHdez",
+  "license": "ISC",
+  "dependencies": {
+    "clear": "0.0.1",
+    "mongodb": "^2.2.34"
+  }
+}
