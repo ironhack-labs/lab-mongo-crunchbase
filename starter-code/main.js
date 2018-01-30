@@ -91,6 +91,22 @@ mongoClient.connect(url, (error, db) => {
               }
             });
             break;
+          case "7":
+            let query7 = {number_of_employees : {$ne : null} };
+            let projection7 = {name: 1, number_of_employees: -1, _id: 0}
+            db.collection('companies').find(query7, projection7).sort({founded_month: 1})
+            .sort({number_of_employees: -1})
+            .limit(10)
+            .toArray((error, result) => {
+              if(error){
+                console.log('\nTType enter to continue ', error);
+                rl.question('\nType enter to continue: ', (answer) => {mainMenu()});
+              } else {
+                console.log(result);
+                rl.question('\nType enter to continue: ', (answer) => {mainMenu()});
+              }
+            });
+            break;
           case "0":
             console.log('bye bye!! \n');
             db.close((error) => {process.exit(0)});
