@@ -30,11 +30,35 @@ mongoClient.connect(url, (error, db) => {
                 console.log(result);
                 rl.question(`\nType enter to continue: `, (answer) => { mainMenu() });
               }
-          })
+          }); break;
+
           case "2":
-            console.log('you typed 2');
-            rl.question(`\nType enter to continue: `, (answer) => {mainMenu()});
-            break;
+          // To count the number of all DOCUMENTS in the orders COLLECTION use: db.orders.count()
+          db.collection().count("companies").toArray((error, result) => {
+            if (error) {
+              console.log(error);
+              rl.question(`\nType enter to continue: `, (answer) => { mainMenu() });
+            } else {
+              console.log(result);
+              rl.question(`\nType enter to continue: `, (answer) => { mainMenu() });
+            }
+          }); break;
+
+          case "3":
+          // Count all Documents that Match a Query: db.orders.count( { ord_dt: { $gt: new Date('01/01/2012') } } )
+          db.collection("companies").count({ord_dt: {$gt: new Date("01/01/2004")}}).toArray((error, result) => {
+            if (error) {
+              console.log(error);
+              rl.question(`\nType enter to continue: `, (answer) => { mainMenu() });
+            } else {
+              console.log(result);
+              rl.question(`\nType enter to continue: `, (answer) => { mainMenu() });
+            }
+          }); break;
+
+          case "4":
+          // Count
+          db.collection.find( { a: 5, b: 5 } ).count()
           case "0":
             console.log(`👋👋👋👋 😞 \n`);
             db.close((error) => { process.exit(0) });
@@ -53,10 +77,10 @@ mongoClient.connect(url, (error, db) => {
 
 function printMenu(){
 	console.log(`
-0.- Exit
-1.- List by name all companies.
-2.- How many companies are there?
-3.- How many companies were founded in 2004?
+//0.- Exit
+//1.- List by name all companies.
+//2.- How many companies are there?
+//3.- How many companies were founded in 2004?
 4.- List by name all companies founded in february of 2004.
 5.- List by name all companies founded in the summer of 2004 (april to june) sorted by date.
 6.- What companies have offices in "Barcelona".
