@@ -7,6 +7,7 @@ const rl = readline.createInterface({
   output: process.stdout,
 });
 let TOP_TOP = 1000;
+let today = new Date();
 
 const url = `mongodb://localhost:27017/crunchbase`;
 
@@ -217,12 +218,12 @@ mongoClient.connect(url, (error, db) => {
               });
               break;
               case '11':
-              db
+              let working = db
               .document('companies')
               .find({
                 name: 'Facebook',
                 relationships: 1,
-                founded_day = {$eq: Date()} //THIS IS OBVIOUSLY NOT RIGHT, BUT YOU GET MY LOGIC... I HAVE NOT ENOUGH PATIENCE TO READ THROUGH ALL THE FACEBOOK LIST
+                founded_day = {$gte: today} //THIS IS OBVIOUSLY NOT RIGHT, BUT YOU GET MY LOGIC... I HAVE NOT ENOUGH PATIENCE TO READ THROUGH ALL THE FACEBOOK LIST
               })
               .toArray((error, result) => {
                 if (error) {
@@ -233,6 +234,85 @@ mongoClient.connect(url, (error, db) => {
                 } else {
                   console.log(result);
                   rl.question(`\nType enter to continue `, answer => {
+                    mainMenu();
+                  })
+                }
+              })
+              break;
+              case '12':
+              let notworking = db.document('companies').find({
+                name: 'Facebook',
+                number_of_employees_date: {$lt: today}, //THE SAME GOES FOR THIS ONE, THE LIST IS TOO LONG TO LOOK IT UP. SAME LOGIC, DIFFERENT VALUE..
+                _id: 0,
+                name: 1,
+              }).toArray().count({}, (error, result) => {
+                if (error) {
+                  console.log(error);
+                  rl.question(`\nType enter to continue: `, answer => {
+                    mainMenu();
+                  })
+                } else {
+                  var result = -(notworking - working.count())
+                  console.log(result);
+                  rl.question('\nType enter to continue: ', answer => {
+                    mainMenu();
+                  })
+                }
+              })
+              break;
+              case '13':
+              db.document('companies').find({}, {
+                name_employee: 'david-ebersman',
+                name: 1,
+                employee_date: {$lttoday},
+                _id: 0
+              }).toArray((error, result) => {
+                if (error) {
+                  console.log(error);
+                  rl.question(`\nType enter to continue: `, answer => {
+                    mainMenu();
+                  })
+                } else {
+                  console.log(result);
+                  rl.question(`\nType enter to continue: `, answer => {
+                    mainMenu();
+                  })
+                }
+              })
+              break;
+              case '15':
+              db.document('companies').find({
+                tag_name: {$elemMatch(social_networking)},
+                name: 1,
+                _id: 0
+              }).toArray((error, result) => {
+                if (error) {
+                  console.log(error);
+                  rl.question(`\nType enter to continue: `, answer => {
+                    mainMenu();
+                  })
+                } else {
+                  console.log(result);
+                  rl.question(`\nType enter to continue: `, answer => {
+                    mainMenu();
+                  })
+                }
+              })
+              break;
+              case '16':
+              db.document('companies').find({
+                founded_year:{$gte2002},
+                founded_year: {$lte2016},
+                tag_name: {$elemMatch(social_networking)}
+              }).toArray((error, result) => {
+                if (error) {
+                  console.log(error);
+                  rl.question(`\nType enter to continue: `, answer => {
+                    mainMenu();
+                  })
+                } else {
+                  console.log(result);
+                  rl.question(`\nType enter to continue: `, answer => {
                     mainMenu();
                   })
                 }
