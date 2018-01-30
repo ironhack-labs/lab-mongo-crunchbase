@@ -99,6 +99,50 @@ mongoClient.connect(url, (error, db) => {
             }
           })
           break;
+          case "8":
+          db.collection('companies').find({"name":"Facebook"}, {name: 1, _id: 0}).toArray((error, result) => {
+            if (error) {
+              console.log(error);
+              rl.question(`\nType enter to continue: `, (answer) => { mainMenu() });
+            } else {
+              console.log(result);
+              rl.question(`\nType enter to continue: `, (answer) => { mainMenu() });
+            }
+          })
+          break;
+          case "9":
+          db.collection('companies').find({"name":"Facebook"}, {name: 1, _id: 0,number_of_employees:1}).toArray((error, result) => {
+            if (error) {
+              console.log(error);
+              rl.question(`\nType enter to continue: `, (answer) => { mainMenu() });
+            } else {
+              console.log(result);
+              rl.question(`\nType enter to continue: `, (answer) => { mainMenu() });
+            }
+          })
+          break;
+          case "10":
+          db.collection('companies').find({"name":"Facebook"}, {"products.name": 1, _id: 0}).toArray((error, result) => {
+            if (error) {
+              console.log(error);
+              rl.question(`\nType enter to continue: `, (answer) => { mainMenu() });
+            } else {
+              result[0].products.forEach( (products) => {console.log(products.name);});
+              rl.question(`\nType enter to continue: `, (answer) => { mainMenu() });
+            }
+          })
+          break;
+          case "11":
+          db.collection('companies').find({$and:[{"name":"Facebook"},{"relationships.is_past":false}]}, {"relationships.person.first_name": 1, _id: 0}).toArray((error, result) => {
+            if (error) {
+              console.log(error);
+              rl.question(`\nType enter to continue: `, (answer) => { mainMenu() });
+            } else {
+              result[0].relationships.forEach( (relationships) => {console.log(relationships.person.first_name);});
+              rl.question(`\nType enter to continue: `, (answer) => { mainMenu() });
+            }
+          })
+          break;
           case "0":
             console.log(`👋👋👋👋 😞 \n`);
             db.close((error) => { process.exit(0) });
@@ -114,7 +158,6 @@ mongoClient.connect(url, (error, db) => {
 
   }
 });
-
 function printMenu(){
 	console.log(`
 0.- Exit
