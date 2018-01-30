@@ -143,6 +143,23 @@ mongoClient.connect(url, (error, db) => {
             }
           })
           break;
+          case "12":
+          db.collection('companies').find({"name":"Facebook"}, {"relationships.is_past": 1, _id: 0}).toArray((error, result) => {
+            if (error) {
+              console.log(error);
+              rl.question(`\nType enter to continue: `, (answer) => { mainMenu() });
+            } else {
+              let count = 0;
+              result[0].relationships.forEach( (relationship) => {
+                if(relationship.is_past === true){
+                  count++;
+                }
+                });
+                console.log("No curran más en feisbuk " + count);
+              rl.question(`\nType enter to continue: `, (answer) => { mainMenu() });
+            }
+          })
+          break;
           case "0":
             console.log(`👋👋👋👋 😞 \n`);
             db.close((error) => { process.exit(0) });
