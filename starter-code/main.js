@@ -97,7 +97,7 @@ mongoClient.connect(url, (error, db) => {
           });
           break;
         case '7':
-          db.collection('companies').find({founded_year: 2004, founded_month: {$gte: 4, $lte: 6}},
+          db.collection('companies').find({},
             {name: 1, _id: 0}).sort({number_of_employees: 1}).toArray((error, result) => {
             if (error) {
               console.log(error);
