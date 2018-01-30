@@ -89,7 +89,7 @@ mongoClient.connect(url, (error, db) => {
           })
           break;
           case "7":
-          db.collection('companies').find({number_of_employees:181.000}, {name: 1, _id: 0,number_of_employees:1}).sort({number_of_employees:1}).toArray((error, result) => {
+          db.collection('companies').find({"number_of_employees":{$gt:0}}, {name: 1, _id: 0,"number_of_employees":1}).sort({"number_of_employees":-1}).limit(10).toArray((error, result) => {
             if (error) {
               console.log(error);
               rl.question(`\nType enter to continue: `, (answer) => { mainMenu() });
