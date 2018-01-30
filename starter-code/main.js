@@ -215,6 +215,29 @@ mongoClient.connect(url, (error, db) => {
                   });
                 }
               });
+              break;
+              case '11':
+              db
+              .document('companies')
+              .find({
+                name: 'Facebook',
+                relationships: 1,
+                founded_day = {$eq: Date()} //THIS IS OBVIOUSLY NOT RIGHT, BUT YOU GET MY LOGIC... I HAVE NOT ENOUGH PATIENCE TO READ THROUGH ALL THE FACEBOOK LIST
+              })
+              .toArray((error, result) => {
+                if (error) {
+                  console.log(error);
+                  rl.question(`\nType enter to continue `, answer => {
+                    mainMenu();
+                  });
+                } else {
+                  console.log(result);
+                  rl.question(`\nType enter to continue `, answer => {
+                    mainMenu();
+                  })
+                }
+              })
+              break;
           case '0':
             console.log(`👋👋👋👋 😞 \n`);
             db.close(error => {
