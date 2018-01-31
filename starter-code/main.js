@@ -137,12 +137,23 @@ mongoClient.connect(url, (error, db) => {
           break;
           break;
           case "11":
-            db.collection('companies').find({name: "Facebook","relationships.is_past": false},{relationships:1,_id: 0}).toArray((error, result) => {
+            db.collection('companies').find({name: "Facebook","relationships.is_past": false},{"relationships.person.first_name":1,_id: 0}).toArray((error, result) => {
               if (error) {
                 console.log(error);
                 rl.question(`\nType enter to continue: `, (answer) => { mainMenu() });
               } else {
                 console.log(result[0].relationships);
+                rl.question(`\nType enter to continue: `, (answer) => { mainMenu() });
+              }
+            })
+          break;
+          case "12":
+            db.collection('companies').find({name: "Facebook","relationships.is_past": true},{"relationships.person":1}).count((error, result) => {
+              if (error) {
+                console.log(error);
+                rl.question(`\nType enter to continue: `, (answer) => { mainMenu() });
+              } else {
+                console.log(result);
                 rl.question(`\nType enter to continue: `, (answer) => { mainMenu() });
               }
             })
