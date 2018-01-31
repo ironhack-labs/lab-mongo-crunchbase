@@ -1,0 +1,23 @@
+{
+  "name": "lab-mongo-crunchbase",
+  "version": "1.0.0",
+  "description": "Daily Exercise",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ironhack-labs/lab-mongo-crunchbase.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/ironhack-labs/lab-mongo-crunchbase/issues"
+  },
+  "homepage": "https://github.com/ironhack-labs/lab-mongo-crunchbase#readme",
+  "dependencies": {
+    "clear": "0.0.1",
+    "mongodb": "^2.2.34"
+  }
+}
