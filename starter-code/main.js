@@ -185,7 +185,7 @@ mongoClient.connect(url, (error, db) => {
               .find({ name: "Facebook" }, { "products.name": 1, _id: 0 })
               .toArray((err, result) => {
                 if (err) throw err;
-                console.log(result );
+                console.log(result);
                 rl.question(`\nType enter to continue: `, answer => {
                   mainMenu();
                 });
@@ -193,22 +193,22 @@ mongoClient.connect(url, (error, db) => {
             break;
           //     11.- List the people that are working at Facebook right now (check relationships field)
 
-          case "11":
-            db
-              .collection("companies")
-              .find(
-                { name: "Facebook" },
-                { "relationships.person": 1, _id: 0 }
-              )
-              .toArray((err, result) => {
-                if (err) throw err;
-                console.log(result.forEach(e){if (e.is_past === false){return e.person}});
-                rl.question(`\nType enter to continue: `, answer => {
-                  mainMenu();
-                });
-              });
-            break;
-            //"relationships.is_past": false
+          // case "11":
+          //   db
+          //     .collection("companies")
+          //     .find(
+          //       { name: "Facebook" },
+          //       { "relationships.person": 1, _id: 0 }
+          //     )
+          //     .toArray((err, result) => {
+          //       if (err) throw err;
+          //       console.log(result.forEach(e){if (e.is_past === false){return e.person}});
+          //       rl.question(`\nType enter to continue: `, answer => {
+          //         mainMenu();
+          //       });
+          //     });
+          //   break;
+          //"relationships.is_past": false
           //     12.- How many people are not working anymore at Facebook
           // case "12":
           // db
