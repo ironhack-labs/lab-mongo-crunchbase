@@ -166,7 +166,7 @@ mongoClient.connect(url, (error, db) => {
             })
             break;
           case "14":
-            db.collection('companies').find({ name: "Facebook" }).project({ "competitions.competitor.name": 1, name: 1, _id: 0 }).toArray((error, result) => {
+            db.collection('companies').find({ name: "Facebook" },{ "competitions.competitor.name": 1, name: 1, _id: 0 }).toArray((error, result) => {
               if (error) {
                 console.log(error);
                 rl.question(`\nType enter to continue: `, (answer) => { mainMenu() });
@@ -177,12 +177,14 @@ mongoClient.connect(url, (error, db) => {
             })
             break;
             case "15":
-            db.collection('companies').find({ name: "Facebook" }).project({ "competitions.competitor.name": 1, name: 1, _id: 0 }).toArray((error, result) => {
+            // db.collection.find({name:{'$regex' : '^string$', '$options' : 'i'}})
+
+            db.collection('companies').find({'tag-list': {'$regex:': '^social-networking$'}},{ "competitions.competitor.name": 1, name: 1, _id: 0 }).toArray((error, result) => {
               if (error) {
                 console.log(error);
                 rl.question(`\nType enter to continue: `, (answer) => { mainMenu() });
               } else {
-                console.log(result[0].competitions)
+                console.log(result)
                 rl.question(`\nType enter to continue: `, (answer) => { mainMenu() });
               }
             })
