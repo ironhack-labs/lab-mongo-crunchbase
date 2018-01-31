@@ -121,6 +121,33 @@ mongoClient.connect(url, (error, db) => {
               }
             });
             break;
+          case "9":
+            let query9 = {name : {$eq : 'Facebook'} };
+            let projection9 = {number_of_employees: 1, _id: 0}
+            db.collection('companies').find(query9, projection9)
+            .toArray((error, result) => {
+              if(error){
+                console.log('\nTType enter to continue ', error);
+                rl.question('\nType enter to continue: ', (answer) => {mainMenu()});
+              } else {
+                console.log(result);
+                rl.question('\nType enter to continue: ', (answer) => {mainMenu()});
+              }
+            });
+          case "10":
+            let query10 = {name : {$eq : 'Facebook'} };
+            let projection10 = {'products.name': 1, _id: 0}
+            db.collection('companies').find(query10, projection10)
+            .toArray((error, result) => {
+              if(error){
+                console.log('\nTType enter to continue ', error);
+                rl.question('\nType enter to continue: ', (answer) => {mainMenu()});
+              } else {
+                console.log(result);
+                rl.question('\nType enter to continue: ', (answer) => {mainMenu()});
+              }
+            });
+            break;
           case "0":
             console.log('bye bye!! \n');
             db.close((error) => {process.exit(0)});
