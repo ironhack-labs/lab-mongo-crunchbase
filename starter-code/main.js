@@ -26,6 +26,21 @@ mongoClient.connect(url, (error, db) => {
                 switch (option) {
                     case "1":
                         db.collection('companies').find({}, { name: 1, _id: 0 }).toArray((error, result) => {
+                            if (error) {
+
+                                console.log(error);
+                                rl.question(`\nType enter to continue: `, (answer) => {mainMenu()});
+                            } else {
+
+                                console.log(result);
+                                rl.question(`\nType enter to continue: `, (answer) => {mainMenu()});
+                            }
+                        })
+                        break;
+                    case "2":
+                        db.collection('companies')
+                            .find({}, { name: 1, _id: 0 })
+                            .count((error, result) => {
 
                             if (error) {
 
@@ -38,24 +53,9 @@ mongoClient.connect(url, (error, db) => {
                             }
                         })
                         break;
-                    case "2":
-                        db.collection('companies')
-                            .find({}, { name: 1, _id: 0 })
-                            .count((error, result) => {
-                            if (error) {
-
-                                console.log(error);
-                                rl.question(`\nType enter to continue: `, (answer) => { mainMenu() });
-                            } else {
-
-                                console.log(result);
-                                rl.question(`\nType enter to continue: `, (answer) => { mainMenu() });
-                            }
-                            });
-                        break;
                     case "3":
                         db.collection('companies')
-                            .find({ found_year: 2004 }, { name: 1, _id: 0 })
+                            .find({ founded_year: 2004 }, { name: 1, _id: 0 })
                             .toArray((error, result) => {
 
                             if (error) {
@@ -71,7 +71,7 @@ mongoClient.connect(url, (error, db) => {
                         break;
                     case "4":
                         db.collection('companies')
-                            .find({ found_year: 2004, "month": "2" }, { name: 1, _id: 0 })
+                            .find({ founded_year: 2004, founded_month: 2 }, { name: 1, _id: 0 })
                             .toArray((error, result) => {
                             if (error) {
 
@@ -86,8 +86,8 @@ mongoClient.connect(url, (error, db) => {
                         break;
                     case "5":
                         db.collection('companies')
-                            .find({ founded_year: 2004, founded_month: { $gte: "4", $lte: "6" }}, {name: 1, _id: 0 })
-                            .sort({founded_month: -1})
+                            .find( { founded_year: 2004, founded_month: { $gte: 4, $lte: 6 } }, { name: 1, _id: 0, founded_month: 1 } )
+                            .sort( { founded_month: 1 } )
                             .toArray((error, result) => {
 
                             if (error) {
@@ -103,7 +103,23 @@ mongoClient.connect(url, (error, db) => {
                         break;
                     case "6":
                         db.collection('companies')
-                            .find({ offices: 'Barcelona'}, { name: 1, _id: 0 })
+                            .find({ 'offices.city': 'Barcelona' }, { name: 1, _id: 0 })
+                            .toArray((error, result) => {
+
+                                if (error) {
+
+                                    console.log(error);
+                                    rl.question(`\nType enter to continue: `, (answer) => { mainMenu() });
+                                } else {
+
+                                    console.log(result);
+                                    rl.question(`\nType enter to continue: `, (answer) => { mainMenu() });
+                                }
+                            });
+                        break;
+                    case "7":
+                        db.collection('companies')
+                            .find({ $max: '$number_of_employees'}, { name: 1, _id: 0, $size: 10 })
                             .toArray((error, result) => {
 
                                 if (error) {
