@@ -1,0 +1,24 @@
+{
+  "name": "crunchbase",
+  "version": "1.0.0",
+  "description": "![Ironhack Logo](https://i.imgur.com/1QgrNNw.png)",
+  "main": "index.js",
+  "dependencies": {
+    "clear": "0.0.1",
+    "mongodb": "^3.0.2"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/alfioanr/lab-mongo-crunchbase.git"
+  },
+  "author": "Alfio Nipitella",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/alfioanr/lab-mongo-crunchbase/issues"
+  },
+  "homepage": "https://github.com/alfioanr/lab-mongo-crunchbase#readme"
+}
