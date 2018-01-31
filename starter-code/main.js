@@ -122,34 +122,37 @@ mongoClient.connect(url, (error, db) => {
             })
             break;
           case "10":
-            db.collection('companies').find({ name: "Facebook" }).project({ name: 1, "products.name": 1, _id: 0 }).toArray((error, result) => {
+            db.collection('companies').find({ name: "Facebook" }, {"products.name": 1, _id: 0 }).toArray((error, result) => {
               if (error) {
                 console.log(error);
                 rl.question(`\nType enter to continue: `, (answer) => { mainMenu() });
               } else {
-                console.log(result);
+                result[0].products.forEach((prod) => {console.log(prod.name);})
+                // console.log(result);
                 rl.question(`\nType enter to continue: `, (answer) => { mainMenu() });
               }
             })
             break;
           case "11":
-            db.collection('companies').find({ name: "Facebook" }).project({ "relationships.person.first_name": 1 }).toArray((error, result) => {
+            db.collection('companies').find({ name: "Facebook" },{ "relationships.person.first_name": 1 }).toArray((error, result) => {
               if (error) {
                 console.log(error);
                 rl.question(`\nType enter to continue: `, (answer) => { mainMenu() });
               } else {
-                console.log(result);
+                // result[0].person.forEach((prod) => {console.log(prod.name);})
+                console.log(result[0].relationships);
                 rl.question(`\nType enter to continue: `, (answer) => { mainMenu() });
               }
             })
             break;
           case "12":
-            db.collection('companies').find({ $and: [{ 'name': 'Facebook' }, { relationships: { $elemMatch: { is_past: true } } }] }, { "relationships.person.first_name": 1 }).toArray((error, result) => {
+            db.collection('companies').find({ $and: [{ 'name': 'Facebook' }, { relationships: { $elemMatch: { is_past: true } } }] }, { "relationships.person.first_name": 1 }).count((error, result) => {
               if (error) {
                 console.log(error);
                 rl.question(`\nType enter to continue: `, (answer) => { mainMenu() });
               } else {
-                console.log(result);
+                // result[0].relationships.forEach((prod) => {console.log(prod.name);})
+                console.log(result[0]);
                 rl.question(`\nType enter to continue: `, (answer) => { mainMenu() });
               }
             })
@@ -166,12 +169,13 @@ mongoClient.connect(url, (error, db) => {
             })
             break;
           case "14":
-            db.collection('companies').find({ name: "Facebook" }).project({ "competitions.competitor.name": 1, name: 1, _id: 0 }).toArray((error, result) => {              //       if (error) {
+            db.collection('companies').find({ name: "Facebook" }).project({ "competitions.competitor.name": 1, name: 1, _id: 0 }).toArray((error, result) => {             
               if (error) {
                 console.log(error);
                 rl.question(`\nType enter to continue: `, (answer) => { mainMenu() });
               } else {
-                console.log(result);
+                // result[0].competitor.forEach((prod) => {console.log(prod.name);})
+                console.log (result[0].competitors[0].forEach((prod) => {console.log(prod.name);}))
                 rl.question(`\nType enter to continue: `, (answer) => { mainMenu() });
               }
             })
