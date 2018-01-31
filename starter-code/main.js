@@ -184,6 +184,28 @@ mongoClient.connect(url, (error, db) => {
               console.log(result[0].competitions.sort((a,b)=>a.competitor.permalink<b.competitor.permalink? 1:-1));
               rl.question(`\nType enter to continue: `, (answer) => { mainMenu() });
             }
+          });
+        break;
+        case "15":
+          db.collection('companies').find({tag_list: {$elemMatch(social_networking)},name:1,_id:0}).toArray((error, result) => {
+            if (error) {
+              console.log(error);
+              rl.question(`\nType enter to continue: `, (answer) => { mainMenu() });
+            } else {
+              console.log(result[0].competitions.sort((a,b)=>a.competitor.permalink<b.competitor.permalink? 1:-1));
+              rl.question(`\nType enter to continue: `, (answer) => { mainMenu() });
+            }
+          })
+        break;
+        case "16":
+          db.collection('companies').find({tag_list: {$elemMatch(social_networking)},founded_year:{$gte:2002,$lte:2016},name:1,_id:0}).toArray((error, result) => {
+            if (error) {
+              console.log(error);
+              rl.question(`\nType enter to continue: `, (answer) => { mainMenu() });
+            } else {
+              console.log(result[0].competitions.sort((a,b)=>a.competitor.permalink<b.competitor.permalink? 1:-1));
+              rl.question(`\nType enter to continue: `, (answer) => { mainMenu() });
+            }
           })
         break;
         case "0":
