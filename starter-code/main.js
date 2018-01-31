@@ -380,7 +380,7 @@ mongoClient.connect(url, (error, db) => {
 						break;
 					case "17":
 						db.collection('companies').find({
-							'offices.city': "Barcelona"
+							'offices.city': "London"
 						}, {
 							name: 1,
 							_id: 0
