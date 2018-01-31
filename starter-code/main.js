@@ -336,17 +336,76 @@ mongoClient.connect(url, (error, db) => {
             }
           });
         break;
-      case '0':
-        console.log(`👋👋👋👋 😞 \n`);
-        db.close(error => {
-          process.exit(0);
-        });
+      case '16':
+        db.collection('companies').count(
+          {
+            $and: [
+              { founded_year: { $gte: 2002, $lte: 2016 } },
+              { tag_list: { $regex: /social-network/i } }
+            ]
+          },
+          (error, result) => {
+            if (error) {
+              console.log(error);
+              rl.question(`\nType enter to continue: `, answer => {
+                mainMenu();
+              });
+            } else {
+              console.log(result);
+              rl.question(`\nType enter to continue: `, answer => {
+                mainMenu();
+              });
+            }
+          }
+        );
         break;
-      case '0':
-        console.log(`👋👋👋👋 😞 \n`);
-        db.close(error => {
-          process.exit(0);
-        });
+      case '17':
+        db
+          .collection('companies')
+          .find({ offices: { $elemMatch: { city: 'London' } } })
+          .toArray((error, result) => {
+            if (error) {
+              console.log(error);
+              rl.question(`\nType enter to continue: `, answer => {
+                mainMenu();
+              });
+            } else {
+              for (let i = 0; i < result.length; i++) {
+                console.log(
+                  `Company name: ${result[i].name}, company headquarters: ${
+                    result[i].offices[0].city
+                  }`
+                );
+              }
+              rl.question(`\nType enter to continue: `, answer => {
+                mainMenu();
+              });
+            }
+          });
+        break;
+      case '18':
+        db.collection('companies').count(
+          {
+            $and: [
+              { founded_year: { $gte: 2002, $lte: 2016 } },
+              { tag_list: { $regex: /social-network/i } },
+              { offices: { $elemMatch: { city: 'New York' } } }
+            ]
+          },
+          (error, result) => {
+            if (error) {
+              console.log(error);
+              rl.question(`\nType enter to continue: `, answer => {
+                mainMenu();
+              });
+            } else {
+              console.log(result);
+              rl.question(`\nType enter to continue: `, answer => {
+                mainMenu();
+              });
+            }
+          }
+        );
         break;
       default:
         mainMenu();
