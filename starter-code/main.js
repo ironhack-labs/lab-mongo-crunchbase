@@ -127,7 +127,7 @@ mongoClient.connect(url, (error, db) => {
               console.log(error);
               rl.question(`\nType enter to continue: `, (answer) => { mainMenu() });
             } else {
-              result[0].products.forEach( (products) => {console.log(products.name);});
+               result[0].products.forEach( (products) => {console.log(products.name);});
               rl.question(`\nType enter to continue: `, (answer) => { mainMenu() });
             }
           })
@@ -156,6 +156,17 @@ mongoClient.connect(url, (error, db) => {
                 }
                 });
                 console.log("No curran más en feisbuk " + count);
+              rl.question(`\nType enter to continue: `, (answer) => { mainMenu() });
+            }
+          })
+          break;
+          case "13":
+          db.collection('companies').find({$and: [{"relationships.person.first_name":"David"},{"relationships.person.last_name":"Ebersman"}]}, {name: 1, _id: 0}).toArray((error, result) => {
+            if (error) {
+              console.log(error);
+              rl.question(`\nType enter to continue: `, (answer) => { mainMenu() });
+            } else {
+                console.log(result);
               rl.question(`\nType enter to continue: `, (answer) => { mainMenu() });
             }
           })
