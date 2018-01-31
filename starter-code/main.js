@@ -171,8 +171,18 @@ mongoClient.connect(url, (error, db) => {
                 console.log(error);
                 rl.question(`\nType enter to continue: `, (answer) => { mainMenu() });
               } else {
-                // result[0].competitor.forEach((prod) => {console.log(prod.name);})
-                console.log(result[0].competitors[0].forEach((prod) => { console.log(prod.name); }))
+                console.log(result[0].competitions)
+                rl.question(`\nType enter to continue: `, (answer) => { mainMenu() });
+              }
+            })
+            break;
+            case "15":
+            db.collection('companies').find({ name: "Facebook" }).project({ "competitions.competitor.name": 1, name: 1, _id: 0 }).toArray((error, result) => {
+              if (error) {
+                console.log(error);
+                rl.question(`\nType enter to continue: `, (answer) => { mainMenu() });
+              } else {
+                console.log(result[0].competitions)
                 rl.question(`\nType enter to continue: `, (answer) => { mainMenu() });
               }
             })
