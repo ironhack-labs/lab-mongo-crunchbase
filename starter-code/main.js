@@ -28,6 +28,7 @@ mongoClient.connect(url, (error, db) => {
                   console.log(error);
                   rl.question(`\nType enter to continue: `, (answer) => { mainMenu() });
                 } else {
+                    console.log("These are all the companies:")
                   console.log(result);
                   rl.question(`\nType enter to continue: `, (answer) => { mainMenu() });
                 }
@@ -42,7 +43,7 @@ mongoClient.connect(url, (error, db) => {
                   console.log(error);
                   rl.question(`\nType enter to continue: `, (answer) => { mainMenu() });
                 } else {
-                  console.log(result);
+                  console.log(`There are ${result} companies`);
                   rl.question(`\nType enter to continue: `, (answer) => { mainMenu() });
                 }
                })
@@ -54,7 +55,7 @@ mongoClient.connect(url, (error, db) => {
                     console.log(error);
                     rl.question(`\nType enter to continue: `, (answer) => { mainMenu() });
                 } else {
-                    console.log(result);
+                    console.log(`${result} companies were founded in 2004`);
                     rl.question(`\nType enter to continue: `, (answer) => { mainMenu() });
                 }
                 })
@@ -66,6 +67,7 @@ mongoClient.connect(url, (error, db) => {
                     console.log(error);
                     rl.question(`\nType enter to continue: `, (answer) => { mainMenu() });
                   } else {
+                    console.log("These companies were founded in February 2004")
                     console.log(result);
                     rl.question(`\nType enter to continue: `, (answer) => { mainMenu() });
                   }
@@ -78,6 +80,7 @@ mongoClient.connect(url, (error, db) => {
                     console.log(error);
                     rl.question(`\nType enter to continue: `, (answer) => { mainMenu() });
                   } else {
+                      console.log("These companies were founded in the summer of 2004")
                     console.log(result);
                     rl.question(`\nType enter to continue: `, (answer) => { mainMenu() });
                   }
@@ -90,6 +93,7 @@ mongoClient.connect(url, (error, db) => {
                       console.log(error);
                       rl.question(`\nType enter to continue: `, (answer) => { mainMenu() });
                     } else {
+                        console.log("These companies have offices in Barcelona:")
                       console.log(result);
                       rl.question(`\nType enter to continue: `, (answer) => { mainMenu() });
                     }
@@ -101,6 +105,7 @@ mongoClient.connect(url, (error, db) => {
                           console.log(error);
                           rl.question(`\nType enter to continue: `, (answer) => { mainMenu() });
                         } else {
+                            console.log("The 10 companies with the highest number of employees are:")
                           console.log(result);
                           rl.question(`\nType enter to continue: `, (answer) => { mainMenu() });
                         }
@@ -113,7 +118,7 @@ mongoClient.connect(url, (error, db) => {
                   console.log(error);
                   rl.question(`\nType enter to continue: `, (answer) => { mainMenu() });
                 } else {
-                    console.log("Aqui esta Facebook");
+                    console.log("Here's  Facebook");
                   console.log(result);
                   rl.question(`\nType enter to continue: `, (answer) => { mainMenu() });
                 }
@@ -125,7 +130,7 @@ mongoClient.connect(url, (error, db) => {
                   console.log(error);
                   rl.question(`\nType enter to continue: `, (answer) => { mainMenu() });
                 } else {
-                    console.log("Facebook tiene esta cantidad de empleados");
+                    console.log("Facebook has this many employees");
                   console.log(result);
                   rl.question(`\nType enter to continue: `, (answer) => { mainMenu() });
                 }
@@ -137,6 +142,7 @@ mongoClient.connect(url, (error, db) => {
                   console.log(error);
                   rl.question(`\nType enter to continue: `, (answer) => { mainMenu() });
                 } else {
+                    console.log("These are Facebook's products:")
                     for (var i=0; i<result.length; i++){
                         console.log(result[i]);
                     }
@@ -150,9 +156,10 @@ mongoClient.connect(url, (error, db) => {
                   console.log(error);
                   rl.question(`\nType enter to continue: `, (answer) => { mainMenu() });
                 } else {
+                    console.log("These people currently work at Facebook:")
                 result[0].relationships.forEach(p=>{
                     if (p.is_past==false){
-                    console.log(p.person.first_name, p.person.last_name)
+                    console.log(" "+p.person.first_name, p.person.last_name)
                     }
                 });
                   rl.question(`\nType enter to continue: `, (answer) => { mainMenu() });
@@ -171,7 +178,7 @@ mongoClient.connect(url, (error, db) => {
                         counter++;
                         }
                     });
-                    console.log(counter)
+                    console.log(`${counter} people used to work at Facebook`);
                   rl.question(`\nType enter to continue: `, (answer) => { mainMenu() });
                 }
                })
@@ -182,6 +189,7 @@ mongoClient.connect(url, (error, db) => {
                   console.log(error);
                   rl.question(`\nType enter to continue: `, (answer) => { mainMenu() });
                 } else {
+                    console.log("David Ebersman worked in these companies")
                     console.log(result)
                   rl.question(`\nType enter to continue: `, (answer) => { mainMenu() });
                 }
@@ -193,6 +201,7 @@ mongoClient.connect(url, (error, db) => {
                   console.log(error);
                   rl.question(`\nType enter to continue: `, (answer) => { mainMenu() });
                 } else {
+                    console.log("These are Facebook's competitors")
                     result[0].competitions.forEach(c=>{
                         console.log(c.competitor.name)
                     });
@@ -206,6 +215,7 @@ mongoClient.connect(url, (error, db) => {
                   console.log(error);
                   rl.question(`\nType enter to continue: `, (answer) => { mainMenu() });
                 } else {
+                    console.log("These companies consider themselves Social Networks")
                     console.log(result)
                   rl.question(`\nType enter to continue: `, (answer) => { mainMenu() });
                 }
@@ -217,7 +227,7 @@ mongoClient.connect(url, (error, db) => {
                   console.log(error);
                   rl.question(`\nType enter to continue: `, (answer) => { mainMenu() });
                 } else {
-                    console.log(result.length)
+                    console.log(`${result.length} companies were founded between 2002 and 2016 inclusive, that consider themselves social networks`)
                   rl.question(`\nType enter to continue: `, (answer) => { mainMenu() });
                 }
                })
@@ -228,7 +238,7 @@ mongoClient.connect(url, (error, db) => {
                   console.log(error);
                   rl.question(`\nType enter to continue: `, (answer) => { mainMenu() });
                 } else {
-                    
+                    console.log("These are the locations of companies that have offices in London")
                     result.forEach(c=>{
                         console.log(`Company: ${c.name}`);
                         c.offices.forEach(d=>{
@@ -245,11 +255,64 @@ mongoClient.connect(url, (error, db) => {
                   console.log(error);
                   rl.question(`\nType enter to continue: `, (answer) => { mainMenu() });
                 } else {
-                    console.log(result.length)
+                    console.log(`${result.length} companies were founded between 2002 and 2016 inclusive, that consider themselves social networks and have offices in New York`)
                   rl.question(`\nType enter to continue: `, (answer) => { mainMenu() });
                 }
                })
               break;
+              case "19":
+              db.collection('companies').distinct("category_code",(error, result) => {
+                if (error) {
+                  console.log(error);
+                  rl.question(`\nType enter to continue: `, (answer) => { mainMenu() });
+                } else {
+                  console.log("These are the categories")  
+                  console.log(result);
+                  rl.question(`\nType enter to continue: `, (answer) => { mainMenu() });
+                }
+               })
+              break;
+              case "20":
+            db.collection('companies').find({"overview":{$regex : /.*Google.*/}},{"name": 1, _id: 0, "overview":1}).toArray((error, result) => {
+                if (error) {
+                  console.log(error);
+                  rl.question(`\nType enter to continue: `, (answer) => { mainMenu() });
+                } else {
+                    console.log(`${result.length} companies mention Google in their overviews`)
+                  rl.question(`\nType enter to continue: `, (answer) => { mainMenu() });
+                }
+               })
+              break;
+              case "21":
+            db.collection('companies').find({"founded_year":2004}, {"name": 1, _id: 0, "funding_rounds":1}).toArray((error, result) => {
+                if (error) {
+                    console.log(error);
+                    rl.question(`\nType enter to continue: `, (answer) => { mainMenu() });
+                } else {
+                    let totalSum=0;
+                    let counter=0;
+                    result.forEach(c=>{
+                        if (c.funding_rounds.length>=5){
+                            let sum=0;
+                            counter++;
+                            console.log(`Company: ${c.name}`);
+                            c.funding_rounds.forEach(d=>{
+                                sum+=d.raised_amount;
+                                console.log(`  Amount Raised: ${d.raised_amount}`);
+                            })
+                            console.log(` Total Amount Raised: ${sum}`)
+                            console.log(` Average Amount Raised: ${sum/c.funding_rounds.length}`)
+                            totalSum+=sum;
+                        }
+                        
+                    });
+                    console.log(`Total Amount Raised by Companies founded in 2004: ${totalSum}`)
+                    console.log(`Average Amount Raised by Companies founded in 2004: ${totalSum/counter}`)
+                    rl.question(`\nType enter to continue: `, (answer) => { mainMenu() });
+                }
+                })
+                 
+                break;
             case "0":
               console.log(`👋👋👋👋 😞 \n`);
               db.close((error) => { process.exit(0) });
@@ -287,6 +350,9 @@ function printMenu(){
 16.- How many companies that has "social-network" in tag-list and founded between 2002 and 2016 inclusive
 17.- Names and locations of companies that have offices in London
 18.- How many companies that has "social-network" in tag-list and founded between 2002 and 2016 inclusive and has offices in New York
+19.- List all the categories
+20.- How many companies mention Google in their overview?
+21.- Calculate the average amount raised by companies founded in 2004 that had 5 or more rounds of founding
 `);
 }
 
