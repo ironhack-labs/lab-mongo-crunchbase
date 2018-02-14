@@ -177,17 +177,15 @@ mongoClient.connect(url, (error, db) => {
       //13.- List all the companies where "david-ebersman" has worked.
       case "13":
 
-db.collection('companies').find({person:{$elemMatch:{permalink:"david-ebersman"}}},{name:1,_id:0}).toArray((error, result) => {
+
+      case "13":
+
+db.collection('companies').find({"relationships.person.permalink":"david-ebersman"},{name:1,_id:0}).toArray((error, result) => {
         if (error) {      
         console.log(error);
         rl.question(`\nType enter to continue: `, (answer) => { mainMenu() });
         } else {
 
-      //     for (i=0;i<result.length;i++){
-             
-      //   console.log(result[i]);
-      //     }
-       
        console.log(result);
         rl.question(`\nType enter to continue: `, (answer) => { mainMenu() });
         }
@@ -196,22 +194,77 @@ db.collection('companies').find({person:{$elemMatch:{permalink:"david-ebersman"}
     //14.- List by name the competitors of Facebook
     case "14":
 
-      db.collection('companies').find({name:"Facebook"},{"competitor.name":1,_id:0}).toArray((error, result) => {
+      db.collection('companies').find({name:"Facebook"},{"competitions":1,_id:0}).toArray((error, result) => {
         if (error) {
         console.log(error);
         rl.question(`\nType enter to continue: `, (answer) => { mainMenu() });
         } else {
-            
-      //     for (i=0;i<result.length;i++){
+          
+         
+            result[0].competitions.forEach(c=>{
+                console.log(c.competitor.name)
+            });
              
-      //   console.log(result[i]);
-      //     }
-       
-       console.log(result);
         rl.question(`\nType enter to continue: `, (answer) => { mainMenu() });
         }
     })
     break;
+    case "15":
+
+      db.collection('companies').find({"tag_list":{$regex:"social-networking"}},{name:1,_id:0}).toArray((error, result) => {
+        if (error) {
+        console.log(error);
+        rl.question(`\nType enter to continue: `, (answer) => { mainMenu() });
+        } else {
+          
+         
+    
+                console.log(result)
+       
+             
+        rl.question(`\nType enter to continue: `, (answer) => { mainMenu() });
+        }
+    })
+    break;
+
+    case "16":
+    //16.- How many companies that has "social-network" in tag-list and founded between 2002 and 2016 inclusive
+
+      db.collection('companies').find({"tag_list":{$regex:"social-networking"},"founded_year":{$gte:2002},"founded_year":{$lte:2016}},{name:1,_id:0}).count((error, result) => {
+        if (error) {
+        console.log(error);
+        rl.question(`\nType enter to continue: `, (answer) => { mainMenu() });
+        } else {
+                console.log(result)
+        rl.question(`\nType enter to continue: `, (answer) => { mainMenu() });
+        }
+    })
+    break;
+    case "17":
+        db.collection('companies').find({"offices.city":"London"},{name: 1, "offices.city":1,_id: 0}).toArray((error, result) => {
+          if (error) {
+          console.log(error);
+          rl.question(`\nType enter to continue: `, (answer) => { mainMenu() });
+          } else {
+            result.forEach(company=> {
+                 console.log(company.name, company.offices[0].city)
+            });
+          rl.question(`\nType enter to continue: `, (answer) => { mainMenu() });
+          }
+      })
+      break;
+      case "18":
+      //  "social-network" in tag-list and founded between 2002 and 2016 inclusive and has offices in New York
+        db.collection('companies').find({"tag_list":{$regex:"social-networking"},"founded_year":{$gte:2002},"founded_year":{$lte:2016},"offices.city":"New York"},{name: 1, "offices.city":1,_id: 0}).count((error, result) => {
+          if (error) {
+          console.log(error);
+          rl.question(`\nType enter to continue: `, (answer) => { mainMenu() });
+          } else {
+            console.log(result)
+          rl.question(`\nType enter to continue: `, (answer) => { mainMenu() });
+          }
+      })
+      break;
           case "0":
             console.log(`👋👋👋👋 😞 \n`);
             db.close((error) => { process.exit(0) });
@@ -244,6 +297,7 @@ function printMenu(){
 10.- List the name of all the products of Facebook
 11.- List the people that are working at Facebook right now (check relationships field)
 12.- How many people are not working anymore at Facebook
+
 13.- List all the companies where "david-ebersman" has worked.
 14.- List by name the competitors of Facebook
 15.- Names of the companies that has "social-networking" in tag-list (be aware that the value of field is a string check regex operators)
