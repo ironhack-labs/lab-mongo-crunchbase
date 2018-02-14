@@ -178,6 +178,97 @@ mongoClient.connect(url, (error, db) => {
                             }
                         })
                         break;
+                    case "13":
+                        db.collection('companies').find({ "relationships.person.permalink": "david-ebersman" }, { name: 1, _id: 0 }).toArray((error, result) => {
+                            if (error) {
+                                console.log(error);
+                                rl.question(`\nType enter to continue: `, (answer) => { mainMenu() });
+                            } else {
+                                console.log(`Places David Ebersma has worked: ${result[0].name} and ${result[1].name} `);
+                                rl.question(`\nType enter to continue: `, (answer) => { mainMenu() });
+                            }
+                        })
+                        break;
+                    case "14":
+                        db.collection('companies').find({ name: "Facebook" }, { "competitions.competitor.name": 1, _id: 0 }).toArray((error, result) => {
+                            if (error) {
+                                console.log(error);
+                                rl.question(`\nType enter to continue: `, (answer) => { mainMenu() });
+                            } else {
+                                for (var i = 0; i < result[0].competitions.length; i++) {
+                                    console.log(result[0].competitions[i].competitor.name);
+                                }
+                                rl.question(`\nType enter to continue: `, (answer) => { mainMenu() });
+                            }
+                        })
+                        break;
+                    case "15":
+                        db.collection('companies').find({ tag_list: { $regex: 'social-networking' } }, { name: 1, _id: 0 }).toArray((error, result) => {
+                            if (error) {
+                                console.log(error);
+                                rl.question(`\nType enter to continue: `, (answer) => { mainMenu() });
+                            } else {
+                                console.log(result);
+                                rl.question(`\nType enter to continue: `, (answer) => { mainMenu() });
+                            }
+                        })
+                        break;
+                    case "16":
+                        db.collection('companies').find({
+                            $and: [{ tag_list: { $regex: 'social-networking' } },
+                                {
+                                    $and: [{ founded_year: { $gte: 2002 } },
+                                        { founded_year: { $lte: 2016 } }
+                                    ]
+                                }
+                            ]
+                        }, { name: 1, founded_year: 1, _id: 0 }).toArray((error, result) => {
+                            if (error) {
+                                console.log(error);
+                                rl.question(`\nType enter to continue: `, (answer) => { mainMenu() });
+                            } else {
+                                console.log(result);
+                                rl.question(`\nType enter to continue: `, (answer) => { mainMenu() });
+                            }
+                        })
+                        break;
+                    case "17":
+                        db.collection('companies').find({ "offices.city": "London" }, { name: 1, "offices.city": 1, _id: 0 }).toArray((error, result) => {
+                            if (error) {
+                                console.log(error);
+                                rl.question(`\nType enter to continue: `, (answer) => { mainMenu() });
+                            } else {
+                                result.forEach(function(company) {
+                                    console.log(company.name, company.offices[0].city)
+                                })
+                                rl.question(`\nType enter to continue: `, (answer) => { mainMenu() });
+                            }
+                        })
+                        break;
+                    case "18":
+                        db.collection('companies').find({
+                            $and: [{ tag_list: { $regex: 'social-networking' } },
+                                {
+                                    $and: [{ founded_year: { $gte: 2002 } },
+                                        { founded_year: { $lte: 2016 } }
+                                    ]
+                                },
+                                {
+                                    "offices.city": "New York"
+                                }
+                            ]
+                        }, { name: 1, founded_year: 1, "offices.city": 1, _id: 0 }).toArray((error, result) => {
+                            if (error) {
+                                console.log(error);
+                                rl.question(`\nType enter to continue: `, (answer) => { mainMenu() });
+                            } else {
+                                result.forEach(function(company) {
+                                    console.log(company.name, company.founded_year, company.offices[0].city);
+                                })
+                                rl.question(`\nType enter to continue: `, (answer) => { mainMenu() });
+                            }
+                        })
+                        break;
                     case "0":
                         console.log(`👋👋👋👋 😞 \n`);
                         db.close((error) => { process.exit(0) });
