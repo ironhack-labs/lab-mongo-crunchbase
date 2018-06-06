@@ -350,7 +350,7 @@ mongoClient.connect(url, (error, db) => {
 
             db.collection('companies').find({
               tag_list: {
-                $regex: ".*social-networking.*"
+                $regex: "(social)-(networking)"
               }
             }, {
               name: 1,
@@ -377,7 +377,7 @@ mongoClient.connect(url, (error, db) => {
 
             db.collection('companies').find({
               tag_list: {
-                $regex: ".*social-network.*"
+                $regex: "(social)-(network)"
               },
               founded_year: {
                 $gt: 2002,
@@ -434,7 +434,7 @@ mongoClient.connect(url, (error, db) => {
           case "18":
             db.collection('companies').find({
               tag_list: {
-                $regex: ".*social-network.*"
+                $regex: "(social)-(network)"
               },
               founded_year: {
                 $gt: 2002,
