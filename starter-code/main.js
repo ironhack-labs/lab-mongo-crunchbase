@@ -40,7 +40,7 @@ mongoClient.connect(url, (error, db) => {
               console.log(error);
               rl.question(`\nType enter to continue: `, (answer) => { mainMenu() });
             } else {
-              console.log('There are',result,'companies');
+              console.log(`There are ${result} companies`);
               rl.question(`\nType enter to continue: `, (answer) => { mainMenu() });
             }
           })
@@ -116,7 +116,7 @@ mongoClient.connect(url, (error, db) => {
                if (error) {
                    console.log(error);
                    rl.question(`\nType enter to continue: `, (answer) =>{mainMenu() });
-                                    } else {
+               } else {
                    console.log(result);
                 rl.question(`\nType enter to continue: `, (answer) => { mainMenu() });
              }
@@ -128,9 +128,9 @@ mongoClient.connect(url, (error, db) => {
                    console.log(error);
                    rl.question(`\nType enter to continue: `, (answer) =>{mainMenu() });
              } else {
-                   result.forEach((element) => {
-                    console.log(element);
-                   });
+                   result[0].products.forEach(element => {
+                     console.log(element.name);
+                });
                 rl.question(`\nType enter to continue: `, (answer) => { mainMenu() });
              }
            })
@@ -141,15 +141,53 @@ mongoClient.connect(url, (error, db) => {
                    console.log(error);
                    rl.question(`\nType enter to continue: `, (answer) =>{mainMenu() });
              } else {
-                   result[0].forEach((element) => {
-                    console.log(element);
-                   });
+
+              result[0].relationships.forEach((item) => {
+                if (!item.is_past)
+                  console.log(`${item.person.first_name} ${item.person.last_name}`);
+              })
                 rl.question(`\nType enter to continue: `, (answer) => { mainMenu() });
              }
            })
-            break;         
-          case "0":
-            console.log(`👋👋👋👋 😞 \n`);
+          break; 
+
+          case "12":  
+            collection.find({name:'Facebook'}, {'relationships':1,_id:0}).toArray((error, result) => {
+               if (error) {
+                   console.log(error);
+                   rl.question(`\nType enter to continue: `, (answer) =>{mainMenu() });
+             } else {
+
+              let counter = 0;
+              result[0].relationships.forEach((item) => {
+                if (item.is_past)
+                  counter ++;
+              })
+              console.log(`Amount of employees not working at Facebook anymore ${counter}`);
+                rl.question(`\nType enter to continue: `, (answer) => { mainMenu() });
+             }
+           })
+          break; 
+        
+          case "13":  
+          collection.find({'relationships.person.permalink':"david-ebersman"}, {name:1,'relationships.person.permalink':1,_id:0}).toArray((error, result) => {
+             if (error) {
+                 console.log(error);
+                 rl.question(`\nType enter to continue: `, (answer) =>{mainMenu() });
+           } else {
+
+            // console.log(result[0]);
+            
+            // // .relationships.forEach((item) => {
+            // //   if (item.is_past)
+            // //     counter +)+;
+            // // })
+              rl.question(`\nType enter to continue: `, (answer) => { mainMenu() });
+           }
+         })
+        break; 
+                  
+          case "0":  console.log(`👋👋👋👋 😞 \n`);
             db.close((error) => { process.exit(0) });
             break;
           default:
