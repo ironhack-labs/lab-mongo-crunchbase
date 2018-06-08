@@ -43,7 +43,7 @@ mongoClient.connect(url, (error, db) => {
                   console.log(error);
                   rl.question(`\nType enter to continue: `, (answer) => { mainMenu() });
                 } else {
-                  console.log(result);
+                  console.log(`< ${result} >`);
                   rl.question(`\nType enter to continue: `, (answer) => { mainMenu() });
                 }
               });
@@ -55,7 +55,7 @@ mongoClient.connect(url, (error, db) => {
                   console.log(error);
                   rl.question(`\nType enter to continue: `, (answer) => { mainMenu() });
                 } else {
-                  console.log(result);
+                  console.log(`< ${result} >`);
                   rl.question(`\nType enter to continue: `, (answer) => { mainMenu() });
                 }
               });
@@ -124,7 +124,8 @@ mongoClient.connect(url, (error, db) => {
                   console.log(error);
                   rl.question(`\nType enter to continue: `, (answer) => { mainMenu() });
                 } else {
-                  console.log(result[0].name);
+                  console.log(`< ${result[0].name} >`);
+                  // console.log(result[0].name);
                   rl.question(`\nType enter to continue: `, (answer) => { mainMenu() });
                 }
               });
@@ -136,7 +137,7 @@ mongoClient.connect(url, (error, db) => {
                   console.log(error);
                   rl.question(`\nType enter to continue: `, (answer) => { mainMenu() });
                 } else {
-                  console.log(result);
+                  console.log(`Number of Facebook employees: ${result[0].number_of_employees} `);
                   rl.question(`\nType enter to continue: `, (answer) => { mainMenu() });
                 }
               });
@@ -251,25 +252,32 @@ mongoClient.connect(url, (error, db) => {
             break;
           case "17":
             console.log('you typed 17');
-              collection.find({},{}).toArray((error, result) => {
+              collection.find({'offices.city':'London'},{name:1,_id:0,offices:1}).toArray((error, result) => {
                 if (error) {
                   console.log(error);
                   rl.question(`\nType enter to continue: `, (answer) => { mainMenu() });
                 } else {
-                  console.log(result);
-                  rl.question(`\nType enter to continue: no hace nada`, (answer) => { mainMenu() });
+                  result.forEach(location => {
+                    console.log(`\n<${location.name}>`);
+                    location.offices.forEach(city => {
+                      console.log(`   ${city.city}`);
+                    });
+
+                  });
+                  // console.log(result);
+                  rl.question(`\nType enter to continue: `, (answer) => { mainMenu() });
                 }
               });
             break;
           case "18":
             console.log('you typed 18');
-              collection.find({},{}).toArray((error, result) => {
+              collection.find({$and: [{ tag_list: { $regex: 'social-networking' }, founded_year: { $gte: 2002, $lte: 2016 }}],'offices.city': 'New York'}).count((error, result) => {
                 if (error) {
                   console.log(error);
                   rl.question(`\nType enter to continue: `, (answer) => { mainMenu() });
                 } else {
-                  console.log(result);
-                  rl.question(`\nType enter to continue: no hace nada`, (answer) => { mainMenu() });
+                  console.log(`< ${result} >`);
+                  rl.question(`\nType enter to continue: `, (answer) => { mainMenu() });
                 }
               });
             break;
