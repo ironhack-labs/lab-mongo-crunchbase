@@ -16,6 +16,32 @@ mongoClient.connect(url, (error, db) => {
   } else {
     console.log('Connection established correctly!! 😬');
 
+    function mainMenu(){
+      clear();
+      printMenu();
+      rl.question('Type an option: ', (option) => {
+        switch(option){
+          case "1":
+            console.log('you typed 1');
+            rl.question(`\nType enter to continue: `, (answer) => {mainMenu()});
+            break;
+          case "2":
+            console.log('you typed 2');
+            rl.question(`\nType enter to continue: `, (answer) => {mainMenu()});
+            break;
+          case "0":
+            console.log(`👋👋👋👋 😞 \n`);
+            db.close((error) => { process.exit(0) });
+            break;
+          default:
+            mainMenu();
+            break;
+        }
+      });
+	}
+
+    mainMenu();
+    
   }
 });
 
