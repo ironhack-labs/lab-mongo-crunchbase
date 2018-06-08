@@ -29,7 +29,9 @@ mongoClient.connect(url, (error, db) => {
               console.log(error);
               rl.question(`\nType enter to continue: `, (answer) => { mainMenu() });
             } else {
-              console.log(result);
+
+              console.log("List of companies by name: ")
+              result.forEach(companies=> console.log(companies.name))
               rl.question(`\nType enter to continue: `, (answer) => { mainMenu() });
             }
           })
@@ -62,18 +64,26 @@ mongoClient.connect(url, (error, db) => {
                 console.log(error);
                 rl.question(`\nType enter to continue: `, (answer) => { mainMenu() });
               } else {
-                console.log(result);
+
+                console.log("Companies founded in february of 2004:")
+                result.forEach(companies => {
+                  console.log(`Name: ${companies.name}`)
+                });
                 rl.question(`\nType enter to continue: `, (answer) => { mainMenu() });
               }
             })
               break;  
           case "5":  
-          collection.find({founded_year: 2004,founded_month: {$gte: 4,$lte: 6}}, {name: 1, _id: 0}).sort({date:1}).toArray((error, result) => {
+          collection.find({founded_year: 2004,founded_month: {$gte: 4,$lte: 6},founded_day:{$gte:1}}, {name:1,_id:0,date:1,founded_day:1}).sort({founded_day:1}).toArray((error, result) => {
              if (error) {
                 console.log(error);
                 rl.question(`\nType enter to continue: `, (answer) => {mainMenu() });
               } else {
-                 console.log(result);
+
+                console.log("Companies founded in the summer of 2004 (april to june) sorted by date.")
+                 result.forEach(companies => {
+                   console.log(`Name of the company: ${companies.name}, Founded day of the month: ${companies.founded_day}`)
+                 });
                  rl.question(`\nType enter to continue: `, (answer) => {mainMenu() });
              }
             })
@@ -84,7 +94,10 @@ mongoClient.connect(url, (error, db) => {
                  console.log(error);
                  rl.question(`\nType enter to continue: `, (answer) => { mainMenu() });
               } else {
-                 console.log(result);
+                 console.log("Companies with offices in Barcelona:");
+                 result.forEach(companies => {
+                   console.log(`Name of company: ${companies.name}`);
+                 });
                  rl.question(`\nType enter to continue: `, (answer) => { mainMenu() });
              }
            })
@@ -95,7 +108,10 @@ mongoClient.connect(url, (error, db) => {
                  console.log(error);
                  rl.question(`\nType enter to continue: `, (answer) => {mainMenu() });
               } else {
-                console.log(result.reverse());
+                console.log("List of companies with most amount of employees, sorted ascendingly: ")
+                result.reverse().forEach(companies => {
+                  console.log(`Name: ${companies.name}, Number of employees: ${companies.number_of_employees}`);
+                });
                 rl.question(`\nType enter to continue: `, (answer) => { mainMenu() });
              }
            })
@@ -106,7 +122,7 @@ mongoClient.connect(url, (error, db) => {
                    console.log(error);
                    rl.question(`\nType enter to continue: `, (answer) => {mainMenu() });
                 } else {
-                  console.log(result);
+                  console.log(result[0].name);
                   rl.question(`\nType enter to continue: `, (answer) => { mainMenu() });
                }
              })
@@ -117,7 +133,7 @@ mongoClient.connect(url, (error, db) => {
                    console.log(error);
                    rl.question(`\nType enter to continue: `, (answer) =>{mainMenu() });
                } else {
-                   console.log(result);
+                   console.log(`Amount of facebook employees: ${result}`);
                 rl.question(`\nType enter to continue: `, (answer) => { mainMenu() });
              }
            })
@@ -129,7 +145,7 @@ mongoClient.connect(url, (error, db) => {
                    rl.question(`\nType enter to continue: `, (answer) =>{mainMenu() });
              } else {
                    result[0].products.forEach(element => {
-                     console.log(element.name);
+                     console.log(`Facebook products ${element.name}`);
                 });
                 rl.question(`\nType enter to continue: `, (answer) => { mainMenu() });
              }
@@ -142,6 +158,7 @@ mongoClient.connect(url, (error, db) => {
                    rl.question(`\nType enter to continue: `, (answer) =>{mainMenu() });
              } else {
 
+              console.log("Current Facebook employees:")
               result[0].relationships.forEach((item) => {
                 if (!item.is_past)
                   console.log(`${item.person.first_name} ${item.person.last_name}`);
@@ -163,7 +180,7 @@ mongoClient.connect(url, (error, db) => {
                 if (item.is_past)
                   counter ++;
               })
-              console.log(`Amount of employees not working at Facebook anymore ${counter}`);
+              console.log(`Amount of employees not working at Facebook anymore: ${counter}`);
                 rl.question(`\nType enter to continue: `, (answer) => { mainMenu() });
              }
            })
@@ -176,16 +193,118 @@ mongoClient.connect(url, (error, db) => {
                  rl.question(`\nType enter to continue: `, (answer) =>{mainMenu() });
            } else {
 
-            // console.log(result[0]);
-            
-            // // .relationships.forEach((item) => {
-            // //   if (item.is_past)
-            // //     counter +)+;
-            // // })
+            result.forEach((company) => {
+              
+              console.log(`Name of the company: ${company.name}`);
+
+              company.relationships.forEach( employee=> {
+                if (employee.person.permalink === "david-ebersman")
+                console.log(`Searched employee: ${employee.person.permalink}`);
+              });
+
+            })
               rl.question(`\nType enter to continue: `, (answer) => { mainMenu() });
            }
          })
         break; 
+
+        case "14":
+        collection.find({name:'Facebook'}, {name:1,_id:0,date:1,competitions:1}).toArray((error, result) => {
+            if (error) {
+              console.log(error);
+              rl.question(`\nType enter to continue: `, (answer) => { mainMenu() });
+            } else {
+              console.log("Competitors of Facebook:");
+           result[0].competitions.forEach(companies=> 
+              console.log(`Name: ${companies.competitor.name}`)
+          )
+              rl.question(`\nType enter to continue: `, (answer) => { mainMenu() });
+            }
+          })
+            break;
+          
+            case "15":
+            collection.find({tag_list: { $regex: "social-networking"}}, {name:1,_id:0,tag_list:1}).toArray((error, result) => {
+              if (error) {
+                console.log(error);
+                rl.question(`\nType enter to continue: `, (answer) => { mainMenu() });
+              } else {
+                console.log("Names of companies that have \"social-networking\" in their tag-list:");
+                result.forEach(companies=> {
+    
+                  console.log(`Name: ${companies.name}`)
+                })
+                rl.question(`\nType enter to continue: `, (answer) => { mainMenu() });
+              }
+            })
+              break; 
+          
+              case "16":
+              collection.find({$and : [{tag_list: { $regex: "social-networking"},founded_year:{$gte: 2002,$lte: 2016}}]}).count((error, result) => {
+                if (error) {
+                  console.log(error);
+                  rl.question(`\nType enter to continue: `, (answer) => { mainMenu() });
+                } else {
+                  console.log(`There are ${result} companies that has "social-network" in tag-list and were founded between 2002 and 2016`);
+                  rl.question(`\nType enter to continue: `, (answer) => { mainMenu() });
+                }
+              })
+                break;
+              
+              case "17":
+              collection.find({'offices.city':'London'}, {name:1,_id:0,offices:1}).toArray((error, result) => {
+                if (error) {
+                  console.log(error);
+                  rl.question(`\nType enter to continue: `, (answer) => {mainMenu() });
+                } else {
+                   console.log("Names and locations of companies that have offices in London:");
+
+                   result.forEach(companies=> {
+
+                    console.log(`Name: ${companies.name}`);
+
+                    companies.offices.forEach(office=>{
+
+                      if(office.city === "London") {
+
+                        if(office.address1 === "" || office.address1 === null)
+                        
+                        {console.log("None location given for first address")}
+                        
+                            else {
+                        
+                              console.log(`Address #1: ${office.address1}`);
+                        
+                            }
+
+                        if (office.address2 === "" || office.address2 === null) {
+                          {console.log("None location given for second address")}
+                        }
+                        else {
+                        
+                          console.log(`Address #2 ${office.address2}`);
+                    
+                        }
+                      }     
+                    })
+                   })
+
+                   rl.question(`\nType enter to continue: `, (answer) => { mainMenu() });
+                }
+              })
+              break;
+
+                case "18":
+                collection.find({$and : [{tag_list: { $regex: "social-networking"},founded_year:{$gte: 2002,$lte: 2016},'offices.city':"New York"}]}).count((error, result) => {
+                  if (error) {
+                    console.log(error);
+                    rl.question(`\nType enter to continue: `, (answer) => { mainMenu() });
+                   } else {
+                     console.log(`There are ${result} companies that have "social-network" in tag-list and were founded between 2002 - 2016 and have offices in New York`);
+                    rl.question(`\nType enter to continue: `, (answer) => { mainMenu() });
+                  }
+                })
+                break;
                   
           case "0":  console.log(`👋👋👋👋 😞 \n`);
             db.close((error) => { process.exit(0) });
