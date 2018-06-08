@@ -305,6 +305,21 @@ mongoClient.connect(url, (error, db) => {
                   }
                 })
                 break;
+
+                case "19":
+                collection.distinct("category_code").then((result) => {
+                  if (error) {
+                    console.log(error);
+                    rl.question(`\nType enter to continue: `, (answer) => { mainMenu() });
+                   } else {
+                      
+                     console.log(`Categories in the collection:`);
+                    result.forEach(categories=> console.log(`-${categories}`))
+
+                    rl.question(`\nType enter to continue: `, (answer) => { mainMenu() });
+                  }
+                })
+                break;
                   
           case "0":  console.log(`👋👋👋👋 😞 \n`);
             db.close((error) => { process.exit(0) });
@@ -342,5 +357,6 @@ function printMenu(){
 16.- How many companies that has "social-network" in tag-list and founded between 2002 and 2016 inclusive
 17.- Names and locations of companies that have offices in London
 18.- How many companies that has "social-network" in tag-list and founded between 2002 and 2016 inclusive and has offices in New York
+19.- Extra query #1: Find all the distinct categories, so list all unique categories use distinct method
 `);
 }
