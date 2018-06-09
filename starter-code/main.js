@@ -28,6 +28,7 @@ mongoClient.connect(url, (err, db) => {
               console.log(err);
               rl.question(`\nType enter to continue `, () => { mainMenu() });
             } else {
+              console.log(`List of companies:`);
               res.forEach(company => console.log(company.name));
               rl.question(`\nType enter to continue `, () => { mainMenu() });
             }
@@ -41,6 +42,29 @@ mongoClient.connect(url, (err, db) => {
             } else {
               console.log(`There are ${res} companies.`);
               rl.question(`\nType enter to continue `, () => { mainMenu() });
+            }
+          });
+            break;
+          case "3":
+          col.find({founded_year: 2004}).count((err, res) => {
+            if (err) {
+              console.log(err);
+              rl.question(`\nType enter to continue: `, () => { mainMenu() });
+            } else {
+              console.log(`${res} companies were founded in 2004.`);
+              rl.question(`\nType enter to continue: `, () => { mainMenu() });
+            }
+          });
+            break;
+          case "4":
+          col.find({founded_year: 2004, founded_month: 2}, {name: 1, _id: 0}).toArray((err, res) => {
+            if (err) {
+              console.log(err);
+              rl.question(`\nType enter to continue: `, () => { mainMenu() });
+            } else {
+              console.log(`Companies founded in February, 2004:`);
+              res.forEach(company => console.log(company.name));
+              rl.question(`\nType enter to continue: `, () => { mainMenu() });
             }
           });
             break;
