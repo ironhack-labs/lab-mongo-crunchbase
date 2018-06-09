@@ -40,6 +40,7 @@ mongoClient.connect(
                   }
                 });
               break;
+
             case "2":
               db.collection("companies").count((error, result) => {
                 if (error) {
@@ -54,6 +55,75 @@ mongoClient.connect(
                   });
                 }
               });
+              break;
+
+            case "3":
+              db.collection("companies")
+                .find({ founded_year: "2004" })
+                .count((error, result) => {
+                  if (error) {
+                    console.log(error);
+                    rl.question(`\nType enter to continue: `, answer => {
+                      mainMenu();
+                    });
+                  } else {
+                    console.log(result);
+                    rl.question(`\nType enter to continue: `, answer => {
+                      mainMenu();
+                    });
+                  }
+                });
+              break;
+
+            case "4":
+              db.collection("companies")
+                .find(
+                  {
+                    $and: [{ founded_year: 2004 }, { founded_month: 2 }]
+                  },
+                  { name: 1, _id: 0 }
+                )
+                .toArray((error, result) => {
+                  if (error) {
+                    console.log(error);
+                    rl.question(`\nType enter to continue: `, answer => {
+                      mainMenu();
+                    });
+                  } else {
+                    console.log(result);
+                    rl.question(`\nType enter to continue: `, answer => {
+                      mainMenu();
+                    });
+                  }
+                });
+              break;
+
+            case "5":
+              db.collection("companies")
+                .find(
+                  {
+                    $and: [
+                      { founded_year: 2004 },
+                      { founded_month: { $gte: 4, $lte: 6 } }
+                    ]
+                  },
+                  { founded_day: 1, founded_month: 1, name: 1 },
+                  { name: 1, _id: 0, date: 1 }
+                )
+                .sort({ founded_month: 1, founded_day: 1 })
+                .toArray((error, result) => {
+                  if (error) {
+                    console.log(error);
+                    rl.question(`\nType enter to continue: `, answer => {
+                      mainMenu();
+                    });
+                  } else {
+                    console.log(result);
+                    rl.question(`\nType enter to continue: `, answer => {
+                      mainMenu();
+                    });
+                  }
+                });
               break;
             case "0":
               console.log(`👋👋👋👋 😞 \n`);
