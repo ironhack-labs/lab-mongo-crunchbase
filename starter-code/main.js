@@ -68,6 +68,19 @@ mongoClient.connect(url, (err, db) => {
             }
           });
             break;
+          case "5":
+          col.find({founded_year: 2004, founded_month: { $gte: 4, $lte: 6 } }, {name: 1, founded_year: 1, founded_month: 1, _id: 0}).sort({founded_month: 1}).toArray((err, res) => {
+            if (err) {
+              console.log(err);
+              rl.question(`\nType enter to continue: `, () => { mainMenu() });
+            } else {
+              console.log(`Companies founded in the summer of 2004:`);
+              res.sort()
+              res.forEach(company => console.log(`${company.name} founded on ${company.founded_month} of ${company.founded_year}`));
+              rl.question(`\nType enter to continue: `, () => { mainMenu() });
+            }
+          });
+            break;
           case "0":
             console.log(`👋👋👋👋 😞 \n`);
             db.close((err) => { process.exit(0) });
