@@ -251,44 +251,33 @@ mongoClient.connect(url, (error, db) => {
               })
                 break;
               
-              case "17":
-              collection.find({'offices.city':'London'}, {name:1,_id:0,offices:1}).toArray((error, result) => {
-                if (error) {
+           case "17":
+            collection.find({'offices.city':'London'}, {name:1,_id:0,offices:1}).sort({number_of_employees:-1}).toArray((error, result) => {
+               if (error) {
                   console.log(error);
                   rl.question(`\nType enter to continue: `, (answer) => {mainMenu() });
-                } else {
-                   console.log("Names and locations of companies that have offices in London:");
+               } else {
+                 console.log("Names and locations of companies that have offices in London:");
 
-                   result.forEach(companies=> {
+                 result.forEach(companies=> {
 
-                    console.log(`Name: ${companies.name}`);
+                  console.log(`Name: ${companies.name}`);
 
-                    companies.offices.forEach(office=>{
+                   companies.offices.forEach(office=>{
 
-                      if(office.city === "London") {
+                  if (office.city === "London") { 
 
-                        if(office.address1 === "" || office.address1 === null)
-                        
-                        {console.log("None location given for first address")}
-                        
-                            else {
-                        
-                              console.log(`Address #1: ${office.address1}`);
-                        
-                            }
+                      (office.address1 === "" || office.address1 === null) 
+                      ? console.log("None location given for first address")
+                      : console.log(`Address #1: ${office.address1}`);  
 
-                        if (office.address2 === "" || office.address2 === null) {
-                          {console.log("None location given for second address")}
-                        }
-                        else {
-                        
-                          console.log(`Address #2 ${office.address2}`);
-                    
-                        }
-                      }     
-                    })
-                   })
+                      (office.address2 === "" || office.address2 === null)  
+                      ?  console.log("None location given for second  address")                        
+                      : console.log(`Address #2: ${office.address2}`)
 
+                    }  
+                 })     
+              })
                    rl.question(`\nType enter to continue: `, (answer) => { mainMenu() });
                 }
               })
