@@ -117,6 +117,42 @@ mongoClient.connect(url, (err, db) => {
             }
           });
             break;
+          case "9":
+          col.find({name: 'Facebook'}, {number_of_employees: 1, _id: 0}).toArray((err, res) => {
+            if (err) {
+              console.log(err);
+              rl.question(`\nType enter to continue: `, () => { mainMenu() });
+            } else {
+              console.log(`Facebook has ${res[0].number_of_employees} employees`);
+              rl.question(`\nType enter to continue: `, () => { mainMenu() });
+            }
+          });
+            break;
+          case "10":
+          col.find({name: 'Facebook'}, {'products.name': 1, _id: 0}).toArray((err, res) => {
+            if (err) {
+              console.log(err);
+              rl.question(`\nType enter to continue: `, () => { mainMenu() });
+            } else {
+              console.log(`List of Facebook products:`);
+              res[0].products.forEach(product => console.log(product.name));
+            }
+              rl.question(`\nType enter to continue: `, () => { mainMenu() });
+          });
+            break;
+          case "11":
+          col.find({name: 'Facebook'}, {relationships: 1, _id: 0}).toArray((err, res) => {
+            if (err) {
+              console.log(err);
+              rl.question(`\nType enter to continue: `, () => { mainMenu() });
+            } else {
+              console.log(`List of Facebook current employees:`);
+              const currentEmployees = res[0].relationships.filter(emp => !emp.is_past);
+              currentEmployees.forEach(employee => console.log(employee.person.first_name, employee.person.last_name));
+            }
+              rl.question(`\nType enter to continue: `, () => { mainMenu() });
+          });
+            break;
           case "0":
             console.log(`👋👋👋👋 😞 \n`);
             db.close((err) => { process.exit(0) });
