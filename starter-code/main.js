@@ -199,6 +199,51 @@ mongoClient.connect(
                 });
               break;
 
+            case "10":
+              db.collection("companies")
+                .find({ name: "Facebook" }, { "products.name": 1, _id: 0 })
+                .toArray((error, result) => {
+                  if (error) {
+                    console.log(error);
+                    rl.question(`\nType enter to continue: `, answer => {
+                      mainMenu();
+                    });
+                  } else {
+                    result[0].products.forEach(element => {
+                      console.log(`Facebook products: ${element.name}`);
+                    });
+                    rl.question(`\nType enter to continue: `, answer => {
+                      mainMenu();
+                    });
+                  }
+                });
+
+              break;
+
+            case "11":
+              db.collection("companies")
+                .find(
+                  { name: "Facebook" },
+                  { "relationships.person.permalink": 1 }
+                )
+                .toArray((error, result) => {
+                  if (error) {
+                    console.log(error);
+                    rl.question(`\nType enter to continue: `, answer => {
+                      mainMenu();
+                    });
+                  } else {
+                    result[0].relationships.forEach(element => {
+                      console.log(`FB employees: ${element.person.permalink}`);
+                    });
+                    rl.question(`\nType enter to continue: `, answer => {
+                      mainMenu();
+                    });
+                  }
+                });
+
+              break;
+
             case "0":
               console.log(`👋👋👋👋 😞 \n`);
               db.close(error => {
