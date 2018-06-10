@@ -164,6 +164,38 @@ mongoClient.connect(url, (err, db) => {
               rl.question(`\nType enter to continue: `, () => { mainMenu() });
           });
             break;
+          case "14":
+          col.find({name: 'Facebook'}, {competitions: 1, _id: 0}).toArray((err, res) => {
+            if (err) {
+              console.log(err);
+            } else {
+              console.log(`List of Facebook competition:`);
+              res[0].competitions.forEach(company => console.log(company.competitor.name));
+            }
+              rl.question(`\nType enter to continue: `, () => { mainMenu() });
+          });
+            break;
+          case "15":
+          col.find({tag_list: {$regex: 'social-networking'}}, {name: 1, _id: 0}).toArray((err, res) => {
+            if (err) {
+              console.log(err);
+            } else {
+              console.log(`Names of the companies that has "social-networking" in tag-list:`);
+              res.forEach(company => console.log(company.name));
+            }
+              rl.question(`\nType enter to continue: `, () => { mainMenu() });
+          });
+            break;
+          case "16":
+          col.find({tag_list: {$regex: 'social-networking'}, founded_year: {$gte: 2002, $lte: 2016}}, {name: 1, founded_year: 1, _id: 0}).toArray((err, res) => {
+            if (err) {
+              console.log(err);
+            } else {
+              console.log(`${res.length} companies has "social-network" in tag-list and were founded between 2002 and 2016 inclusive`);
+            }
+              rl.question(`\nType enter to continue: `, () => { mainMenu() });
+          });
+            break;
           case "0":
             console.log(`👋👋👋👋 😞 \n`);
             db.close((err) => { process.exit(0) });
