@@ -26,129 +26,140 @@ mongoClient.connect(url, (err, db) => {
           col.find({}, {name: 1, _id: 0}).toArray((err, res) => {
             if (err) {
               console.log(err);
-              rl.question(`\nType enter to continue `, () => { mainMenu() });
             } else {
               console.log(`List of companies:`);
               res.forEach(company => console.log(company.name));
-              rl.question(`\nType enter to continue `, () => { mainMenu() });
             }
+            rl.question(`\nType enter to continue: `, () => { mainMenu() });
           });
             break;
           case "2":
           col.count((err, res) => {
             if (err) {
               console.log(err);
-              rl.question(`\nType enter to continue `, () => { mainMenu() });
             } else {
               console.log(`There are ${res} companies.`);
-              rl.question(`\nType enter to continue `, () => { mainMenu() });
             }
+            rl.question(`\nType enter to continue: `, () => { mainMenu() });
           });
             break;
           case "3":
           col.find({founded_year: 2004}).count((err, res) => {
             if (err) {
               console.log(err);
-              rl.question(`\nType enter to continue: `, () => { mainMenu() });
             } else {
               console.log(`${res} companies were founded in 2004.`);
-              rl.question(`\nType enter to continue: `, () => { mainMenu() });
             }
+            rl.question(`\nType enter to continue: `, () => { mainMenu() });
           });
             break;
           case "4":
           col.find({founded_year: 2004, founded_month: 2}, {name: 1, _id: 0}).toArray((err, res) => {
             if (err) {
               console.log(err);
-              rl.question(`\nType enter to continue: `, () => { mainMenu() });
             } else {
               console.log(`Companies founded in February, 2004:`);
               res.forEach(company => console.log(company.name));
-              rl.question(`\nType enter to continue: `, () => { mainMenu() });
             }
+            rl.question(`\nType enter to continue: `, () => { mainMenu() });
           });
             break;
           case "5":
           col.find({founded_year: 2004, founded_month: { $gte: 4, $lte: 6 } }, {name: 1, founded_year: 1, founded_month: 1, _id: 0}).sort({founded_month: 1}).toArray((err, res) => {
             if (err) {
               console.log(err);
-              rl.question(`\nType enter to continue: `, () => { mainMenu() });
             } else {
               console.log(`Companies founded in the summer of 2004:`);
               res.forEach(company => console.log(`${company.name} founded on ${company.founded_month} of ${company.founded_year}`));
-              rl.question(`\nType enter to continue: `, () => { mainMenu() });
             }
+            rl.question(`\nType enter to continue: `, () => { mainMenu() });
           });
             break;
           case "6":
           col.find({'offices.city': 'Barcelona'}, {name: 1, 'offices.city': 1, _id: 0}).toArray((err, res) => {
             if (err) {
               console.log(err);
-              rl.question(`\nType enter to continue: `, () => { mainMenu() });
             } else {
               console.log(`Companies with office in Barcelona:`);
               res.forEach(company => console.log(`${company.name}`));
-              rl.question(`\nType enter to continue: `, () => { mainMenu() });
             }
+            rl.question(`\nType enter to continue: `, () => { mainMenu() });
           });
             break;
           case "7":
           col.find({}, {name: 1, number_of_employees: 1, _id: 0}).sort({number_of_employees: -1}).limit(10).toArray((err, res) => {
             if (err) {
               console.log(err);
-              rl.question(`\nType enter to continue: `, () => { mainMenu() });
             } else {
               res.reverse();
               console.log(`Companies with more employees:`);
               res.forEach(company => console.log(`${company.name} ${company.number_of_employees}`));
-              rl.question(`\nType enter to continue: `, () => { mainMenu() });
             }
+            rl.question(`\nType enter to continue: `, () => { mainMenu() });
           });
             break;
           case "8":
           col.find({name: 'Facebook'}, {name: 1, _id: 0}).toArray((err, res) => {
             if (err) {
               console.log(err);
-              rl.question(`\nType enter to continue: `, () => { mainMenu() });
             } else {
               console.log(`Companies named Facebook:`);
               console.log(`${res[0].name}`);
-              rl.question(`\nType enter to continue: `, () => { mainMenu() });
             }
+            rl.question(`\nType enter to continue: `, () => { mainMenu() });
           });
             break;
           case "9":
           col.find({name: 'Facebook'}, {number_of_employees: 1, _id: 0}).toArray((err, res) => {
             if (err) {
               console.log(err);
-              rl.question(`\nType enter to continue: `, () => { mainMenu() });
             } else {
               console.log(`Facebook has ${res[0].number_of_employees} employees`);
-              rl.question(`\nType enter to continue: `, () => { mainMenu() });
             }
+            rl.question(`\nType enter to continue: `, () => { mainMenu() });
           });
             break;
           case "10":
           col.find({name: 'Facebook'}, {'products.name': 1, _id: 0}).toArray((err, res) => {
             if (err) {
               console.log(err);
-              rl.question(`\nType enter to continue: `, () => { mainMenu() });
             } else {
               console.log(`List of Facebook products:`);
               res[0].products.forEach(product => console.log(product.name));
             }
-              rl.question(`\nType enter to continue: `, () => { mainMenu() });
+            rl.question(`\nType enter to continue: `, () => { mainMenu() });
           });
             break;
           case "11":
           col.find({name: 'Facebook'}, {relationships: 1, _id: 0}).toArray((err, res) => {
             if (err) {
               console.log(err);
-              rl.question(`\nType enter to continue: `, () => { mainMenu() });
             } else {
               console.log(`List of Facebook current employees:`);
               const currentEmployees = res[0].relationships.filter(emp => !emp.is_past);
               currentEmployees.forEach(employee => console.log(employee.person.first_name, employee.person.last_name));
+            }
+              rl.question(`\nType enter to continue: `, () => { mainMenu() });
+          });
+            break;
+          case "12":
+          col.find({name: 'Facebook'}, {relationships: 1, _id: 0}).toArray((err, res) => {
+            if (err) {
+              console.log(err);
+            } else {
+              const exEmployees = res[0].relationships.filter(emp => emp.is_past);
+              console.log(`${exEmployees.length} people are not working anymore at Facebook`);
+            }
+              rl.question(`\nType enter to continue: `, () => { mainMenu() });
+          });
+            break;
+          case "13":
+          col.find({'relationships.person.first_name': 'David', 'relationships.person.last_name': 'Ebersman'}, {name: 1, _id: 0}).toArray((err, res) => {
+            if (err) {
+              console.log(err);
+            } else {
+              console.log(`David Ebersman has worked at:`);
+              res.forEach(company => console.log(company.name));
             }
               rl.question(`\nType enter to continue: `, () => { mainMenu() });
           });
