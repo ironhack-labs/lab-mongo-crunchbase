@@ -10,6 +10,7 @@
   "license": "ISC",
   "dependencies": {
     "clear": "^0.1.0",
-    "mongodb": "^2.2.35"
+    "mongodb": "^2.2.35",
+    "nodemon": "^1.17.5"
   }
 }

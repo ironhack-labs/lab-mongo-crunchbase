@@ -126,22 +126,110 @@ mongoClient.connect(url, (error, db) => {
                         }
                     })
                     break;
-                    case "#":
-                    db.collection('companies').count((error, result) => {
+                    case "7": 
+                    db.collection('companies').find({}, {name:1, number_of_employees: 1, _id:0 }).sort({number_of_employees: -1}).limit(10).toArray((error, result) => {
                         if (error) {
                             console.log(error);
                             rl.question(`\nType enter to continue: `, (answer) => {
                                 mainMenu()
                             });
                         } else {
-                            console.log(`There are ${result} companies`);
+                            console.log(result.reverse());
                             rl.question(`\nType enter to continue: `, (answer) => {
                                 mainMenu()
                             });
                         }
                     })
                     break;
+                    case "8": 
+                    db.collection('companies').find({name: {$eq: 'Facebook'}}).toArray((error, result) => {
+                        if (error) {
+                            console.log(error);
+                            rl.question(`\nType enter to continue: `, (answer) => {
+                                mainMenu()
+                            });
+                        } else {
+                            console.log(result);
+                            rl.question(`\nType enter to continue: `, (answer) => {
+                                mainMenu()
+                            });
+                        }
+                    })
+                    break;
+                    case "9": 
+                    db.collection('companies').find({name: {$eq: 'Facebook'}},{number_of_employees:1, _id:0}).toArray((error, result) => {
+                        if (error) {
+                            console.log(error);
+                            rl.question(`\nType enter to continue: `, (answer) => {
+                                mainMenu()
+                            });
+                        } else {
+                            console.log(result);
+                            rl.question(`\nType enter to continue: `, (answer) => {
+                                mainMenu()
+                            });
+                        }
+                    })
+                    break;
+                    case "10": 
+                    db.collection('companies').find({name: {$eq: 'Facebook'}},{'products.name': 1, _id:0}).toArray((error, result) => {
+                        if (error) {
+                            console.log(error);
+                            rl.question(`\nType enter to continue: `, (answer) => {
+                                mainMenu()
+                            });
+                        } else {
+                            result[0].products.forEach((name)=>{
+                                console.log(name);
+                            })
+                            // console.log(result[0].products[0].name);
+                            rl.question(`\nType enter to continue: `, (answer) => {
+                                mainMenu()
+                            });
+                        }
+                    })
+                    break;
+                    case "11": 
+                    db.collection('companies').find({name: "Facebook"},{'relationships.person':1, 'relationships.is_past':1, _id:0}).toArray((error, result) => {
+                        if (error) {
+                            console.log(error);
+                            rl.question(`\nType enter to continue: `, (answer) => {
+                                mainMenu()
+                            });
+                        } else {
+                            result[0].relationships.forEach((x)=>{
+                                if (x.is_past === false){
+                                    console.log(`${x.person.first_name} ${x.person.last_name}`); 
+                                }
+                            })
+                            rl.question(`\nType enter to continue: `, (answer) => {
+                                mainMenu()
+                            });
+                        }
+                    })
+                    break;
+                    case "12": 
+                    db.collection('companies').find({name: "Facebook"},{'relationships.person':1, 'relationships.is_past':1, _id:0}).toArray((error, result) => {
+                        if (error) {
+                            console.log(error);
+                            rl.question(`\nType enter to continue: `, (answer) => {
+                                mainMenu()
+                            });
+                        } else {
+                            result[0].relationships.forEach((x)=>{
+                                if (x.is_past !== false){
+                                    console.log(`${x.person.first_name} ${x.person.last_name}`); 
+                                }
+                            })
+                            rl.question(`\nType enter to continue: `, (answer) => {
+                                mainMenu()
+                            });
+                        }
+                    })
+                    break;
+                
 
+                //template
                 case "#":
                     db.collection('companies').count((error, result) => {
                         if (error) {
