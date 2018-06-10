@@ -139,7 +139,7 @@ mongoClient.connect(url, (err, db) => {
               const currentEmployees = res[0].relationships.filter(emp => !emp.is_past);
               currentEmployees.forEach(employee => console.log(employee.person.first_name, employee.person.last_name));
             }
-              rl.question(`\nType enter to continue: `, () => { mainMenu() });
+            rl.question(`\nType enter to continue: `, () => { mainMenu() });
           });
             break;
           case "12":
@@ -150,7 +150,7 @@ mongoClient.connect(url, (err, db) => {
               const exEmployees = res[0].relationships.filter(emp => emp.is_past);
               console.log(`${exEmployees.length} people are not working anymore at Facebook`);
             }
-              rl.question(`\nType enter to continue: `, () => { mainMenu() });
+            rl.question(`\nType enter to continue: `, () => { mainMenu() });
           });
             break;
           case "13":
@@ -161,7 +161,7 @@ mongoClient.connect(url, (err, db) => {
               console.log(`David Ebersman has worked at:`);
               res.forEach(company => console.log(company.name));
             }
-              rl.question(`\nType enter to continue: `, () => { mainMenu() });
+            rl.question(`\nType enter to continue: `, () => { mainMenu() });
           });
             break;
           case "14":
@@ -172,7 +172,7 @@ mongoClient.connect(url, (err, db) => {
               console.log(`List of Facebook competition:`);
               res[0].competitions.forEach(company => console.log(company.competitor.name));
             }
-              rl.question(`\nType enter to continue: `, () => { mainMenu() });
+            rl.question(`\nType enter to continue: `, () => { mainMenu() });
           });
             break;
           case "15":
@@ -183,7 +183,7 @@ mongoClient.connect(url, (err, db) => {
               console.log(`Names of the companies that has "social-networking" in tag-list:`);
               res.forEach(company => console.log(company.name));
             }
-              rl.question(`\nType enter to continue: `, () => { mainMenu() });
+            rl.question(`\nType enter to continue: `, () => { mainMenu() });
           });
             break;
           case "16":
@@ -193,7 +193,28 @@ mongoClient.connect(url, (err, db) => {
             } else {
               console.log(`${res.length} companies has "social-network" in tag-list and were founded between 2002 and 2016 inclusive`);
             }
-              rl.question(`\nType enter to continue: `, () => { mainMenu() });
+            rl.question(`\nType enter to continue: `, () => { mainMenu() });
+          });
+            break;
+          case "17":
+          col.find({'offices.city': 'London'}, {name: 1, offices: 1, _id: 0}).toArray((err, res) => {
+            if (err) {
+              console.log(err);
+            } else {
+              console.log(`Names and locations of companies that have offices in London:`);
+              res.forEach(company => console.log(`${company.name} altitude: ${company.offices[0].latitude} longitude: ${company.offices[0].longitude}`)); // not London's office location, but first office in the array offices :(
+            }
+            rl.question(`\nType enter to continue: `, () => { mainMenu() });
+          });
+            break;
+          case "18":
+          col.find({tag_list: {$regex: 'social-networking'}, founded_year: {$gte: 2002, $lte: 2016}, 'offices.city': 'New York'}, {name: 1, founded_year: 1, _id: 0}).toArray((err, res) => {
+            if (err) {
+              console.log(err);
+            } else {
+              console.log(`${res.length} companies has "social-network" in tag-list and were founded between 2002 and 2016 inclusive`);
+            }
+            rl.question(`\nType enter to continue: `, () => { mainMenu() });
           });
             break;
           case "0":
