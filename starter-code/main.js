@@ -75,8 +75,44 @@ mongoClient.connect(url, (err, db) => {
               rl.question(`\nType enter to continue: `, () => { mainMenu() });
             } else {
               console.log(`Companies founded in the summer of 2004:`);
-              res.sort()
               res.forEach(company => console.log(`${company.name} founded on ${company.founded_month} of ${company.founded_year}`));
+              rl.question(`\nType enter to continue: `, () => { mainMenu() });
+            }
+          });
+            break;
+          case "6":
+          col.find({'offices.city': 'Barcelona'}, {name: 1, 'offices.city': 1, _id: 0}).toArray((err, res) => {
+            if (err) {
+              console.log(err);
+              rl.question(`\nType enter to continue: `, () => { mainMenu() });
+            } else {
+              console.log(`Companies with office in Barcelona:`);
+              res.forEach(company => console.log(`${company.name}`));
+              rl.question(`\nType enter to continue: `, () => { mainMenu() });
+            }
+          });
+            break;
+          case "7":
+          col.find({}, {name: 1, number_of_employees: 1, _id: 0}).sort({number_of_employees: -1}).limit(10).toArray((err, res) => {
+            if (err) {
+              console.log(err);
+              rl.question(`\nType enter to continue: `, () => { mainMenu() });
+            } else {
+              res.reverse();
+              console.log(`Companies with more employees:`);
+              res.forEach(company => console.log(`${company.name} ${company.number_of_employees}`));
+              rl.question(`\nType enter to continue: `, () => { mainMenu() });
+            }
+          });
+            break;
+          case "8":
+          col.find({name: 'Facebook'}, {name: 1, _id: 0}).toArray((err, res) => {
+            if (err) {
+              console.log(err);
+              rl.question(`\nType enter to continue: `, () => { mainMenu() });
+            } else {
+              console.log(`Companies named Facebook:`);
+              console.log(`${res[0].name}`);
               rl.question(`\nType enter to continue: `, () => { mainMenu() });
             }
           });
