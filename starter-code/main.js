@@ -227,24 +227,86 @@ mongoClient.connect(url, (error, db) => {
                         }
                     })
                     break;
-                
-
-                //template
-                case "#":
-                    db.collection('companies').count((error, result) => {
+                    case "13":
+                    db.collection('companies').find({'relationships.person.permalink': 'david-ebersman'},{name:1, _id:0}).toArray((error, result) => {
                         if (error) {
                             console.log(error);
                             rl.question(`\nType enter to continue: `, (answer) => {
                                 mainMenu()
                             });
                         } else {
-                            console.log(`There are ${result} companies`);
+                            console.log(result);
                             rl.question(`\nType enter to continue: `, (answer) => {
                                 mainMenu()
                             });
                         }
                     })
                     break;
+                    case "14": 
+                    db.collection('companies').find({name: {$eq: 'Facebook'}},{'competitions.competitor.name':1,_id:0}).toArray((error, result) => {
+                        if (error) {
+                            console.log(error);
+                            rl.question(`\nType enter to continue: `, (answer) => {
+                                mainMenu()
+                            });
+                        } else {
+                            result[0].competitions.forEach((name)=>{
+                                console.log(name);
+                            })
+                            // console.log(result[0].products[0].name);
+                            rl.question(`\nType enter to continue: `, (answer) => {
+                                mainMenu()
+                            });
+                        }
+                    })
+                    break;
+                    case "15":
+                    db.collection('companies').find({tag_list:{$regex:"social-networking"}},{name:1, _id:0}).toArray((error, result) => {
+                        if (error) {
+                            console.log(error);
+                            rl.question(`\nType enter to continue: `, (answer) => {
+                                mainMenu()
+                            });
+                        } else {
+                                console.log(result);
+                            rl.question(`\nType enter to continue: `, (answer) => {
+                                mainMenu()
+                            });
+                        }
+                    })
+                    break;
+                    case "16":
+                    db.collection('companies').find({$and: [{tag_list:{$regex:"social-networking"}},{$and :[{founded_year: {$gte: 2002}}, {founded_year: {$lte: 2016}}]}]},{name:1, _id:0}).count((error, result) => {
+                        if (error) {
+                            console.log(error);
+                            rl.question(`\nType enter to continue: `, (answer) => {
+                                mainMenu()
+                            });
+                        } else {
+                                console.log(`There are ${result} companies`);
+                            rl.question(`\nType enter to continue: `, (answer) => {
+                                mainMenu()
+                            });
+                        }
+                    })
+                    break;
+                    case "17":
+                    db.collection('companies').find({'offices.city': "London"},{name:1, offices: 1, _id:0}).toArray((error, result) => {
+                        if (error) {
+                            console.log(error);
+                            rl.question(`\nType enter to continue: `, (answer) => {
+                                mainMenu()
+                            });
+                        } else {
+                                console.log(result.length)
+                                // console.log(result[0].offices[0]);
+                            rl.question(`\nType enter to continue: `, (answer) => {
+                                mainMenu()
+                            });
+                        }
+                    })
+                    break;
+                    
             }
         });
     }
