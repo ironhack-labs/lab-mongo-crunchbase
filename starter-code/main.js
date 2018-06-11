@@ -82,7 +82,22 @@ mongoClient.connect(url, (error, db) => {
                     break;
 
                 case "4":
-                    db.collection('companies').find({$and: [{founded_year: { $eq: 2004}}, {founded_month: {$eq: 2}}]},{name: 1,_id: 0}).sort( { name: 1 } ).toArray((error, result) => {
+                    db.collection('companies').find({
+                        $and: [{
+                            founded_year: {
+                                $eq: 2004
+                            }
+                        }, {
+                            founded_month: {
+                                $eq: 2
+                            }
+                        }]
+                    }, {
+                        name: 1,
+                        _id: 0
+                    }).sort({
+                        name: 1
+                    }).toArray((error, result) => {
                         if (error) {
                             console.log(error);
                             rl.question(`\nType enter to continue: `, (answer) => {
@@ -96,8 +111,29 @@ mongoClient.connect(url, (error, db) => {
                         }
                     })
                     break;
-                    case "5":
-                    db.collection('companies').find({$and: [{founded_year: { $eq: 2004}}, {$and :[{founded_month: {$gte: 4}}, {founded_month: {$lte: 6}}]}]}, {name: 1, _id:0}).sort({founded_month: 1}).toArray((error, result) => {
+                case "5":
+                    db.collection('companies').find({
+                        $and: [{
+                            founded_year: {
+                                $eq: 2004
+                            }
+                        }, {
+                            $and: [{
+                                founded_month: {
+                                    $gte: 4
+                                }
+                            }, {
+                                founded_month: {
+                                    $lte: 6
+                                }
+                            }]
+                        }]
+                    }, {
+                        name: 1,
+                        _id: 0
+                    }).sort({
+                        founded_month: 1
+                    }).toArray((error, result) => {
                         if (error) {
                             console.log(error);
                             rl.question(`\nType enter to continue: `, (answer) => {
@@ -111,8 +147,13 @@ mongoClient.connect(url, (error, db) => {
                         }
                     })
                     break;
-                    case "6":
-                    db.collection('companies').find({'offices.city': "Barcelona"}, {name:1, _id:0}).toArray((error, result) => {
+                case "6":
+                    db.collection('companies').find({
+                        'offices.city': "Barcelona"
+                    }, {
+                        name: 1,
+                        _id: 0
+                    }).toArray((error, result) => {
                         if (error) {
                             console.log(error);
                             rl.question(`\nType enter to continue: `, (answer) => {
@@ -126,8 +167,14 @@ mongoClient.connect(url, (error, db) => {
                         }
                     })
                     break;
-                    case "7": 
-                    db.collection('companies').find({}, {name:1, number_of_employees: 1, _id:0 }).sort({number_of_employees: -1}).limit(10).toArray((error, result) => {
+                case "7":
+                    db.collection('companies').find({}, {
+                        name: 1,
+                        number_of_employees: 1,
+                        _id: 0
+                    }).sort({
+                        number_of_employees: -1
+                    }).limit(10).toArray((error, result) => {
                         if (error) {
                             console.log(error);
                             rl.question(`\nType enter to continue: `, (answer) => {
@@ -141,8 +188,12 @@ mongoClient.connect(url, (error, db) => {
                         }
                     })
                     break;
-                    case "8": 
-                    db.collection('companies').find({name: {$eq: 'Facebook'}}).toArray((error, result) => {
+                case "8":
+                    db.collection('companies').find({
+                        name: {
+                            $eq: 'Facebook'
+                        }
+                    }).toArray((error, result) => {
                         if (error) {
                             console.log(error);
                             rl.question(`\nType enter to continue: `, (answer) => {
@@ -156,8 +207,15 @@ mongoClient.connect(url, (error, db) => {
                         }
                     })
                     break;
-                    case "9": 
-                    db.collection('companies').find({name: {$eq: 'Facebook'}},{number_of_employees:1, _id:0}).toArray((error, result) => {
+                case "9":
+                    db.collection('companies').find({
+                        name: {
+                            $eq: 'Facebook'
+                        }
+                    }, {
+                        number_of_employees: 1,
+                        _id: 0
+                    }).toArray((error, result) => {
                         if (error) {
                             console.log(error);
                             rl.question(`\nType enter to continue: `, (answer) => {
@@ -171,15 +229,22 @@ mongoClient.connect(url, (error, db) => {
                         }
                     })
                     break;
-                    case "10": 
-                    db.collection('companies').find({name: {$eq: 'Facebook'}},{'products.name': 1, _id:0}).toArray((error, result) => {
+                case "10":
+                    db.collection('companies').find({
+                        name: {
+                            $eq: 'Facebook'
+                        }
+                    }, {
+                        'products.name': 1,
+                        _id: 0
+                    }).toArray((error, result) => {
                         if (error) {
                             console.log(error);
                             rl.question(`\nType enter to continue: `, (answer) => {
                                 mainMenu()
                             });
                         } else {
-                            result[0].products.forEach((name)=>{
+                            result[0].products.forEach((name) => {
                                 console.log(name);
                             })
                             // console.log(result[0].products[0].name);
@@ -189,17 +254,23 @@ mongoClient.connect(url, (error, db) => {
                         }
                     })
                     break;
-                    case "11": 
-                    db.collection('companies').find({name: "Facebook"},{'relationships.person':1, 'relationships.is_past':1, _id:0}).toArray((error, result) => {
+                case "11":
+                    db.collection('companies').find({
+                        name: "Facebook"
+                    }, {
+                        'relationships.person': 1,
+                        'relationships.is_past': 1,
+                        _id: 0
+                    }).toArray((error, result) => {
                         if (error) {
                             console.log(error);
                             rl.question(`\nType enter to continue: `, (answer) => {
                                 mainMenu()
                             });
                         } else {
-                            result[0].relationships.forEach((x)=>{
-                                if (x.is_past === false){
-                                    console.log(`${x.person.first_name} ${x.person.last_name}`); 
+                            result[0].relationships.forEach((x) => {
+                                if (x.is_past === false) {
+                                    console.log(`${x.person.first_name} ${x.person.last_name}`);
                                 }
                             })
                             rl.question(`\nType enter to continue: `, (answer) => {
@@ -208,17 +279,23 @@ mongoClient.connect(url, (error, db) => {
                         }
                     })
                     break;
-                    case "12": 
-                    db.collection('companies').find({name: "Facebook"},{'relationships.person':1, 'relationships.is_past':1, _id:0}).toArray((error, result) => {
+                case "12":
+                    db.collection('companies').find({
+                        name: "Facebook"
+                    }, {
+                        'relationships.person': 1,
+                        'relationships.is_past': 1,
+                        _id: 0
+                    }).toArray((error, result) => {
                         if (error) {
                             console.log(error);
                             rl.question(`\nType enter to continue: `, (answer) => {
                                 mainMenu()
                             });
                         } else {
-                            result[0].relationships.forEach((x)=>{
-                                if (x.is_past !== false){
-                                    console.log(`${x.person.first_name} ${x.person.last_name}`); 
+                            result[0].relationships.forEach((x) => {
+                                if (x.is_past !== false) {
+                                    console.log(`${x.person.first_name} ${x.person.last_name}`);
                                 }
                             })
                             rl.question(`\nType enter to continue: `, (answer) => {
@@ -227,8 +304,13 @@ mongoClient.connect(url, (error, db) => {
                         }
                     })
                     break;
-                    case "13":
-                    db.collection('companies').find({'relationships.person.permalink': 'david-ebersman'},{name:1, _id:0}).toArray((error, result) => {
+                case "13":
+                    db.collection('companies').find({
+                        'relationships.person.permalink': 'david-ebersman'
+                    }, {
+                        name: 1,
+                        _id: 0
+                    }).toArray((error, result) => {
                         if (error) {
                             console.log(error);
                             rl.question(`\nType enter to continue: `, (answer) => {
@@ -242,15 +324,22 @@ mongoClient.connect(url, (error, db) => {
                         }
                     })
                     break;
-                    case "14": 
-                    db.collection('companies').find({name: {$eq: 'Facebook'}},{'competitions.competitor.name':1,_id:0}).toArray((error, result) => {
+                case "14":
+                    db.collection('companies').find({
+                        name: {
+                            $eq: 'Facebook'
+                        }
+                    }, {
+                        'competitions.competitor.name': 1,
+                        _id: 0
+                    }).toArray((error, result) => {
                         if (error) {
                             console.log(error);
                             rl.question(`\nType enter to continue: `, (answer) => {
                                 mainMenu()
                             });
                         } else {
-                            result[0].competitions.forEach((name)=>{
+                            result[0].competitions.forEach((name) => {
                                 console.log(name);
                             })
                             // console.log(result[0].products[0].name);
@@ -260,53 +349,127 @@ mongoClient.connect(url, (error, db) => {
                         }
                     })
                     break;
-                    case "15":
-                    db.collection('companies').find({tag_list:{$regex:"social-networking"}},{name:1, _id:0}).toArray((error, result) => {
+                case "15":
+                    db.collection('companies').find({
+                        tag_list: {
+                            $regex: "social-networking"
+                        }
+                    }, {
+                        name: 1,
+                        _id: 0
+                    }).toArray((error, result) => {
                         if (error) {
                             console.log(error);
                             rl.question(`\nType enter to continue: `, (answer) => {
                                 mainMenu()
                             });
                         } else {
-                                console.log(result);
+                            console.log(result);
                             rl.question(`\nType enter to continue: `, (answer) => {
                                 mainMenu()
                             });
                         }
                     })
                     break;
-                    case "16":
-                    db.collection('companies').find({$and: [{tag_list:{$regex:"social-networking"}},{$and :[{founded_year: {$gte: 2002}}, {founded_year: {$lte: 2016}}]}]},{name:1, _id:0}).count((error, result) => {
+                case "16":
+                    db.collection('companies').find({
+                        $and: [{
+                            tag_list: {
+                                $regex: "social-networking"
+                            }
+                        }, {
+                            $and: [{
+                                founded_year: {
+                                    $gte: 2002
+                                }
+                            }, {
+                                founded_year: {
+                                    $lte: 2016
+                                }
+                            }]
+                        }]
+                    }, {
+                        name: 1,
+                        _id: 0
+                    }).count((error, result) => {
                         if (error) {
                             console.log(error);
                             rl.question(`\nType enter to continue: `, (answer) => {
                                 mainMenu()
                             });
                         } else {
-                                console.log(`There are ${result} companies`);
+                            console.log(`There are ${result} companies`);
                             rl.question(`\nType enter to continue: `, (answer) => {
                                 mainMenu()
                             });
                         }
                     })
                     break;
-                    case "17":
-                    db.collection('companies').find({'offices.city': "London"},{name:1, offices: 1, _id:0}).toArray((error, result) => {
+                case "17":
+                    db.collection('companies').find({
+                        'offices.city': "London"
+                    }, {
+                        name: 1,
+                        offices: 1,
+                        _id: 0
+                    }).toArray((error, result) => {
                         if (error) {
                             console.log(error);
                             rl.question(`\nType enter to continue: `, (answer) => {
                                 mainMenu()
                             });
                         } else {
-                                console.log(result.length)
-                                // console.log(result[0].offices[0]);
+                            for (i = 0; i < result.length; i++) {
+                                console.log(result[i].name)
+                                for (j = 0; j < result[i].offices.length; j++) {
+                                    if (result[i].offices[j].city === "London") {
+                                        console.log(result[i].offices[j]);
+                                    }
+                                }
+                            }
                             rl.question(`\nType enter to continue: `, (answer) => {
                                 mainMenu()
                             });
                         }
                     })
                     break;
-                    
+                case "18":
+                    db.collection('companies').find({
+                        $and: [{
+                            tag_list: {
+                                $regex: "social-networking"
+                            }
+                        }, {
+                            $and: [{
+                                founded_year: {
+                                    $gte: 2002
+                                }
+                            }, {
+                                founded_year: {
+                                    $lte: 2016
+                                }
+                            }]
+                        }, {
+                            'offices.state_code': 'NY'
+                        }]
+                    }, {
+                        name: 1,
+                        _id: 0
+                    }).count((error, result) => {
+                        if (error) {
+                            console.log(error);
+                            rl.question(`\nType enter to continue: `, (answer) => {
+                                mainMenu()
+                            });
+                        } else {
+                            console.log(`There are ${result} companies`);
+                            rl.question(`\nType enter to continue: `, (answer) => {
+                                mainMenu()
+                            });
+                        }
+                    })
+                    break;
+
             }
         });
     }
