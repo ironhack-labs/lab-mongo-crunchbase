@@ -244,6 +244,95 @@ mongoClient.connect(
 
               break;
 
+            case "12":
+              db.collection("companies")
+                .find(
+                  { name: "Facebook" },
+                  { relationships: 1 },
+                  { relationships: 1, _id: 0 }
+                )
+                .toArray((error, result) => {
+                  if (error) {
+                    console.log(error);
+                    rl.question(`\nType enter to continue: `, answer => {
+                      mainMenu();
+                    });
+                  } else {
+                    departedEmployees = 0;
+
+                    result[0].relationships.forEach(element => {
+                      if (element.is_past === true) {
+                        departedEmployees++;
+                      }
+                    });
+                    console.log(
+                      `# of Departed FB employees: ${departedEmployees}`
+                    );
+                    rl.question(`\nType enter to continue: `, answer => {
+                      mainMenu();
+                    });
+                  }
+                });
+
+              break;
+
+            case "13":
+              db.collection("companies")
+                .find(
+                  {
+                    "relationships.person.permalink": { $eq: "david-ebersman" }
+                  },
+                  { name: 1, _id: 0 }
+                )
+                .toArray((error, result) => {
+                  if (error) {
+                    console.log(error);
+                    rl.question(`\nType enter to continue: `, answer => {
+                      mainMenu();
+                    });
+                  } else {
+                    console.log(
+                      result
+                      //   `Companies where David Ebersman has worked: ${result}`
+                    );
+                    rl.question(`\nType enter to continue: `, answer => {
+                      mainMenu();
+                    });
+                  }
+                });
+
+              break;
+
+            case "14":
+              db.collection("companies")
+                .find(
+                  { name: "Facebook" },
+                  { "competitions.competitor.name": 1, _id: 0 }
+                )
+                .toArray((error, result) => {
+                  if (error) {
+                    console.log(error);
+                    rl.question(`\nType enter to continue: `, answer => {
+                      mainMenu();
+                    });
+                  } else {
+                    console.log(result);
+                    result[0].competitions.forEach(companies => {
+                      console.log(
+                        `FB Competitors: ${companies.competitor.name}`
+                      );
+                    });
+
+                    rl.question(`\nType enter to continue: `, answer => {
+                      mainMenu();
+                    });
+                  }
+                });
+
+              break;
+
+              break;
+
             case "0":
               console.log(`👋👋👋👋 😞 \n`);
               db.close(error => {
