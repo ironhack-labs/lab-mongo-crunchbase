@@ -355,6 +355,99 @@ mongoClient.connect(
 
               break;
 
+            case "16":
+              db.collection("companies")
+                .find(
+                  {
+                    $and: [
+                      { tag_list: { $regex: "social-networking" } },
+                      { founded_year: { $gte: 2002, $lte: 2016 } }
+                    ]
+                  },
+                  { name: 1, _id: 0 }
+                )
+                .count((error, result) => {
+                  if (error) {
+                    console.log(error);
+                    rl.question(`\nType enter to continue: `, answer => {
+                      mainMenu();
+                    });
+                  } else {
+                    console.log(
+                      `Number of companies with "social-networking" tag founded btwn 2002 and 2016: ${result}`
+                    );
+
+                    rl.question(`\nType enter to continue: `, answer => {
+                      mainMenu();
+                    });
+                  }
+                });
+
+              break;
+
+            case "17":
+              db.collection("companies")
+                .find(
+                  { "offices.city": { $eq: "London" } },
+                  { name: 1, offices: 1, _id: 0 }
+                )
+                .toArray((error, result) => {
+                  if (error) {
+                    console.log(error);
+                    rl.question(`\nType enter to continue: `, answer => {
+                      mainMenu();
+                    });
+                  } else {
+                    console.log(result);
+                    result.forEach(companies => {
+                      console.log(`Names of companies: ${companies.name}`);
+                    });
+                    result.forEach(companies => {
+                      console.log(`Company: ${companies.name}\nOffices:`);
+                      companies.offices.forEach(city => {
+                        console.log(`-- ${city.city}`);
+                      });
+                    });
+
+                    rl.question(`\nType enter to continue: `, answer => {
+                      mainMenu();
+                    });
+                  }
+                });
+
+              break;
+
+            case "18":
+              db.collection("companies")
+                .find(
+                  {
+                    $and: [
+                      { tag_list: { $regex: "social-networking" } },
+                      { founded_year: { $gte: 2002, $lte: 2016 } },
+                      { "offices.city": { $eq: "New York" } }
+                    ]
+                  },
+                  { name: 1, _id: 0 }
+                )
+                .count((error, result) => {
+                  if (error) {
+                    console.log(error);
+                    rl.question(`\nType enter to continue: `, answer => {
+                      mainMenu();
+                    });
+                  } else {
+                    console.log(
+                      `Number of companies with 1) "social-networking" tag, 2) founded btwn 2002 and 2016, and 3) has an office in New York: ${result}`
+                    );
+
+                    rl.question(`\nType enter to continue: `, answer => {
+                      mainMenu();
+                    });
+                  }
+                });
+
+              break;
+
             case "0":
               console.log(`👋👋👋👋 😞 \n`);
               db.close(error => {
