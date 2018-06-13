@@ -316,7 +316,7 @@ mongoClient.connect(
                       mainMenu();
                     });
                   } else {
-                    console.log(result);
+                    // console.log(result);
                     result[0].competitions.forEach(companies => {
                       console.log(
                         `FB Competitors: ${companies.competitor.name}`
@@ -330,6 +330,28 @@ mongoClient.connect(
                 });
 
               break;
+
+            case "15":
+              db.collection("companies")
+                .find(
+                  { tag_list: { $regex: "social-networking" } },
+                  { name: 1, tag_list: 1, _id: 0 }
+                )
+                .toArray((error, result) => {
+                  if (error) {
+                    console.log(error);
+                    rl.question(`\nType enter to continue: `, answer => {
+                      mainMenu();
+                    });
+                  } else {
+                    result.forEach(element => {
+                      console.log(element.name);
+                    });
+                    rl.question(`\nType enter to continue: `, answer => {
+                      mainMenu();
+                    });
+                  }
+                });
 
               break;
 
