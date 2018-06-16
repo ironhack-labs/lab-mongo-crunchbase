@@ -176,7 +176,58 @@ mongoClient.connect(url, (error, db) => {
                 rl.question(`\nType enter to continue: `, (answer) => { mainMenu();});
               } else {
                 result[0].competitions.forEach((company)=>{console.log(company.competitor.name);});
-                // .forEach((company)=>{company.competitor.name});
+                rl.question(`\nType enter to continue: `, (answer) => { mainMenu();});
+              }
+            });
+          break;
+          case "15":
+            db.collection('companies').find({"tag_list": {$regex: 'social-networking'}}, {"name":1,_id: 0}).toArray((error, result) => {
+              if (error) {
+                console.log(error);
+                rl.question(`\nType enter to continue: `, (answer) => { mainMenu();});
+              } else {
+                result.forEach((company)=>{console.log(company.name);});
+                rl.question(`\nType enter to continue: `, (answer) => { mainMenu();});
+              }
+            });
+          break;
+          case "16":
+            db.collection('companies').find({$and:[{"tag_list": {$regex: /social-networking/i}},{"founded_year":{"$gte":2002, "$lte":2016}}]}, {"name":1,_id: 0}).toArray((error, result) => {
+              if (error) {
+                console.log(error);
+                rl.question(`\nType enter to continue: `, (answer) => { mainMenu();});
+              } else {
+                result.forEach((company)=>{console.log(company.name);});
+                rl.question(`\nType enter to continue: `, (answer) => { mainMenu();});
+              }
+            });
+          break;
+          case "17":
+            db.collection('companies').find({"offices.city": /London/i}, {"name":1,"offices":1,_id: 0}).toArray((error, result) => {
+              if (error) {
+                console.log(error);
+                rl.question(`\nType enter to continue: `, (answer) => { mainMenu();});
+              } else {
+                // console.log(result);
+                result.forEach((company)=>{
+                  // console.log(company.offices);
+                  const office=company.offices;
+                  for(i=0;i,i<office.length;i++) {
+                    if(office[i].city==="London"||office[i].city==="london"){
+                      console.log(`${company.name},${office[i].address1} ${office[i].zip_code}`);}
+                    }
+                    });
+                rl.question(`\nType enter to continue: `, (answer) => { mainMenu();});
+              }
+            });
+          break;
+          case "18":
+            db.collection('companies').find({$and:[{"tag_list": {$regex: /social-networking/i}},{"founded_year":{"$gte":2002, "$lte":2016}},{"offices.city": /New York/i}]}, {"name":1,_id: 0}).toArray((error, result) => {
+              if (error) {
+                console.log(error);
+                rl.question(`\nType enter to continue: `, (answer) => { mainMenu();});
+              } else {
+                result.forEach((company)=>{console.log(company.name);});
                 rl.question(`\nType enter to continue: `, (answer) => { mainMenu();});
               }
             });
