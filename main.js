@@ -175,14 +175,43 @@ mongoClient.connect(url, (error, db) => {
           break;
 
           case "13":
-            db.collection('companies').find({}, {"relationships": 1}).toArray((error, result)=>{
+            db.collection('companies').find({'relationships.person.permalink': "david-ebersman"}, {name: 1, _id: 0}).toArray((error, result)=>{
               if (error) { 
                   console.log(error);
                   rl.question(`\nType enter to continue: `, (answer) => {mainMenu();});
               } else {
-                console.log(result)
-                  console.log(result[0].relationships.filter( person => person.is_past === true ));
+                for (i=0; i < result.length; i++) {
+                console.log(`Company name:`, result[i].name);
+                }
+                rl.question(`\nType enter to continue: `, (answer) => {mainMenu();});    
+              }
+          });
+          break;
+
+          case "14":
+            db.collection('companies').find({name: "Facebook"}, {'competitions.competitor.name': 1, _id: 0}).toArray((error, result)=>{
+              if (error) { 
+                  console.log(error);
+                  rl.question(`\nType enter to continue: `, (answer) => {mainMenu();});
+              } else {
+                for (i=0; i < result[0].competitions.length; i++) {
+                  console.log(`Competitor name: `, result[0].competitions[i].competitor.name);
+                }
                   rl.question(`\nType enter to continue: `, (answer) => {mainMenu();});    
+              }
+          });
+          break;
+
+          case "15":
+            db.collection('companies').find({tag_list: { $in: ["social-networking"] } }, {name: 1, _id: 0}).toArray((error, result)=>{
+              if (error) { 
+                  console.log(error);
+                  rl.question(`\nType enter to continue: `, (answer) => {mainMenu();});
+              } else {
+                for (i=0; i < result.length; i++) {
+                console.log(`Company name:`, result[i].name);
+                }
+                rl.question(`\nType enter to continue: `, (answer) => {mainMenu();});    
               }
           });
           break;
