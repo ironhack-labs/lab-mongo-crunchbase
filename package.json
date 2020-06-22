@@ -1,0 +1,23 @@
+{
+  "name": "crunchbase_companies",
+  "version": "1.0.0",
+  "description": "queries",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Cifox92/lab-mongo-crunchbase.git"
+  },
+  "author": "Eva María y David Roel",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Cifox92/lab-mongo-crunchbase/issues"
+  },
+  "homepage": "https://github.com/Cifox92/lab-mongo-crunchbase#readme",
+  "dependencies": {
+    "clear": "^0.1.0",
+    "mongodb": "^2.2.36"
+  }
+}
