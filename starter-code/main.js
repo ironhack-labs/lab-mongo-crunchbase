@@ -92,18 +92,28 @@ mongoClient.connect(url, (error, db) => {
                             }
                         })
                         break;
-                    // case "7":
-                    //     console.log('you typed 7');
-                    //     db.collection('companies').find({ number_of_employees }, { name: 1, _id: 0 }).sort({ 'number_of_employees': 1 }).toArray((error, result) => {
-                    //         if (error) {
-                    //             console.log(error);
-                    //             rl.question(`\nType enter to continue: `, (answer) => { mainMenu() });
-                    //         } else {
-                    //             console.log(result.slice(1, 11).reverse());
-                    //             rl.question(`\nType enter to continue: `, (answer) => { mainMenu() });
-                    //         }
-                    //     }) //sort{title:1}
-                    //     break;
+                    case "7":
+                        console.log('you typed 7');
+                        db.collection('companies').find({
+                            'number_of_employees': {
+                                $gt: 0
+                            }
+                        }, {
+                            name: 1,
+                            'number_of_employees': 1,
+                            _id: 0
+                        }).sort({
+                            'number_of_employees': -1
+                        }).limit(10).toArray((error, result) => {
+                            if (error) {
+                                console.log(error);
+                                rl.question(`\nType enter to continue: `, (answer) => { mainMenu() });
+                            } else {
+                                console.log(result);
+                                rl.question(`\nType enter to continue: `, (answer) => { mainMenu() });
+                            }
+                        })
+                        break;
                     case "8":
                         console.log('you typed 8');
                         db.collection('companies').find({ 'name': 'Facebook' }, { name: 1, _id: 0 }).toArray((error, result) => {
