@@ -125,9 +125,6 @@ mongoClient.connect(url, (error, db) => {
                                 }]
                             }, {
                                 name: 1,
-                                founded_year: 1,
-                                founded_month: 1,
-                                founded_day: 1,
                                 _id: 0,
                             }).sort({
                                 founded_month: 1,
@@ -430,14 +427,47 @@ mongoClient.connect(url, (error, db) => {
                                     });
                                 } else {
                                     console.log(
-                                        result.map(elm => elm.offices.filter( of => of .city === "London").map( of => of .address1))
+                                        result.map(elm => ({
+                                            name: elm.name,
+                                            location: elm.offices.filter( of => of .city === "London").map( of => of .address1).join("")
+                                        }))
                                     );
 
-                                    // console.log(result.map(elm => ({
-                                    //     name: elm.name,
-                                    //     location: elm.offices.filter(office => office.city === "London")
-                                    // })));
-
+                                    rl.question(`\nType enter to continue: `, (answer) => {
+                                        mainMenu();
+                                    });
+                                }
+                            });
+                        break;
+                    case "18":
+                        db.collection("companies")
+                            .find({
+                                $and: [{
+                                    tag_list: {
+                                        $regex: /\b(\w*social-network\w*)\b/
+                                    }
+                                }, {
+                                    founded_year: {
+                                        $gte: 2002
+                                    }
+                                }, {
+                                    founded_year: {
+                                        $lte: 2016
+                                    }
+                                }, {
+                                    "offices.city": "New York"
+                                }]
+                            }, {
+                                _id: 0
+                            })
+                            .toArray((error, result) => {
+                                if (error) {
+                                    console.log(error);
+                                    rl.question(`\nType enter to continue: `, (answer) => {
+                                        mainMenu();
+                                    });
+                                } else {
+                                    console.log(result.length);
                                     rl.question(`\nType enter to continue: `, (answer) => {
                                         mainMenu();
                                     });
