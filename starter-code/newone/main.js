@@ -91,7 +91,7 @@ mongoClient.connect(url, (error, db) => {
                   })
               break;
               case "7":
-                db.collection('companies').find({},{name: 1,number_of_employees: 1 ,  _id: 0}).sort({number_of_employees : 1}).limit(50).toArray((error, result) => {
+                db.collection('companies').find({"number_of_employees": {$gt: 0} },{name: 1,"number_of_employees":1 ,  _id: 0}).sort({"number_of_employees" : -1}).limit(10).toArray((error, result) => {
                     if (error) {
                       console.log(error);
                       rl.question(`\nType enter to continue: `, (answer) => { mainMenu() });
@@ -124,34 +124,39 @@ mongoClient.connect(url, (error, db) => {
                   })
               break;
               case "10":
-                db.collection('companies').find({$and:[{name : "Facebook"}]},{name:1 ,"products.name" : 0 , _id: 0}).toArray((error, result) => {
+                db.collection('companies').find({$and:[{name : "Facebook"}]},{name:1 ,products:1  , _id: 0}).toArray((error, result) => {
                     if (error) {
                       console.log(error);
                       rl.question(`\nType enter to continue: `, (answer) => { mainMenu() });
                     } else {
-                      console.log(result);
+                      result[0].products.forEach((product) => {console.log(product.name)})
                       rl.question(`\nType enter to continue: `, (answer) => { mainMenu() });
                     }
                   })
               break;
               case "11":
-                db.collection('companies').find({$and:[{name : "Facebook","relationships.is_past":true}]},{ name: 1,"relationships.person":'in' , _id: 0}).toArray((error, result) => {
+                db.collection('companies').find({$and:[{name : "Facebook" ,"relationships.is_past":false}]},{ name: 1,relationships:1 , _id: 0}).toArray((error, result) => {
                     if (error) {
-                      console.log(error);
+                    
                       rl.question(`\nType enter to continue: `, (answer) => { mainMenu() });
                     } else {
-                      console.log(result);
+
+                      result[0].relationships.forEach((relationships) =>{
+                        if(relationships.is_past == false)
+                            console.log(relationships.person)})
                       rl.question(`\nType enter to continue: `, (answer) => { mainMenu() });
                     }
                   })
               break;
               case "12":
-                db.collection('companies').find({$and:[{name : "Facebook","relationships.is_past":false}]},{ name: 1,"relationships.person":'in' , _id: 0}).toArray((error, result) => {
+                db.collection('companies').find({$and:[{name : "Facebook","relationships.is_past":true}]},{ name: 1,relationships:1 , _id: 0}).toArray((error, result) => {
                     if (error) {
                       console.log(error);
                       rl.question(`\nType enter to continue: `, (answer) => { mainMenu() });
                     } else {
-                      console.log(result);
+                      result[0].relationships.forEach((relationships) =>{
+                        if(relationships.is_past == true)
+                        console.log(relationships.person)})
                       rl.question(`\nType enter to continue: `, (answer) => { mainMenu() });
                     }
                   })
@@ -178,7 +183,7 @@ mongoClient.connect(url, (error, db) => {
                     }
                   })
                   case "15":
-                db.collection('companies').find({$and:[{tag_list:"social-networking"}]},{ name: 1, _id: 0}).toArray((error, result) => {
+                db.collection('companies').find({$and:[{tag_list:{$regex:"social-networking"}}]},{ name: 1, _id: 0}).toArray((error, result) => {
                     if (error) {
                       console.log(error);
                       rl.question(`\nType enter to continue: `, (answer) => { mainMenu() });
@@ -189,7 +194,7 @@ mongoClient.connect(url, (error, db) => {
                   })
               break;
               case "16":
-                db.collection('companies').find({$and:[{tag_list:"social-networking"},{founded_year: {$gte: 2002 }},{founded_year: {$lte: 2016 }}]},{ name: 1, _id: 0}).toArray((error, result) => {
+                db.collection('companies').find({$and:[{tag_list: {$regex:"social-networking"}},{founded_year: {$gte: 2002 }},{founded_year: {$lte: 2016 }}]},{ name: 1, _id: 0}).toArray((error, result) => {
                     if (error) {
                       console.log(error);
                       rl.question(`\nType enter to continue: `, (answer) => { mainMenu() });
