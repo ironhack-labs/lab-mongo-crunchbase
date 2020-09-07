@@ -1,0 +1,23 @@
+{
+  "name": "lab-mongo-crunchbase",
+  "version": "1.0.0",
+  "description": "Lab",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/diegomolina83/lab-mongo-crunchbase.git"
+  },
+  "author": "Diego Molina",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/diegomolina83/lab-mongo-crunchbase/issues"
+  },
+  "homepage": "https://github.com/diegomolina83/lab-mongo-crunchbase#readme",
+  "dependencies": {
+    "clear": "^0.1.0",
+    "mongodb": "^2.2.36"
+  }
+}
