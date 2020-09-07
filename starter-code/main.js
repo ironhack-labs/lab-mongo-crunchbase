@@ -128,6 +128,61 @@ mongoClient.connect(url, (error, db) => {
                             }
                         })
                         break;
+                    case "11":
+                        db.collection('companies').find({ "name": "Facebook", "relationships.is_past": false }, { relationships: { person: { first_name: 1 } } , relationships: { title: 1}, _id: 0 }).toArray((error, result) => {
+                            if (error) {
+                                console.log(error);
+                                rl.question(`\nType enter to continue: `, (answer) => { mainMenu() });
+                            } else {
+                                console.log(result)
+                                rl.question(`\nType enter to continue: `, (answer) => { mainMenu() });
+                            }
+                        })
+                        break; 
+                    case "12":
+                        db.collection('companies').find({ "name": "Facebook", "relationships.is_past": true }, { name: 1, _id: 0 }).count((error, result) => {
+                            if (error) {
+                                console.log(error);
+                                rl.question(`\nType enter to continue: `, (answer) => { mainMenu() });
+                            } else {
+                                console.log(result)
+                                rl.question(`\nType enter to continue: `, (answer) => { mainMenu() });
+                            }
+                        })
+                        break;  
+                    case "13":
+                        db.collection('companies').find({ "relationships.person.permalink": "david-ebersman" }, { name: 1, _id: 0 }).toArray((error, result) => {
+                            if (error) {
+                                console.log(error);
+                                rl.question(`\nType enter to continue: `, (answer) => { mainMenu() });
+                            } else {
+                                console.log(result)
+                                rl.question(`\nType enter to continue: `, (answer) => { mainMenu() });
+                            }
+                        })
+                        break;
+                    case "14":
+                        db.collection('companies').find({ "description": "Social network", "description": "Social Network", "name": { $ne: "Facebook" } }, { name: 1, _id: 0 }).toArray((error, result) => {
+                            if (error) {
+                                console.log(error);
+                                rl.question(`\nType enter to continue: `, (answer) => { mainMenu() });
+                            } else {
+                                console.log(result)
+                                rl.question(`\nType enter to continue: `, (answer) => { mainMenu() });
+                            }
+                        })
+                        break;
+                    case "17":
+                        db.collection('companies').find({ "offices.city": "London" }, { name: 1,offices: {city : 1}, _id: 0 }).toArray((error, result) => {
+                            if (error) {
+                                console.log(error);
+                                rl.question(`\nType enter to continue: `, (answer) => { mainMenu() });
+                            } else {
+                                console.log(result)
+                                rl.question(`\nType enter to continue: `, (answer) => { mainMenu() });
+                            }
+                        })
+                        break;
                     case "0":
                         console.log(`:hola::hola::hola::hola: :decepcionado: \n`);
                         db.close((error) => { process.exit(0) });
