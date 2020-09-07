@@ -1,0 +1,23 @@
+{
+  "name": "lab-mongo-crunchbase",
+  "version": "1.0.0",
+  "description": "Mi primer proyecto",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Zalillo18/lab-mongo-crunchbase.git"
+  },
+  "author": "Gonzalo Martín",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Zalillo18/lab-mongo-crunchbase/issues"
+  },
+  "homepage": "https://github.com/Zalillo18/lab-mongo-crunchbase#readme",
+  "dependencies": {
+    "clear": "^0.1.0",
+    "mongodb": "^2.2.36"
+  }
+}
