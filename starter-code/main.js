@@ -1,7 +1,8 @@
-const MongoDB = require('mongodb');
-const mongoClient = MongoDB.MongoClient;
+const MongoDB = require('mongodb');     // .require() is a node builting function for including modules that exists in separate files
+const mongoClient = MongoDB.MongoClient;    // .MongoClient creates a new MongoClient instance
+
 const clear = require('clear');
-const readline = require('readline');
+const readline = require('readline');   // The readline module provides an interface for reading data from a Readable stream
 const rl = readline.createInterface({
     input: process.stdin,
     output: process.stdout
@@ -9,7 +10,7 @@ const rl = readline.createInterface({
 
 const url = `mongodb://localhost:27017/crunchbase`
 
-mongoClient.connect(url, (error, db) => {
+mongoClient.connect(url, (error, db) => {       // .connect creates a conexion to a MongoDB
     if (error) {
         console.log('Error trying to connect to the Database');
         console.log(error);
@@ -81,10 +82,9 @@ mongoClient.connect(url, (error, db) => {
                         db.collection('companies').find(
                             {
                                 $and: [{ founded_year: 2004 },
-                                {
-                                    $and: [{ founded_month: { $gte: 4 } },
-                                    { founded_month: { $lte: 6 } }]
-                                }]
+                                { founded_month: { $gte: 4 } },
+                                { founded_month: { $lte: 6 } }]
+
                             }, { name: 1, founded_year: 1, founded_month: 1, founded_day: 1, _id: 0 }).sort(
 
                                 {
