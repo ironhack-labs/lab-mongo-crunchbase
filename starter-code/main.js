@@ -113,7 +113,59 @@ mongoClient.connect(url, (error, db) => {
                         break;
                     case "9":
 
-                        db.collection('companies').count({ "number_of_employees:": { $in: ["Facebook"] } }).then(function (error, result) {
+                        db.collection('companies').find({ name: { $eq: 'Facebook' } }, { number_of_employees: 1, _id: 0 }).toArray((error, result) => {
+                            if (error) {
+                                console.log(error);
+                                rl.question(`\nType enter to continue: `, (answer) => { mainMenu() });
+                            } else {
+                                console.log(result);
+                                rl.question(`\nType enter to continue: `, (answer) => { mainMenu() });
+                            }
+                        })
+                        break;
+                    case "10":
+
+                        db.collection('companies').find({ name: { $eq: 'Facebook' } }, { "products.name": 1, _id: 0 }).toArray((error, result) => {
+                            if (error) {
+                                console.log(error);
+                                rl.question(`\nType enter to continue: `, (answer) => { mainMenu() });
+                            } else {
+                                console.log(result);
+                                rl.question(`\nType enter to continue: `, (answer) => { mainMenu() });
+                            }
+                        })
+                        break;
+                    case "11":
+
+                        db.collection('companies').find({ $and: [{ name: { $eq: 'Facebook' } }, { "relationships.is_past": false }] }, { "relationships.person.first_name": 1, _id: 0 }).toArray((error, result) => {
+
+                            if (error) {
+                                console.log(error);
+                                rl.question(`\nType enter to continue: `, (answer) => { mainMenu() });
+                            } else {
+                                console.log(result);
+                                rl.question(`\nType enter to continue: `, (answer) => { mainMenu() });
+                            }
+                        })
+                        break;
+                    case "12":
+
+                        db.collection('companies').count({ $and: [{ name: { $eq: 'Facebook' } }, { "relationships.is_past": true }] }.then(function (error, result) {
+                            { "grades.score": { $gt: 20 } }
+
+                            if (error) {
+                                console.log(error);
+                                rl.question(`\nType enter to continue: `, (answer) => { mainMenu() });
+                            } else {
+                                console.log(result);
+                                rl.question(`\nType enter to continue: `, (answer) => { mainMenu() });
+                            }
+                        })
+                        break;
+                    case "13":
+
+                        db.collection('companies').find({ $and: [{ name: { $eq: 'Facebook' } }, { "relationships.is_past": false }] }, { "relationships.person.first_name": 1, _id: 0 }).toArray((error, result) => {
+
                             if (error) {
                                 console.log(error);
                                 rl.question(`\nType enter to continue: `, (answer) => { mainMenu() });
