@@ -34,7 +34,7 @@ mongoClient.connect(url, (error, db) => {
               })
               break;
           case "2":
-          //Contar todas las compañías
+             // 1.- List by name all companies.
              db.collection('companies').find({}, {name: 1, _id: 0}).count((error, result) => {
                 if (error) {
                   console.log(error);
@@ -46,7 +46,7 @@ mongoClient.connect(url, (error, db) => {
               })
               break;
           case "3":
-            //Contar todas las compañías por nombre fundadas en el 2004
+              // 2.- How many companies are there?
               db.collection('companies').find({"funding_rounds.funded_year": 2004}, {name: 1, _id: 0}).count((error, result) => {
                 if (error) {
                   console.log(error);
@@ -57,6 +57,8 @@ mongoClient.connect(url, (error, db) => {
                 }
               })
             break;
+			
+	   // Code here next cases!
         }
       });
       }
@@ -81,12 +83,11 @@ function printMenu(){
 9.- How many employees has Facebook?
 10.- List the name of all the products of Facebook
 11.- List the people that are working at Facebook right now (check relationships field)
-12.- How many people are not working anymore at Facebook
-13.- List all the companies where "david-ebersman" has worked.
-14.- List by name the competitors of Facebook
-15.- Names of the companies that has "social-networking" in tag-list (be aware that the value of field is a string check regex operators)
-16.- How many companies that has "social-network" in tag-list and founded between 2002 and 2016 inclusive
-17.- Names and locations of companies that have offices in London
-18.- How many companies that has "social-network" in tag-list and founded between 2002 and 2016 inclusive and has offices in New York
+12.- List all the companies where "david-ebersman" has worked.
+13.- List by name the competitors of Facebook
+14.- Names of the companies that has "social-networking" in tag-list (be aware that the value of field is a string check regex operators)
+15.- How many companies that has "social-network" in tag-list and founded between 2002 and 2016 inclusive
+16.- Names and locations of companies that have offices in London
+17.- How many companies that has "social-network" in tag-list and founded between 2002 and 2016 inclusive and has offices in New York
 `);
 }
