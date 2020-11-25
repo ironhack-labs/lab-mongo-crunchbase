@@ -59,10 +59,13 @@ Run the `main.js` file to using the `node main.js` command in order to connect t
 17.- How many companies that has "social-network" in tag-list and founded between 2002 and 2016 inclusive and has offices in New York
 ```
 
-As the file already contains the first 3 queries solved for you, you can check how pressing keys 1 to 3 shows requested results. This is the structure you will find for every case:
+As the file already contains the first 3 queries solved for you, you can check how pressing keys 1 to 3 shows requested results. 
+
+This is the structure you will find for every case, where you will need to modify the `.find()` method arguments in every additional case:
 
 ```javascript
-db.collection('companies').find({}, {name: 1, _id: 0}).toArray((error, result) => {
+case "2":
+db.collection('companies').find({}, { name: 1, _id: 0 }).count((error, result) => {
   if (error) {
     console.log(error);
     rl.question(`\nType enter to continue: `, (answer) => { mainMenu() });
@@ -71,6 +74,7 @@ db.collection('companies').find({}, {name: 1, _id: 0}).toArray((error, result) =
     rl.question(`\nType enter to continue: `, (answer) => { mainMenu() });
   }
 })
+break;
 ```
 
 ## Now it's your turn
