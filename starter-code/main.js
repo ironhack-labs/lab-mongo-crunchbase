@@ -22,7 +22,7 @@ mongoClient.connect(url, (error, db) => {
       rl.question('Type an option: ', (option) => {
         switch(option){
           case "1":
-           //Listar todas las compañías por nombre
+           // 1.- List by name all companies.
             db.collection('companies').find({}, {name: 1, _id: 0}).toArray((error, result) => {
                 if (error) {
                   console.log(error);
@@ -34,7 +34,7 @@ mongoClient.connect(url, (error, db) => {
               })
               break;
           case "2":
-             // 1.- List by name all companies.
+             // 2.- How many companies are there?
              db.collection('companies').find({}, {name: 1, _id: 0}).count((error, result) => {
                 if (error) {
                   console.log(error);
@@ -46,7 +46,7 @@ mongoClient.connect(url, (error, db) => {
               })
               break;
           case "3":
-              // 2.- How many companies are there?
+              // 3.- How many companies were founded in 2004?
               db.collection('companies').find({"funding_rounds.funded_year": 2004}, {name: 1, _id: 0}).count((error, result) => {
                 if (error) {
                   console.log(error);
